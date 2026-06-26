@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SER TRADER SEM RÉ | Dashboard</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="static/img/logo_do_site.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="dashboard.js" defer></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <div class="logo-box">
+                        <img src="static/img/logo_do_site.png" alt="Logo">
+                    </div>
+                </a>
+
+                <h1>SER TRADER SEM RÉ</h1>
+                <p>CENTRO DE OPERAÇÕES DA COMUNIDADE</p>
+            </div>
+
+            <nav class="menu">
+                <a class="active" href="index.html">📊 Dashboard</a>
+                <a href="cadastrar.html">📝 Cadastrar</a>
+                <a href="relatorios.html">📈 Relatórios</a>
+                
+            </nav>
+
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+
+            <!-- HEADER -->
+            <header class="header">
+                <div>
+                    <h2>Dashboard</h2>
+                    <span>Visão geral das operações</span>
+                </div>
+
+                <div style="display:flex;gap:12px;align-items:center;">
+                    <button id="helpBtn" class="btn-reset" title="Como usar">❔ Como usar</button>
+                    <div class="status">Online</div>
+                </div>
+            </header>
+
+            <!-- FILTROS -->
+            <section class="filters">
+
+                <div class="filters-grid">
+
+                    <select id="filtroResultado">
+                        <option value="all">Todos resultados</option>
+                    </select>
+
+                    <select id="filtroConta">
+                        <option value="all">Todas contas</option>
+                    </select>
+
+                    <select id="filtroEstrategia">
+                        <option value="all">Todas estratégias</option>
+                    </select>
+
+                    <select id="filtroCorretora">
+                        <option value="all">Todas corretoras</option>
+                    </select>
+
+                    <button id="btnResetFilters" class="btn-reset">
+                        Limpar filtros
+                    </button>
+
+                    <button id="btnReloadPage" class="btn-reset">
+                        Atualizar página
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- RANKING DE USUÁRIOS -->
+            <section class="dashboard-card">
+
+                <div class="card-header">
+                    <h3>Ranking — Melhores por Lucro</h3>
+                </div>
+
+                <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 0;">
+                    <label style="color:var(--text-secondary);font-weight:600;">De:
+                        <input type="date" id="rankStart">
+                    </label>
+                    <label style="color:var(--text-secondary);font-weight:600;">Até:
+                        <input type="date" id="rankEnd">
+                    </label>
+                    <label style="color:var(--text-secondary);font-weight:600;">Top Trader:
+                        <select id="rankLimit" style="width:120px;">
+                            <option value="5">Top 5</option>
+                            <option value="10" selected>Top 10</option>
+                            <option value="20">Top 20</option>
+                            <option value="50">Top 50</option>
+                            <option value="all">Todos</option>
+                        </select>
+                    </label>
+                    <button id="btnFetchRanking" class="btn-reset">Buscar Ranking</button>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Pos</th>
+                                <th>Usuário</th>
+                                <th>Operações</th>
+                                <th>Lucro (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaRanking"></tbody>
+                    </table>
+                </div>
+
+            </section>
+
+            <!-- MÉTRICAS -->
+            <section class="metrics-grid">
+
+                <div class="metric-card">
+                    <span>Total Operações</span>
+                    <h3 id="totalOperacoes">0</h3>
+                </div>
+
+                <div class="metric-card">
+                    <span>Win Rate</span>
+                    <h3 id="winRate">0%</h3>
+                </div>
+
+                <div class="metric-card">
+                    <span>Lucro Total</span>
+                    <h3 id="lucroTotal">$0.00</h3>
+                </div>
+
+                <div class="metric-card">
+                    <span>Saldo Atual</span>
+                    <h3 id="saldoAtual">$0.00</h3>
+                </div>
+
+            </section>
+
+            <!-- GRÁFICO + RESULTADOS -->
+            <section class="dashboard-grid">
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+                        <h3>Evolução da Banca</h3>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="graficoBanca"></canvas>
+                    </div>
+
+                </div>
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+                        <h3>Resultados</h3>
+                    </div>
+
+                    <div class="results-box">
+
+                        <div class="result-item win">
+                            <span>WIN</span>
+                            <strong id="wins">0</strong>
+                        </div>
+
+                        <div class="result-item loss">
+                            <span>LOSS</span>
+                            <strong id="losses">0</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ESTRATÉGIAS -->
+            <section class="dashboard-card">
+
+                <div class="card-header">
+                    <h3>Desempenho por Estratégia</h3>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="dashboard-table">
+
+                        <thead>
+                            <tr>
+                                <th>Estratégia</th>
+                                <th>Operações</th>
+                                <th>WIN</th>
+                                <th>LOSS</th>
+                                <th>Win Rate</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tabelaEstrategias"></tbody>
+
+                    </table>
+                </div>
+
+            </section>
+
+            <!-- CORRETORAS -->
+            <section class="dashboard-card">
+
+                <div class="card-header">
+                    <h3>Desempenho por Corretora</h3>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="dashboard-table">
+
+                        <thead>
+                            <tr>
+                                <th>Corretora</th>
+                                <th>Operações</th>
+                                <th>WIN</th>
+                                <th>LOSS</th>
+                                <th>Win Rate</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tabelaCorretoras"></tbody>
+
+                    </table>
+                </div>
+
+            </section>
+
+            <!-- LINKS -->
+            <section class="dashboard-card">
+
+                <div class="card-header">
+                    <h3>Links de Corretoras</h3>
+                </div>
+
+                <div class="broker-links">
+
+                    <a href="https://iqoption.com" target="_blank">IQ Option</a>
+                    <a href="https://deriv.com" target="_blank">Deriv</a>
+                    <a href="https://bybit.com" target="_blank">Bybit</a>
+                    <a href="https://pocketoption.com" target="_blank">Pocket Option</a>
+
+                </div>
+
+            </section>
+
+            <!-- ÚLTIMAS OPERAÇÕES -->
+            <section class="dashboard-card">
+
+                <div class="card-header">
+                    <h3>Últimas Operações</h3>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="dashboard-table">
+
+                        <thead>
+                            <tr>
+                                <th>Ativo</th>
+                                <th>Estratégia</th>
+                                <th>Usuário</th>
+                                <th>Entrada</th>
+                                <th>Resultado</th>
+                                <th>Conta</th>
+                                <th>Corretora</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="ultimasOperacoes"></tbody>
+
+                    </table>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- SITE FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="brand">
+                <a href="https://ser-trader-sem-re.netlify.app/"><img src="https://ser-trader-sem-re.netlify.app/assets/img/logo.png" alt="SER TRADER SEM RÉ"></a>
+                <div>
+                    <h4>SER TRADER SEM RÉ</h4>
+                    <div class="small">Aprenda Opções Binárias com Gestão e Disciplina — foco em consistência e risco controlado.</div>
+                </div>
+            </div>
+
+            <div class="links">
+                <strong>Começar</strong>
+                <a href="https://ser-trader-sem-re.netlify.app/planilhas">Começar com Gestão</a>
+                <a href="https://ser-trader-sem-re.netlify.app/scripts">Ver Scripts Simples</a>
+                <a href="https://ser-trader-sem-re.netlify.app/videos">Aprender Passo a Passo</a>
+                <div style="height:8px"></div>
+                <strong>Navegação</strong>
+                <a href="https://ser-trader-sem-re.netlify.app/">Home</a>
+                <a href="https://ser-trader-sem-re.netlify.app/downloads">Downloads</a>
+                <a href="https://ser-trader-sem-re.netlify.app/planilhas">Planilhas</a>
+                <a href="https://ser-trader-sem-re.netlify.app/scripts">Scripts</a>
+            </div>
+
+            <div>
+                <strong>Suporte & Contato</strong>
+                <div class="small">Contato: <a href="mailto:contato@ser-trader-sem-re.netlify.app">contato@ser-trader-sem-re.netlify.app</a></div>
+                <div style="height:8px"></div>
+                <strong>Recursos</strong>
+                <a href="https://ser-trader-sem-re.netlify.app/pdfs">PDFs</a>
+                <a href="https://ser-trader-sem-re.netlify.app/videos">Vídeos</a>
+                <div class="small">© 2026 SER TRADER SEM RÉ</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Como Usar -->
+    <div id="helpModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <button id="closeHelp" class="modal-close">✖</button>
+            <h2>Como usar — SER TRADER SEM RÉ</h2>
+
+            <div class="help-step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>O que é</strong>
+                    <p>Uma plataforma comunitária para registrar operações, acompanhar rankings e gerar relatórios analíticos.</p>
+                </div>
+            </div>
+
+            <div class="help-step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Passo a passo rápido</strong>
+                    <ul>
+                        <li>Acesse <strong>Cadastrar</strong> e preencha os campos da operação.</li>
+                        <li>Clique em <strong>Enviar</strong> — os dados vão para a planilha (Google Sheets).</li>
+                        <li>Volte ao <strong>Dashboard</strong> ou <strong>Relatórios</strong> para visualizar métricas e gráficos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="help-step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Exemplo de preenchimento</strong>
+                    <div class="example">
+                        Usuário: <strong>fulano123</strong>
+                        <br>Ativo: <strong>EUR/USD</strong>
+                        <br>Entrada: <strong>10.00</strong>
+                        <br>Payout: <strong>18.00</strong>
+                        <br>Resultado: <strong>WIN</strong>
+                        <br>Corretora: <strong>IQ Option</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Formato de números e datas</strong>
+                    <p>Use pontos ou vírgulas para decimais conforme seu navegador; o sistema normaliza internamente. Datas salvas seguem o padrão <strong>YYYY-MM-DD</strong>.</p>
+                </div>
+            </div>
+
+            <div class="help-step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Interpretação rápida das métricas</strong>
+                    <ul>
+                        <li><strong>Win Rate</strong>: porcentagem de operações com resultado WIN.</li>
+                        <li><strong>Lucro Total</strong>: soma dos lucros (entrada/payout) no período filtrado.</li>
+                        <li><strong>Ranking</strong>: ordenado por lucro líquido por usuário.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="help-step">
+                <div class="step-number">6</div>
+                <div>
+                    <strong>Problemas comuns</strong>
+                    <ul>
+                        <li>Números aparecem zerados: verifique o formato da entrada no formulário.</li>
+                        <li>Operações não aparecem: atualize a página e confirme que o envio retornou sucesso.</li>
+                        <li>Dados sensíveis: não envie informações pessoais.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p style="color:var(--text-secondary);margin-top:8px;">Se precisar, peça ao administrador para revisar a planilha ou o endpoint do Apps Script.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('helpBtn').addEventListener('click', function(){
+            document.getElementById('helpModal').style.display = 'block';
+        });
+        document.getElementById('closeHelp').addEventListener('click', function(){
+            document.getElementById('helpModal').style.display = 'none';
+        });
+        window.addEventListener('click', function(e){
+            if(e.target === document.getElementById('helpModal')) document.getElementById('helpModal').style.display = 'none';
+        });
+    </script>
+
+</body>
+
+</html>
