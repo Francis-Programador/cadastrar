@@ -259,22 +259,7 @@
             <p style="color:var(--text-secondary);margin-top:8px;">Dica: use um nickname consistente para aparecer corretamente no ranking.</p>
         </div>
     </div>
-
-    <script>
-        document.getElementById('helpBtn').addEventListener('click', function(){
-            document.getElementById('helpModal').style.display = 'block';
-        });
-        document.getElementById('closeHelp').addEventListener('click', function(){
-            document.getElementById('helpModal').style.display = 'none';
-        });
-        window.addEventListener('click', function(e){
-            if(e.target === document.getElementById('helpModal')) document.getElementById('helpModal').style.display = 'none';
-        });
-    </script>
-</body>
-</html>
-
-    <!-- SITE FOOTER -->
+  <!-- SITE FOOTER -->
     <footer class="site-footer">
         <div class="footer-grid">
             <div class="brand">
@@ -309,7 +294,17 @@
             </div>
         </div>
     </footer>
-
 </body>
+    <script>
+        document.getElementById('helpBtn').addEventListener('click', function(){
+            document.getElementById('helpModal').style.display = 'block';
+        });
+        document.getElementById('closeHelp').addEventListener('click', function(){
+            document.getElementById('helpModal').style.display = 'none';
+        });
+        window.addEventListener('click', function(e){
+            if(e.target === document.getElementById('helpModal')) document.getElementById('helpModal').style.display = 'none';
+        });
+    </script>
 
 </html>
