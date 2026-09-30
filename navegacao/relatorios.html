@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SER TRADER SEM RÉ | Relatórios</title>
+     <link rel="stylesheet" href="../styles.css">
+ <link rel="icon" href="../static/img/logo_do_site.png">
+
+ <!-- Ícones e Fuentes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script type="module" src="../relatorios.js" defer></script>
+    <script type="module" src="../site-common.js" defer></script>
+</head>
+<body class="operations-page operations-page--relatorios">
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                    <a href="../index.html" class="logo-link">
+                        <div class="logo-box">
+                            <img src="../static/img/logo_do_site.png" alt="Logo">
+                        </div>
+                    </a>
+                    <h1>SER TRADER SEM RÉ</h1>
+                    <p>Painel de Relatórios</p>
+                </div>
+            <nav class="menu" aria-label="Navegação principal">
+                <a href="../index.html"><i class="fa-solid fa-house" aria-hidden="true"></i> Início</a>
+                <a href="dashboard.html"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Dashboard</a>
+                <a href="cadastrar.html"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> Cadastrar</a>
+                <a class="active" href="relatorios.html"><i class="fa-solid fa-chart-column" aria-hidden="true"></i> Relatórios</a>
+                <a href="recursos.html" aria-current="page"><i class="fa-solid fa-compass" aria-hidden="true"></i> Hub de Recursos</a>
+            </nav>
+        </aside>
+        <main class="main">
+            <header class="header">
+                <div>
+                    <h2>Relatórios</h2>
+                    <span>Visão analítica completa do histórico de operações</span>
+                </div>
+                <div class="header-meta">
+                    <button id="helpBtn" class="btn-reset header-help-btn" title="Como usar"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> Como usar</button>
+                    <div class="status is-online">Online</div>
+                </div>
+            </header>
+            <section class="filters">
+                <div class="filters-grid">
+                    <label class="filter-label">Data inicial
+                        <input type="date" id="filterStart" class="filter-input">
+                    </label>
+                    <label class="filter-label">Data final
+                        <input type="date" id="filterEnd" class="filter-input">
+                    </label>
+                    <label class="filter-label">Estratégia
+                        <select id="filterStrategy" class="filter-input"><option value="all">Todas</option></select>
+                    </label>
+                    <label class="filter-label">Corretora
+                        <select id="filterBroker" class="filter-input"><option value="all">Todas</option></select>
+                    </label>
+                    <label class="filter-label">Conta
+                        <select id="filterAccount" class="filter-input"><option value="all">Todas</option><option value="real">Real</option><option value="demo">Demo</option></select>
+                    </label>
+                    <label class="filter-label">Mercado
+                        <select id="filterMarket" class="filter-input"><option value="all">Todos</option></select>
+                    </label>
+                    <label class="filter-label">Timeframe
+                        <select id="filterTimeframe" class="filter-input"><option value="all">Todos</option></select>
+                    </label>
+                </div>
+            </section>
+            <section class="metrics-grid">
+                <div class="metric-card"><span>Total de Operações</span><h3 id="summaryTotal">0</h3></div>
+                <div class="metric-card"><span>WIN</span><h3 id="summaryWin">0</h3></div>
+                <div class="metric-card"><span>LOSS</span><h3 id="summaryLoss">0</h3></div>
+                <div class="metric-card"><span>Win Rate</span><h3 id="summaryWinRate">0%</h3></div>
+                <div class="metric-card"><span>Lucro Líquido</span><h3 id="summaryNetProfit">$0.00</h3></div>
+                <div class="metric-card"><span>Lucro Bruto</span><h3 id="summaryGrossProfit">$0.00</h3></div>
+                <div class="metric-card"><span>Prejuízo Total</span><h3 id="summaryLossAmount">$0.00</h3></div>
+                <div class="metric-card"><span>ROI</span><h3 id="summaryROI">0%</h3></div>
+                <div class="metric-card"><span>Payoff médio</span><h3 id="summaryPayoff">0.00</h3></div>
+                <div class="metric-card"><span>Expectância</span><h3 id="summaryExpectancy">0.00</h3></div>
+            </section>
+            <section class="dashboard-grid">
+                <div class="dashboard-card"><div class="card-header"><h3>Evolução da Banca</h3></div><div class="chart-container"><canvas id="chartBankRoll"></canvas></div></div>
+                <div class="dashboard-card"><div class="card-header"><h3>Lucro Diário</h3></div><div class="chart-container"><canvas id="chartDailyProfit"></canvas></div></div>
+                <div class="dashboard-card"><div class="card-header"><h3>Lucro Acumulado</h3></div><div class="chart-container"><canvas id="chartCumulative"></canvas></div></div>
+                <div class="dashboard-card"><div class="card-header"><h3>Operações por Dia</h3></div><div class="chart-container"><canvas id="chartTradesPerDay"></canvas></div></div>
+                <div class="dashboard-card"><div class="card-header"><h3>WIN x LOSS</h3></div><div class="chart-container"><canvas id="chartWinLoss"></canvas></div></div>
+            </section>
+            <section class="dashboard-grid">
+                <div class="dashboard-card"><div class="card-header"><h3>Estratégias mais lucrativas</h3></div><div class="table-wrapper"><table class="dashboard-table"><thead><tr><th>Estratégia</th><th>Ops</th><th>Win</th><th>Loss</th><th>Win Rate</th><th>Lucro</th></tr></thead><tbody id="tableStrategy"></tbody></table></div></div>
+                <div class="dashboard-card"><div class="card-header"><h3>Corretoras mais lucrativas</h3></div><div class="table-wrapper"><table class="dashboard-table"><thead><tr><th>Corretora</th><th>Ops</th><th>Win</th><th>Loss</th><th>Win Rate</th><th>Lucro</th></tr></thead><tbody id="tableBroker"></tbody></table></div></div>
+            </section>
+            <section class="dashboard-grid">
+                <div class="dashboard-card"><div class="card-header"><h3>Mercados mais usados</h3></div><div class="table-wrapper"><table class="dashboard-table"><thead><tr><th>Mercado</th><th>Ops</th><th>Win</th><th>Loss</th><th>Win Rate</th><th>Lucro</th></tr></thead><tbody id="tableMarket"></tbody></table></div></div>
+                <div class="dashboard-card"><div class="card-header"><h3>Timeframes mais usados</h3></div><div class="table-wrapper"><table class="dashboard-table"><thead><tr><th>Timeframe</th><th>Ops</th><th>Win</th><th>Loss</th><th>Win Rate</th><th>Lucro</th></tr></thead><tbody id="tableTimeframe"></tbody></table></div></div>
+            </section>
+            <section class="dashboard-grid">
+                <div class="dashboard-card"><div class="card-header"><h3>Conta Real vs Demo</h3></div><div class="table-wrapper"><table class="dashboard-table"><thead><tr><th>Conta</th><th>Ops</th><th>Win</th><th>Loss</th><th>Win Rate</th><th>Lucro</th></tr></thead><tbody id="tableAccount"></tbody></table></div></div>
+                <div class="dashboard-card"><div class="card-header"><h3>Performance Avançada</h3></div><div class="table-wrapper"><table class="dashboard-table"><tbody id="tableAdvanced"></tbody></table></div></div>
+            </section>
+            <section class="dashboard-card">
+                <div class="card-header"><h3>Ranking de Traders</h3></div>
+                <div class="table-wrapper"><table class="dashboard-table"><thead><tr><th>Pos</th><th>Trader</th><th>Ops</th><th>Win</th><th>Loss</th><th>Win Rate</th><th>Lucro</th><th>ROI</th></tr></thead><tbody id="tableRanking"></tbody></table></div>
+            </section>
+            <section class="dashboard-card">
+                <div class="card-header"><h3>Feed de Operações</h3></div>
+                <div class="table-wrapper"><table class="dashboard-table"><thead><tr><th>Data</th><th>Usuário</th><th>Ativo</th><th>Estratégia</th><th>Resultado</th><th>Lucro</th><th>Corretora</th><th>Conta</th></tr></thead><tbody id="tableFeed"></tbody></table></div>
+            </section>
+            <section class="dashboard-card">
+                <div class="card-header"><h3>Insights Automáticos</h3></div>
+                <div class="table-wrapper"><table class="dashboard-table"><tbody id="tableInsights"></tbody></table></div>
+            </section>
+        </main>
+    </div>
+
+        <!-- Modal Como Usar -->
+        <div id="helpModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <button id="closeHelp" class="modal-close">✖</button>
+                    <h2>Como usar — Relatórios</h2>
+
+                    <div class="help-step">
+                        <div class="step-number">1</div>
+                        <div>
+                            <strong>Selecionando período e filtros</strong>
+                            <p>Escolha Data inicial/ final, Estratégia, Corretora e Conta para filtrar as operações exibidas.</p>
+                        </div>
+                    </div>
+
+                    <div class="help-step">
+                        <div class="step-number">2</div>
+                        <div>
+                            <strong>Entendendo as métricas</strong>
+                            <ul>
+                                <li><strong>Win Rate:</strong> percentagem de WINs no período.</li>
+                                <li><strong>Lucro Líquido:</strong> soma dos lucros (considera perdas).</li>
+                                <li><strong>Payoff / Expectância:</strong> indicadores de risco-retorno médio.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="help-step">
+                        <div class="step-number">3</div>
+                        <div>
+                            <strong>Exportar dados</strong>
+                            <p>Selecione as linhas da tabela e copie (Ctrl+C) para colar em planilha local ou CSV. Para análise avançada, filtre e copie somente as colunas necessárias.</p>
+                        </div>
+                    </div>
+
+                    <div class="help-step">
+                        <div class="step-number">4</div>
+                        <div>
+                            <strong>Solução de problemas</strong>
+                            <ul>
+                                <li>Se métricas estiverem zeradas, verifique se os envios incluem `entrada` e `payout` numéricos.</li>
+                                <li>Datas com horário são normalizadas; se precisar do registro exato, peça revisão do backend.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p style="color:var(--text-secondary);margin-top:8px;">Para dúvidas técnicas, informe o exemplo da linha (mostre os campos) e o admin verifica a planilha.</p>
+                </div>
+        </div>
+
+        <script>
+            document.getElementById('helpBtn').addEventListener('click', function(){
+                document.getElementById('helpModal').style.display = 'block';
+            });
+            document.getElementById('closeHelp').addEventListener('click', function(){
+                document.getElementById('helpModal').style.display = 'none';
+            });
+            window.addEventListener('click', function(e){
+                if(e.target === document.getElementById('helpModal')) document.getElementById('helpModal').style.display = 'none';
+            });
+        </script>
+
+    <div data-footer></div>
+
+</body>
+</html>

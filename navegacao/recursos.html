@@ -1,0 +1,2053 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Hub de recursos do SER TRADER SEM RÉ: formação, trading, gestão de banca, ferramentas e comunidade.">
+
+    <meta name="theme-color" content="#020617">
+
+    <title>SER TRADER SEM RÉ | Hub de Recursos</title>
+
+    <!-- Fontes e ícones -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../static/img/logo_do_site.png">
+    <script type="module" src="../site-common.js" defer></script>
+
+    <style>
+        /* =========================================
+           SER TRADER SEM RÉ
+           HUB DE RECURSOS
+        ========================================= */
+
+        :root {
+            --bg: #020617;
+            --panel: #080e22;
+            --panel-light: #0f172a;
+            --blue: #38bdf8;
+            --blue-dark: #0284c7;
+            --gold: #f59e0b;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: rgba(56, 189, 248, 0.15);
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 25px;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .sidebar {
+            width: 270px;
+            flex-shrink: 0;
+            background: rgba(8, 14, 34, 0.97);
+            border-right: 1px solid var(--border);
+            padding: 28px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .logo {
+            text-align: center;
+        }
+
+        .logo img {
+            width: 85px;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+
+        .logo h1 {
+            color: #fff;
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+        }
+
+        .logo p {
+            color: var(--blue);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        .menu-title {
+            color: #64748b;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            margin: 0 0 12px 12px;
+            text-transform: uppercase;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: 0.2s ease;
+        }
+
+        .menu a i {
+            width: 18px;
+            text-align: center;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            color: var(--blue);
+            background: rgba(56, 189, 248, 0.11);
+        }
+
+        .sidebar-note {
+            margin-top: auto;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: rgba(56, 189, 248, 0.04);
+        }
+
+        .sidebar-note strong {
+            color: var(--blue);
+            font-size: 0.85rem;
+        }
+
+        .sidebar-note p {
+            color: var(--muted);
+            font-size: 0.78rem;
+            line-height: 1.7;
+            margin-top: 8px;
+        }
+
+        /* =========================================
+           ÁREA PRINCIPAL
+        ========================================= */
+
+        .main {
+            flex: 1;
+            min-width: 0;
+            max-width: 1500px;
+            padding: 38px;
+            display: flex;
+            flex-direction: column;
+            gap: 42px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header h2 {
+            color: #fff;
+            font-family: 'Manrope', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* =========================================
+           BOTÕES
+        ========================================= */
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border-color: var(--border);
+            color: var(--blue);
+        }
+
+        .btn-outline:hover {
+            background: rgba(56, 189, 248, 0.08);
+        }
+
+        /* =========================================
+           BOAS-VINDAS
+        ========================================= */
+
+        .welcome-card {
+            position: relative;
+            overflow: hidden;
+            padding: 32px;
+            border-radius: 22px;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(14, 165, 233, 0.15),
+                    transparent 45%
+                ),
+                var(--panel);
+        }
+
+        .welcome-label {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 999px;
+            color: var(--blue);
+            background: rgba(56, 189, 248, 0.1);
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .welcome-card h3 {
+            color: #fff;
+            font-family: 'Manrope', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            margin-bottom: 14px;
+        }
+
+        .welcome-card p {
+            color: var(--muted);
+            line-height: 1.9;
+            max-width: 800px;
+            margin-bottom: 14px;
+        }
+
+        .welcome-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        /* =========================================
+           SECÇÕES E TÍTULOS
+        ========================================= */
+
+        .resource-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .section-heading h3 {
+            color: var(--gold);
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .section-heading h3 i {
+            margin-right: 9px;
+        }
+
+        .section-description {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* =========================================
+           CARDS E GRIDS
+        ========================================= */
+
+        .dashboard-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .broker-grid {
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(210px, 1fr)
+            );
+        }
+
+        .wallet-grid {
+            grid-template-columns: 1fr 1.4fr;
+        }
+
+        .course-grid {
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(240px, 1fr)
+            );
+        }
+
+        .card {
+            background: rgba(8, 14, 34, 0.9);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 23px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.16);
+            transition: transform 0.2s ease,
+                        border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(56, 189, 248, 0.35);
+        }
+
+        /* =========================================
+           PLATAFORMAS
+        ========================================= */
+
+        .broker-card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 13px;
+        }
+
+        .broker-card > i {
+            color: var(--blue);
+            font-size: 1.8rem;
+        }
+
+        .broker-card h4 {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .broker-card p {
+            color: var(--muted);
+            font-size: 0.86rem;
+            line-height: 1.8;
+            flex: 1;
+        }
+
+        .broker-tag {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: rgba(245, 158, 11, 0.12);
+            color: var(--gold);
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .broker-card .btn {
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        /* =========================================
+           LINKS
+        ========================================= */
+
+        .broker-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .broker-links a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.025);
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .broker-links a i {
+            color: var(--blue);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .broker-links a:hover {
+            background: rgba(56, 189, 248, 0.08);
+            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateX(3px);
+        }
+
+        /* =========================================
+           GUIA DE DEPÓSITOS
+        ========================================= */
+
+        .deposit-guide h4 {
+            color: #fff;
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        .deposit-guide h4 i {
+            color: var(--blue);
+            margin-right: 8px;
+        }
+
+        .deposit-guide ol {
+            padding-left: 20px;
+            color: #cbd5e1;
+            font-size: 0.88rem;
+            line-height: 2;
+        }
+
+        /* =========================================
+           FORMAÇÃO
+        ========================================= */
+
+        .course-module {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-module h4 {
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .course-module h4 i {
+            color: var(--blue);
+            margin-right: 8px;
+        }
+
+        .course-module > p {
+            color: var(--muted);
+            font-size: 0.86rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+
+        .course-module ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        .course-module li a {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            color: var(--blue);
+            font-size: 0.86rem;
+            line-height: 1.6;
+            text-decoration: none;
+        }
+
+        .course-module li a:hover {
+            text-decoration: underline;
+        }
+
+        .course-module li a i {
+            margin-top: 3px;
+        }
+
+        /* =========================================
+           CHECKLIST
+        ========================================= */
+
+        .checklist-card {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .checklist-card > p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.025);
+            color: #cbd5e1;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            cursor: pointer;
+        }
+
+        .checklist-item input {
+            width: 17px;
+            height: 17px;
+            margin-top: 3px;
+            flex-shrink: 0;
+            accent-color: var(--blue);
+            cursor: pointer;
+        }
+
+        .checklist-item:has(input:checked) {
+            border-color: rgba(56, 189, 248, 0.3);
+            background: rgba(56, 189, 248, 0.06);
+        }
+
+        .checklist-status {
+            color: var(--blue);
+            font-weight: 700;
+            font-size: 0.88rem;
+        }
+
+        /* =========================================
+           GLOSSÁRIO
+        ========================================= */
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(220px, 1fr)
+            );
+            gap: 16px;
+        }
+
+        .glossary-item h4 {
+            color: var(--blue);
+            margin-bottom: 10px;
+        }
+
+        .glossary-item p {
+            color: var(--muted);
+            font-size: 0.86rem;
+            line-height: 1.8;
+        }
+
+        /* =========================================
+           PERGUNTAS FREQUENTES
+        ========================================= */
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-list details {
+            padding: 19px;
+            background: rgba(8, 14, 34, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .faq-list summary {
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.7;
+            cursor: pointer;
+        }
+
+        .faq-list summary::marker {
+            color: var(--blue);
+        }
+
+        .faq-list details p {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.9;
+            margin-top: 14px;
+        }
+
+        /* =========================================
+           AVISO DE RISCO
+        ========================================= */
+
+        .risk-notice {
+            padding: 20px;
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 14px;
+            background: rgba(245, 158, 11, 0.045);
+        }
+
+        .risk-notice h4 {
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .risk-notice p {
+            color: var(--muted);
+            font-size: 0.84rem;
+            line-height: 1.8;
+        }
+
+        /* =========================================
+           RODAPÉ
+        ========================================= */
+
+        .site-footer {
+            padding: 35px 38px;
+            background: #01040d;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            max-width: 1500px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 35px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .footer-brand img {
+            width: 50px;
+            height: auto;
+        }
+
+        .footer h4 {
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .footer p,
+        .footer a {
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.8;
+        }
+
+        .footer .small {
+            color: #64748b;
+            font-size: 0.78rem;
+            line-height: 1.8;
+        }
+
+        .footer nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer nav a {
+            text-decoration: none;
+        }
+
+        .footer nav a:hover,
+        .footer a:hover {
+            color: var(--blue);
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: #64748b;
+            font-size: 0.76rem;
+            text-align: center;
+        }
+
+        /* =========================================
+           RESPONSIVIDADE
+        ========================================= */
+
+        @media (max-width: 1050px) {
+            .sidebar {
+                width: 230px;
+            }
+
+            .main {
+                padding: 28px;
+            }
+
+            .wallet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 20px;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                gap: 20px;
+            }
+
+            .sidebar-note {
+                display: none;
+            }
+
+            .menu {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .menu a {
+                font-size: 0.8rem;
+                padding: 11px;
+            }
+
+            .main {
+                padding: 22px 16px;
+                gap: 32px;
+            }
+
+            .welcome-card {
+                padding: 24px;
+            }
+
+            .welcome-actions {
+                flex-direction: column;
+            }
+
+            .welcome-actions .btn {
+                width: 100%;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-brand {
+                grid-column: auto;
+            }
+
+            .site-footer {
+                padding: 28px 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .menu {
+                grid-template-columns: 1fr;
+            }
+
+            .broker-grid,
+            .course-grid,
+            .glossary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =========================================
+         MENU LATERAL
+    ========================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <a href="../index.html">
+                <img src="../static/img/logo_do_site.png"
+                     alt="Logo SER TRADER SEM RÉ">
+            </a>
+
+            <h1>SER TRADER SEM RÉ</h1>
+
+            <p>
+                DISCIPLINA • PSICOLOGIA • RESULTADOS
+            </p>
+        </div>
+
+        <nav aria-label="Navegação principal">
+
+            <p class="menu-title">Menu principal</p>
+
+            <div class="menu">
+
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Dashboard
+                </a>
+
+                <a href="cadastrar.html">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    Cadastrar
+                </a>
+
+                <a href="relatorios.html">
+                    <i class="fa-solid fa-chart-column"></i>
+                    Relatórios
+                </a>
+
+                <a class="active" href="recursos.html">
+                    <i class="fa-solid fa-compass"></i>
+                    Hub de Recursos
+                </a>
+
+                <a href="#corretoras">
+                    <i class="fa-solid fa-building-columns"></i>
+                    Plataformas
+                </a>
+
+                <a href="#carteiras">
+                    <i class="fa-solid fa-wallet"></i>
+                    Carteiras
+                </a>
+
+                <a href="#formacao">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    Formação
+                </a>
+
+                <a href="#materiais">
+                    <i class="fa-solid fa-folder-open"></i>
+                    Materiais
+                </a>
+
+                <a href="#checklist">
+                    <i class="fa-solid fa-list-check"></i>
+                    Checklist
+                </a>
+
+                <a href="#glossario">
+                    <i class="fa-solid fa-book-open"></i>
+                    Glossário
+                </a>
+
+                <a href="#perguntas">
+                    <i class="fa-solid fa-circle-question"></i>
+                    Perguntas
+                </a>
+
+                <a href="#comunidade">
+                    <i class="fa-solid fa-users"></i>
+                    Comunidade
+                </a>
+
+            </div>
+
+            <p class="menu-title">Páginas detalhadas</p>
+
+            <div class="menu">
+
+                <a href="../recursos/corretoras.html">
+                    <i class="fa-solid fa-building-columns"></i>
+                    Plataformas
+                </a>
+
+                <a href="../recursos/wallets.html">
+                    <i class="fa-solid fa-wallet"></i>
+                    Carteiras
+                </a>
+
+                <a href="../recursos/formacao.html">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    Formação
+                </a>
+
+                <a href="../recursos/materiais.html">
+                    <i class="fa-solid fa-folder-open"></i>
+                    Materiais
+                </a>
+
+            </div>
+        </nav>
+
+        <div class="sidebar-note">
+            <strong>
+                <i class="fa-solid fa-bullseye"></i>
+                A nossa filosofia
+            </strong>
+
+            <p>
+                Superação, Equilíbrio e Resiliência.
+                Uma jornada real de aprendizagem,
+                disciplina e evolução.
+            </p>
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================
+         CONTEÚDO PRINCIPAL
+    ========================================== -->
+
+    <main class="main">
+
+        <!-- CABEÇALHO -->
+
+        <header class="header">
+
+            <div>
+                <h2>Portal de Recursos para Traders</h2>
+
+                <p>
+                    Disciplina, gestão e execução
+                    para uma rotina mais consciente.
+                </p>
+            </div>
+
+            <!-- Substituir pelo link real do Telegram -->
+            <a class="btn"
+               href="https://t.me/"
+               target="_blank"
+               rel="noopener noreferrer">
+
+                <i class="fa-brands fa-telegram"></i>
+                Comunidade no Telegram
+
+            </a>
+
+        </header>
+
+
+        <!-- =====================================
+             BOAS-VINDAS
+        ====================================== -->
+
+        <section class="welcome-card" id="inicio-hub">
+
+            <span class="welcome-label">
+                <i class="fa-solid fa-bolt"></i>
+                HUB OFICIAL DE RECURSOS
+            </span>
+
+            <h3>
+                Bem-vindo ao SER TRADER SEM RÉ
+            </h3>
+
+            <p>
+                Este é o teu espaço de aprendizagem,
+                organização e evolução no trading.
+                Aqui encontrarás aulas, ferramentas,
+                materiais educativos e recursos
+                para desenvolver uma rotina mais consciente.
+            </p>
+
+            <p>
+                Não prometemos lucros nem resultados imediatos.
+                Partilhamos conhecimento, disciplina e uma
+                jornada real de aprendizagem.
+            </p>
+
+            <div class="welcome-actions">
+
+                <a class="btn" href="#formacao">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    Começar a aprender
+                </a>
+
+                <a class="btn btn-outline" href="#checklist">
+                    <i class="fa-solid fa-list-check"></i>
+                    Checklist do trader
+                </a>
+
+                <a class="btn btn-outline" href="#materiais">
+                    <i class="fa-solid fa-folder-open"></i>
+                    Explorar materiais
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             PLATAFORMAS
+        ====================================== -->
+
+        <section class="resource-section" id="corretoras">
+
+            <div class="section-heading">
+                <h3>
+                    <i class="fa-solid fa-building-columns"></i>
+                    Plataformas e Serviços
+                </h3>
+            </div>
+
+            <p class="section-description">
+                Acede às plataformas e consulta as condições
+                dos serviços directamente nos respectivos sites.
+            </p>
+
+            <div class="dashboard-grid broker-grid">
+
+                <article class="card broker-card">
+
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+
+                    <h4>IQ Option</h4>
+
+                    <p>
+                        Plataforma utilizada em conteúdos
+                        educativos e demonstrações de trading.
+                    </p>
+
+                    <span class="broker-tag">Trading</span>
+
+                    <a class="btn"
+                       href="https://iqoption.com/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        Aceder à plataforma
+                    </a>
+
+                </article>
+
+
+                <article class="card broker-card">
+
+                    <i class="fa-solid fa-globe"></i>
+
+                    <h4>Deriv</h4>
+
+                    <p>
+                        Serviços de negociação com diferentes
+                        produtos e mercados, conforme a região.
+                    </p>
+
+                    <span class="broker-tag">Trading</span>
+
+                    <a class="btn"
+                       href="https://deriv.com/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        Aceder à plataforma
+                    </a>
+
+                </article>
+
+
+                <article class="card broker-card">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <h4>Adax</h4>
+
+                    <p>
+                        Consulta os serviços disponíveis,
+                        condições e informações da plataforma.
+                    </p>
+
+                    <span class="broker-tag">Plataforma</span>
+
+                    <a class="btn"
+                       href="https://adax.pro/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        Aceder à plataforma
+                    </a>
+
+                </article>
+
+
+                <article class="card broker-card">
+
+                    <i class="fa-brands fa-bitcoin"></i>
+
+                    <h4>Binance</h4>
+
+                    <p>
+                        Serviços relacionados com criptoactivos,
+                        incluindo compra, venda e transferências,
+                        conforme disponibilidade.
+                    </p>
+
+                    <span class="broker-tag">Criptoactivos</span>
+
+                    <a class="btn"
+                       href="https://www.binance.com/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        Aceder à plataforma
+                    </a>
+
+                </article>
+
+
+                <article class="card broker-card">
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                    <h4>AvaTrade</h4>
+
+                    <p>
+                        Consulta os instrumentos, condições
+                        e informações regulamentares aplicáveis.
+                    </p>
+
+                    <span class="broker-tag">Trading</span>
+
+                    <a class="btn"
+                       href="https://www.avatrade.com/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        Aceder à plataforma
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             CARTEIRAS E TRANSFERÊNCIAS
+        ====================================== -->
+
+        <section class="resource-section" id="carteiras">
+
+            <div class="section-heading">
+                <h3>
+                    <i class="fa-solid fa-wallet"></i>
+                    Carteiras, Depósitos e Saques
+                </h3>
+            </div>
+
+            <div class="dashboard-grid wallet-grid">
+
+                <div class="broker-links">
+
+                    <a href="https://pay.binance.com/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-bitcoin"></i>
+                        Binance Pay
+                    </a>
+
+                    <a href="https://tether.to/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <i class="fa-solid fa-coins"></i>
+                        USDT / Tether
+                    </a>
+
+                    <a href="https://www.skrill.com/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <i class="fa-solid fa-wallet"></i>
+                        Skrill
+                    </a>
+
+                    <a href="https://www.neteller.com/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <i class="fa-solid fa-wallet"></i>
+                        Neteller
+                    </a>
+
+                    <a href="https://www.volet.com/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <i class="fa-solid fa-money-bill-transfer"></i>
+                        Volet
+                    </a>
+
+                    <a href="https://www.airtm.com/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                        Airtm
+                    </a>
+
+                </div>
+
+
+                <article class="card deposit-guide">
+
+                    <h4>
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Guia de Depósito e Retirada Segura
+                    </h4>
+
+                    <ol>
+
+                        <li>
+                            Confirma sempre se o site e a conta
+                            de destino são oficiais.
+                        </li>
+
+                        <li>
+                            Verifica o activo, a rede, o endereço
+                            e as taxas antes de transferir.
+                        </li>
+
+                        <li>
+                            Sempre que possível, considera fazer
+                            uma transferência de teste.
+                        </li>
+
+                        <li>
+                            Activa a autenticação de dois factores
+                            e protege os teus dados de acesso.
+                        </li>
+
+                        <li>
+                            Guarda os comprovativos das operações.
+                        </li>
+
+                        <li>
+                            Consulta os prazos e as condições
+                            directamente com o prestador.
+                        </li>
+
+                        <li>
+                            Nunca partilhes palavras-passe,
+                            códigos de autenticação ou frases
+                            de recuperação.
+                        </li>
+
+                    </ol>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             FORMAÇÃO
+        ====================================== -->
+
+        <section class="resource-section" id="formacao">
+
+            <div class="section-heading">
+                <h3>
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    Formação, Aulas e Cursos
+                </h3>
+            </div>
+
+            <p class="section-description">
+                Organiza o teu estudo por etapas e aprende
+                os fundamentos antes de avançar.
+            </p>
+
+            <div class="dashboard-grid course-grid">
+
+                <article class="card course-module">
+
+                    <h4>
+                        <i class="fa-solid fa-seedling"></i>
+                        Módulo Iniciante
+                    </h4>
+
+                    <p>
+                        Aprende os conceitos fundamentais
+                        para compreender os gráficos e os mercados.
+                    </p>
+
+                    <ul>
+
+                        <li>
+                                     <a href="#formacao" data-help-action="materiais">
+
+                                <i class="fa-solid fa-circle-play"></i>
+                                Introdução ao Trading
+                            </a>
+                        </li>
+
+                        <li>
+                                     <a href="#formacao" data-help-action="materiais">
+
+                                <i class="fa-solid fa-circle-play"></i>
+                                Introdução ao Price Action
+                            </a>
+                        </li>
+
+                        <li>
+                                     <a href="#formacao" data-help-action="materiais">
+
+                                <i class="fa-solid fa-circle-play"></i>
+                                Leitura de Velas
+                            </a>
+                        </li>
+
+                        <li>
+                                     <a href="#formacao" data-help-action="materiais">
+
+                                <i class="fa-solid fa-circle-play"></i>
+                                Indicadores Básicos
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </article>
+
+
+                <article class="card course-module">
+
+                    <h4>
+                        <i class="fa-solid fa-chart-line"></i>
+                        Módulo Intermediário
+                    </h4>
+
+                    <p>
+                        Desenvolve a leitura gráfica e aprende
+                        a organizar as tuas operações.
+                    </p>
+
+                    <ul>
+
+                        <li>
+                                     <a href="#formacao" data-help-action="materiais">
+
+                                <i class="fa-solid fa-circle-play"></i>
+                                Gestão de Risco
+                            </a>
+                        </li>
+
+                        <li>
+                                     <a href="#formacao" data-help-action="materiais">
+
+                                <i class="fa-solid fa-circle-play"></i>
+                                Suporte e Resistência
+                            </a>
+                        </li>
+
+                        <li>
+                                     <a href="#formacao" data-help-action="materiais">
+
+                                <i class="fa-solid fa-circle-play"></i>
+                                Análise de Tendências
+                            </a>
+                        </li>
+
+                        <li>
+                                     <a href="#formacao" data-help-action="materiais">
+
+                                <i class="fa-solid fa-circle-play"></i>
+                                Psicologia do Trader
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </article>
+
+
+                <article class="card course-module">
+
+                    <h4>
+                        <i class="fa-solid fa-bullseye"></i>
+                        Módulo Avançado
+                    </h4>
+
+                    <p>
+                        Aprofunda os teus conhecimentos e
+                        desenvolve um processo de análise.
+                    </p>
+
+                    <ul>
+
+                        <li>
+                                     <a href="#formacao" data-help-action="materiais">
+
+                                <i class="fa-solid fa-circle-play"></i>
+                                Price Action Aplicado
+                            </a>
+                        </li>
+
+                        <li>
+                                     <a href="#formacao" data-help-action="materiais">
+
+                                <i class="fa-solid fa-circle-play"></i>
+                                Confluência de Indicadores
+                            </a>
+                        </li>
+
+                        <li>
+                                     <a href="#formacao" data-help-action="materiais">
+
+                                <i class="fa-solid fa-circle-play"></i>
+                                Plano de Trading
+                            </a>
+                        </li>
+
+                        <li>
+                                     <a href="#formacao" data-help-action="materiais">
+
+                                <i class="fa-solid fa-circle-play"></i>
+                                Revisão de Operações
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             MATERIAIS E FERRAMENTAS
+        ====================================== -->
+
+        <section class="resource-section" id="materiais">
+
+            <div class="section-heading">
+                <h3>
+                    <i class="fa-solid fa-toolbox"></i>
+                    Materiais de Apoio e Ferramentas
+                </h3>
+            </div>
+
+            <div class="broker-links">
+
+                     <a href="#materiais" data-help-action="materiais">
+
+                    <i class="fa-solid fa-table"></i>
+                    Planilhas de Gestão de Banca
+                </a>
+
+                     <a href="#materiais" data-help-action="materiais">
+
+                    <i class="fa-solid fa-file-pdf"></i>
+                    E-books, Guias e Arquivos PDF
+                </a>
+
+                     <a href="#materiais" data-help-action="materiais">
+
+                    <i class="fa-solid fa-code"></i>
+                    Scripts Operacionais
+                </a>
+
+                <a href="https://ser-trader-sem-re.netlify.app/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    <i class="fa-solid fa-calculator"></i>
+                    Calculadoras e Outras Ferramentas
+                </a>
+
+                <a href="https://ser-trader-sem-re.netlify.app/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    <i class="fa-solid fa-book"></i>
+                    Diário de Trading
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             CHECKLIST
+        ====================================== -->
+
+        <section class="resource-section" id="checklist">
+
+            <div class="section-heading">
+                <h3>
+                    <i class="fa-solid fa-list-check"></i>
+                    Checklist Antes de Operar
+                </h3>
+            </div>
+
+            <article class="card checklist-card">
+
+                <p>
+                    Antes de iniciar uma sessão, verifica
+                    os seguintes pontos. Esta lista serve
+                    para apoiar a tua organização e disciplina.
+                </p>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <span>
+                        Estou tranquilo e preparado para
+                        seguir o meu plano.
+                    </span>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <span>
+                        Conheço o meu limite de perda
+                        e estou disposto a respeitá-lo.
+                    </span>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <span>
+                        Analisei o mercado antes de
+                        considerar uma entrada.
+                    </span>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <span>
+                        Tenho uma estratégia definida
+                        para o meu estudo.
+                    </span>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <span>
+                        Não estou a tentar recuperar
+                        perdas através de decisões impulsivas.
+                    </span>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox">
+                    <span>
+                        Estou disposto a parar quando
+                        atingir o limite definido.
+                    </span>
+                </label>
+
+                <p class="checklist-status"
+                   id="checklist-status"
+                   aria-live="polite">
+
+                    0 de 6 pontos confirmados.
+                </p>
+
+                <button class="btn"
+                        type="button"
+                        id="reset-checklist">
+
+                    <i class="fa-solid fa-rotate-left"></i>
+                    Reiniciar checklist
+                </button>
+
+            </article>
+
+        </section>
+
+
+        <!-- =====================================
+             GLOSSÁRIO
+        ====================================== -->
+
+        <section class="resource-section" id="glossario">
+
+            <div class="section-heading">
+                <h3>
+                    <i class="fa-solid fa-book-open"></i>
+                    Glossário do Trader
+                </h3>
+            </div>
+
+            <div class="glossary-grid">
+
+                <article class="card glossary-item">
+                    <h4>Price Action</h4>
+                    <p>
+                        Análise do movimento do preço através
+                        dos gráficos, velas e estruturas
+                        do mercado.
+                    </p>
+                </article>
+
+                <article class="card glossary-item">
+                    <h4>Payout</h4>
+                    <p>
+                        Percentagem de retorno potencial
+                        apresentada numa operação, conforme
+                        as condições do produto.
+                    </p>
+                </article>
+
+                <article class="card glossary-item">
+                    <h4>Conta Demo</h4>
+                    <p>
+                        Conta de treino com saldo virtual
+                        utilizada para praticar e conhecer
+                        uma plataforma.
+                    </p>
+                </article>
+
+                <article class="card glossary-item">
+                    <h4>Gestão de Banca</h4>
+                    <p>
+                        Organização do capital, dos limites
+                        de risco e dos valores utilizados
+                        nas operações.
+                    </p>
+                </article>
+
+                <article class="card glossary-item">
+                    <h4>WIN</h4>
+                    <p>
+                        Resultado positivo de uma operação,
+                        de acordo com as condições
+                        do produto negociado.
+                    </p>
+                </article>
+
+                <article class="card glossary-item">
+                    <h4>LOSS</h4>
+                    <p>
+                        Resultado negativo de uma operação,
+                        que pode representar a perda do
+                        valor arriscado.
+                    </p>
+                </article>
+
+                <article class="card glossary-item">
+                    <h4>M1 e M5</h4>
+                    <p>
+                        Períodos gráficos de um e cinco
+                        minutos. Cada vela representa
+                        o movimento do preço nesse intervalo.
+                    </p>
+                </article>
+
+                <article class="card glossary-item">
+                    <h4>OTC</h4>
+                    <p>
+                        Sigla de Over-the-Counter.
+                        O funcionamento depende do mercado
+                        e do produto disponibilizado.
+                    </p>
+                </article>
+
+                <article class="card glossary-item">
+                    <h4>Stop Loss</h4>
+                    <p>
+                        Mecanismo ou limite utilizado
+                        para controlar perdas, quando
+                        disponível no instrumento.
+                    </p>
+                </article>
+
+                <article class="card glossary-item">
+                    <h4>Drawdown</h4>
+                    <p>
+                        Redução do capital em relação
+                        a um valor máximo anteriormente
+                        atingido.
+                    </p>
+                </article>
+
+                <article class="card glossary-item">
+                    <h4>Suporte</h4>
+                    <p>
+                        Zona do gráfico onde o preço
+                        encontrou anteriormente interesse
+                        comprador.
+                    </p>
+                </article>
+
+                <article class="card glossary-item">
+                    <h4>Resistência</h4>
+                    <p>
+                        Zona do gráfico onde o preço
+                        encontrou anteriormente interesse
+                        vendedor.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             PERGUNTAS FREQUENTES
+        ====================================== -->
+
+        <section class="resource-section" id="perguntas">
+
+            <div class="section-heading">
+                <h3>
+                    <i class="fa-solid fa-circle-question"></i>
+                    Perguntas Frequentes
+                </h3>
+            </div>
+
+            <div class="faq-list">
+
+                <details>
+                    <summary>
+                        Preciso de dinheiro real para começar?
+                    </summary>
+
+                    <p>
+                        Não necessariamente. Podes começar
+                        por estudar os conceitos e praticar
+                        numa conta demo, quando disponível.
+                        O saldo virtual não elimina os riscos
+                        de uma futura operação real.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>
+                        O trading garante lucros?
+                    </summary>
+
+                    <p>
+                        Não. Os mercados financeiros envolvem
+                        riscos e podem gerar perdas.
+                        Nenhuma estratégia garante resultados
+                        positivos em todas as operações.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>
+                        O que devo estudar primeiro?
+                    </summary>
+
+                    <p>
+                        Começa pelos conceitos básicos,
+                        leitura de gráficos, gestão de risco
+                        e psicologia. Depois, pratica e regista
+                        os resultados do teu estudo.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>
+                        Posso recuperar uma perda aumentando
+                        o valor da próxima entrada?
+                    </summary>
+
+                    <p>
+                        Aumentar o valor para recuperar perdas
+                        pode ampliar rapidamente o risco.
+                        É importante respeitar os limites
+                        definidos e evitar decisões impulsivas.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>
+                        O que é uma conta demo?
+                    </summary>
+
+                    <p>
+                        É uma conta que permite praticar
+                        com saldo virtual. Pode ajudar
+                        a conhecer uma plataforma e testar
+                        procedimentos sem arriscar dinheiro
+                        real nessa conta.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>
+                        O conteúdo do SER TRADER SEM RÉ
+                        é uma recomendação financeira?
+                    </summary>
+
+                    <p>
+                        Não. O conteúdo é educativo e
+                        destina-se ao estudo de conceitos
+                        e ferramentas. Cada visitante deve
+                        avaliar os riscos e as condições
+                        dos serviços utilizados.
+                    </p>
+                </details>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             COMUNIDADE
+        ====================================== -->
+
+        <section class="resource-section" id="comunidade">
+
+            <div class="section-heading">
+                <h3>
+                    <i class="fa-solid fa-users"></i>
+                    Comunidade e Suporte
+                </h3>
+            </div>
+
+            <div class="broker-links">
+
+                <a href="https://www.youtube.com/@3S.E.R_TRADER_SEM_RÉ"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    <i class="fa-brands fa-youtube"></i>
+                    Canal Oficial no YouTube
+                </a>
+
+                <a href="https://www.instagram.com/3ser.trader"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    <i class="fa-brands fa-instagram"></i>
+                    Perfil Oficial no Instagram
+                </a>
+
+                <!-- Substituir pelo link real do grupo -->
+                <a href="https://t.me/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    <i class="fa-brands fa-telegram"></i>
+                    Comunidade no Telegram
+                </a>
+
+                <a href="mailto:3ser.tradersemre@gmail.com">
+
+                    <i class="fa-solid fa-envelope"></i>
+                    Contacto por E-mail
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             AVISO DE RISCO
+        ====================================== -->
+
+        <section class="risk-notice">
+
+            <h4>
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                Aviso de Risco
+            </h4>
+
+            <p>
+                O conteúdo deste portal tem finalidade
+                exclusivamente educativa e informativa.
+                A negociação de instrumentos financeiros,
+                incluindo opções binárias e criptoactivos,
+                envolve riscos elevados e pode resultar
+                na perda parcial ou total do capital.
+                Resultados anteriores não garantem
+                resultados futuros. Antes de utilizar
+                qualquer serviço, consulta as condições,
+                os riscos e a disponibilidade na tua região.
+            </p>
+
+        </section>
+
+    </main>
+
+</div>
+
+<div data-footer></div>
+
+
+<!-- =============================================
+     JAVASCRIPT
+============================================= -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* CHECKLIST */
+
+    const checklist = document.querySelectorAll(
+        "#checklist input[type='checkbox']"
+    );
+
+    const status = document.getElementById(
+        "checklist-status"
+    );
+
+    const resetButton = document.getElementById(
+        "reset-checklist"
+    );
+
+    function updateChecklist() {
+
+        const checked = document.querySelectorAll(
+            "#checklist input[type='checkbox']:checked"
+        ).length;
+
+        status.textContent =
+            `${checked} de ${checklist.length} pontos confirmados.`;
+
+        if (checked === checklist.length) {
+            status.textContent =
+                "Checklist concluída. Mantém a disciplina!";
+        }
+    }
+
+    checklist.forEach(function (item) {
+
+        item.addEventListener(
+            "change",
+            updateChecklist
+        );
+
+    });
+
+    resetButton.addEventListener("click", function () {
+
+        checklist.forEach(function (item) {
+            item.checked = false;
+        });
+
+        updateChecklist();
+
+    });
+
+    updateChecklist();
+
+
+    /* MENU ACTIVO */
+
+    const menuLinks = document.querySelectorAll(
+        ".menu a[href^='#']"
+    );
+
+    menuLinks.forEach(function (link) {
+
+        link.addEventListener("click", function () {
+
+            menuLinks.forEach(function (item) {
+                item.classList.remove("active");
+            });
+
+            link.classList.add("active");
+
+        });
+
+    });
+
+});
+</script>
+
+</body>
+</html>

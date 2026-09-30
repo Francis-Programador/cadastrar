@@ -38,6 +38,12 @@ function normalizeRelatoriosRows(rows) {
     return isNaN(n) ? 0 : n;
   }
 
+  function normalizePayoutPercent(raw) {
+    const value = parseNumber(raw);
+    if (!Number.isFinite(value)) return 0;
+    return value > 1 ? value : value * 100;
+  }
+
   function normalizeDateOnly(raw) {
     if (!raw) return '';
     // Try Date parse
@@ -61,7 +67,7 @@ function normalizeRelatoriosRows(rows) {
     const resultadoRaw = row.resultado || row.result || '';
     const resultado = String(resultadoRaw).toLowerCase();
     const entrada = parseNumber(row.entrada || row.amount || row.valor);
-    const payout = parseNumber(row.payout || row.pay || 0);
+    const payout = normalizePayoutPercent(row.payout || row.pay || 0);
     // calcula lucro se não vier na linha
     let lucro = parseNumber(row.lucro || row.profit || row.lucro_bruto || 0);
     if (!lucro) {

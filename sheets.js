@@ -2,6 +2,13 @@ const FORM_URL = "https://script.google.com/macros/s/AKfycbx66prYiNh36_JKyOjnHv9
 // Defina uma chave no Apps Script (Script Properties) e coloque o mesmo valor aqui
 const CLIENT_API_KEY = "942515887";
 
+function normalizePayoutPercent(value) {
+    if (value === null || value === undefined || value === '') return 0;
+    const numericValue = Number(String(value).trim().replace(/,/g, '.'));
+    if (!Number.isFinite(numericValue)) return 0;
+    return numericValue > 1 ? numericValue : numericValue * 100;
+}
+
 document.getElementById('formOperacao').addEventListener('submit', async function(e) {
     e.preventDefault(); // Impede a página de recarregar
 
@@ -22,7 +29,7 @@ document.getElementById('formOperacao').addEventListener('submit', async functio
         direcao: document.getElementById('direcao').value,
         conta: document.getElementById('conta').value,
         entrada: document.getElementById('entrada').value,
-        payout: document.getElementById('payout').value,
+        payout: normalizePayoutPercent(document.getElementById('payout').value),
         resultado: document.getElementById('resultado').value,
         observacao: document.getElementById('observacao').value,
         apiKey: CLIENT_API_KEY,

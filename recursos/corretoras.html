@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+        name="description"
+        content="SER TRADER SEM RÉ - Plataformas de opções binárias, digitais e operações de tempo fixo."
+    />
+
+    <meta
+        name="keywords"
+        content="opções binárias, trading, plataformas de trading, IQ Option, Pocket Option, Quotex, Deriv, Olymptrade, Binomo, ExpertOption"
+    />
+
+    <meta name="theme-color" content="#020617" />
+
+    <title>SER TRADER SEM RÉ | Plataformas de Trading</title>
+
+    <!-- =====================================================
+         FONTES
+    ====================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- =====================================================
+         CSS DO SITE
+    ====================================================== -->
+
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="recursos-pages.css" />
+
+    <!-- Favicon -->
+
+    <link
+        rel="icon"
+        href="../static/img/logo_do_site.png"
+    />
+
+    <!-- JS COMUM DO SITE -->
+
+    <script
+        type="module"
+        src="../site-common.js"
+        defer
+    ></script>
+
+
+    <!-- =====================================================
+         ESTILOS ESPECÍFICOS DESTA PÁGINA
+    ====================================================== -->
+
+    <style>
+
+        /* =================================================
+           VARIÁVEIS
+        ================================================= */
+
+        :root {
+            --bg-main: #020617;
+            --bg-card: #080e22;
+            --bg-card-hover: #0c1530;
+
+            --blue: #38bdf8;
+            --blue-dark: #0284c7;
+
+            --gold: #f59e0b;
+            --green: #22c55e;
+
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+
+            --border: rgba(56, 189, 248, 0.15);
+
+            --radius: 20px;
+        }
+
+
+        /* =================================================
+           HERO
+        ================================================= */
+
+        .platform-hero {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 35px;
+
+            border-radius: 24px;
+
+            border: 1px solid rgba(56, 189, 248, 0.20);
+
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(14, 165, 233, 0.15),
+                    transparent 40%
+                ),
+                linear-gradient(
+                    135deg,
+                    rgba(8, 14, 34, 0.98),
+                    rgba(2, 6, 23, 0.98)
+                );
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .platform-hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            border-radius: 50%;
+
+            background: rgba(56, 189, 248, 0.05);
+
+            right: -80px;
+            top: -80px;
+
+            pointer-events: none;
+        }
+
+
+        .hero-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 7px 12px;
+
+            border-radius: 999px;
+
+            background: rgba(56, 189, 248, 0.10);
+
+            color: var(--blue);
+
+            font-size: 0.72rem;
+
+            font-weight: 800;
+
+            letter-spacing: 0.06em;
+
+            margin-bottom: 18px;
+        }
+
+
+        .platform-hero h3 {
+
+            color: white;
+
+            font-family: "Manrope", sans-serif;
+
+            font-size: clamp(
+                1.5rem,
+                3vw,
+                2.2rem
+            );
+
+            margin-bottom: 14px;
+        }
+
+
+        .platform-hero p {
+
+            max-width: 850px;
+
+            color: var(--text-muted);
+
+            line-height: 1.85;
+
+            font-size: 0.94rem;
+        }
+
+
+        /* =================================================
+           FILTROS
+        ================================================= */
+
+        .platform-filters {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin-top: 25px;
+        }
+
+
+        .filter-btn {
+
+            border: 1px solid
+                rgba(56, 189, 248, 0.16);
+
+            background:
+                rgba(255, 255, 255, 0.03);
+
+            color: var(--text-muted);
+
+            padding: 9px 14px;
+
+            border-radius: 999px;
+
+            cursor: pointer;
+
+            font-size: 0.78rem;
+
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+
+        .filter-btn:hover,
+        .filter-btn.active {
+
+            color: #fff;
+
+            border-color:
+                rgba(56, 189, 248, 0.45);
+
+            background:
+                rgba(56, 189, 248, 0.12);
+        }
+
+
+        /* =================================================
+           GRID
+        ================================================= */
+
+        .platform-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(250px, 1fr)
+                );
+
+            gap: 20px;
+        }
+
+
+        /* =================================================
+           CARD
+        ================================================= */
+
+        .platform-card {
+
+            position: relative;
+
+            display: flex;
+
+            flex-direction: column;
+
+            padding: 25px;
+
+            min-height: 370px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(8, 14, 34, 0.98),
+                    rgba(5, 10, 25, 0.98)
+                );
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .platform-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            border-color:
+                rgba(56, 189, 248, 0.38);
+
+            box-shadow:
+                0 20px 50px
+                rgba(0, 0, 0, 0.28);
+        }
+
+
+        /* =================================================
+           CARD TOPO
+        ================================================= */
+
+        .platform-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .platform-icon {
+
+            width: 58px;
+
+            height: 58px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 16px;
+
+            color: var(--blue);
+
+            background:
+                rgba(56, 189, 248, 0.08);
+
+            border:
+                1px solid
+                rgba(56, 189, 248, 0.12);
+
+            font-size: 1.55rem;
+        }
+
+
+        .platform-number {
+
+            color: #475569;
+
+            font-size: 0.72rem;
+
+            font-weight: 800;
+
+            letter-spacing: 0.08em;
+        }
+
+
+        /* =================================================
+           CARD TEXTO
+        ================================================= */
+
+        .platform-card h4 {
+
+            color: white;
+
+            font-family: "Manrope", sans-serif;
+
+            font-size: 1.25rem;
+
+            margin-bottom: 9px;
+        }
+
+
+        .platform-type {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            width: fit-content;
+
+            padding: 5px 10px;
+
+            margin-bottom: 15px;
+
+            border-radius: 999px;
+
+            color: var(--gold);
+
+            background:
+                rgba(245, 158, 11, 0.10);
+
+            font-size: 0.7rem;
+
+            font-weight: 800;
+        }
+
+
+        .platform-card p {
+
+            color: var(--text-muted);
+
+            font-size: 0.85rem;
+
+            line-height: 1.8;
+
+            margin-bottom: 18px;
+
+            flex: 1;
+        }
+
+
+        /* =================================================
+           RECURSOS
+        ================================================= */
+
+        .platform-features {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .platform-feature {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            padding: 5px 8px;
+
+            border-radius: 7px;
+
+            background:
+                rgba(255, 255, 255, 0.035);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.06);
+
+            color: #cbd5e1;
+
+            font-size: 0.68rem;
+
+            font-weight: 600;
+        }
+
+
+        .platform-feature i {
+
+            color: var(--blue);
+
+            font-size: 0.65rem;
+        }
+
+
+        /* =================================================
+           BOTÃO
+        ================================================= */
+
+        .platform-card .btn {
+
+            width: 100%;
+
+            padding: 13px 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0ea5e9,
+                    #0284c7
+                );
+
+            color: white;
+
+            font-weight: 800;
+
+            text-decoration: none;
+
+            text-align: center;
+
+            transition: 0.2s ease;
+        }
+
+
+        .platform-card .btn:hover {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #38bdf8,
+                    #0ea5e9
+                );
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(14, 165, 233, 0.20);
+        }
+
+
+        /* =================================================
+           AVISO
+        ================================================= */
+
+        .platform-warning {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 13px;
+
+            padding: 20px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(245, 158, 11, 0.045);
+
+            border:
+                1px solid
+                rgba(245, 158, 11, 0.20);
+        }
+
+
+        .platform-warning i {
+
+            color: var(--gold);
+
+            font-size: 1.1rem;
+
+            margin-top: 3px;
+        }
+
+
+        .platform-warning h4 {
+
+            color: var(--gold);
+
+            margin-bottom: 7px;
+
+            font-size: 0.9rem;
+        }
+
+
+        .platform-warning p {
+
+            color: var(--text-muted);
+
+            font-size: 0.82rem;
+
+            line-height: 1.8;
+        }
+
+
+        /* =================================================
+           GUIA
+        ================================================= */
+
+        .info-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(220px, 1fr)
+                );
+
+            gap: 16px;
+        }
+
+
+        .info-card {
+
+            padding: 22px;
+
+            border-radius: 17px;
+
+            background:
+                rgba(8, 14, 34, 0.90);
+
+            border:
+                1px solid var(--border);
+        }
+
+
+        .info-card i {
+
+            color: var(--blue);
+
+            font-size: 1.35rem;
+
+            margin-bottom: 14px;
+        }
+
+
+        .info-card h4 {
+
+            color: white;
+
+            margin-bottom: 9px;
+        }
+
+
+        .info-card p {
+
+            color: var(--text-muted);
+
+            font-size: 0.82rem;
+
+            line-height: 1.8;
+        }
+
+
+        /* =================================================
+           RESPONSIVO
+        ================================================= */
+
+        @media (max-width: 700px) {
+
+            .platform-hero {
+
+                padding: 25px 20px;
+            }
+
+            .platform-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .platform-card {
+
+                min-height: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="resources-detail-page">
+
+
+    <!-- =====================================================
+         CONTAINER
+    ====================================================== -->
+
+    <div class="container">
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside class="sidebar">
+
+
+            <!-- LOGO -->
+
+            <div class="logo">
+
+                <a href="../index.html">
+
+                    <img
+                        src="../static/img/logo_do_site.png"
+                        alt="Logo SER TRADER SEM RÉ"
+                    />
+
+                </a>
+
+                <h1>
+                    SER TRADER SEM RÉ
+                </h1>
+
+                <p>
+                    DISCIPLINA • PSICOLOGIA • RESULTADOS
+                </p>
+
+            </div>
+
+
+            <!-- NAVEGAÇÃO -->
+
+            <nav
+                aria-label="Navegação principal"
+            >
+
+                <p class="menu-title">
+                    Menu principal
+                </p>
+
+
+                <div class="menu">
+
+                    <a
+                        href="../navegacao/dashboard.html"
+                    >
+                        <i class="fa-solid fa-chart-line"></i>
+                        Dashboard
+                    </a>
+
+
+                    <a
+                        href="../navegacao/cadastrar.html"
+                    >
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Cadastrar
+                    </a>
+
+
+                    <a
+                        href="../navegacao/relatorios.html"
+                    >
+                        <i class="fa-solid fa-chart-column"></i>
+                        Relatórios
+                    </a>
+
+
+                    <a
+                        href="../navegacao/recursos.html"
+                    >
+                        <i class="fa-solid fa-compass"></i>
+                        Hub de Recursos
+                    </a>
+
+                </div>
+
+
+                <p class="menu-title">
+                    Páginas detalhadas
+                </p>
+
+
+                <div class="menu">
+
+                    <a
+                        class="active"
+                        href="corretoras.html"
+                        aria-current="page"
+                    >
+                        <i class="fa-solid fa-building-columns"></i>
+                        Plataformas
+                    </a>
+
+
+                    <a href="wallets.html">
+                        <i class="fa-solid fa-wallet"></i>
+                        Carteiras
+                    </a>
+
+
+                    <a href="formacao.html">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        Formação
+                    </a>
+
+
+                    <a href="materiais.html">
+                        <i class="fa-solid fa-folder-open"></i>
+                        Materiais
+                    </a>
+
+                </div>
+
+            </nav>
+
+
+            <!-- FILOSOFIA -->
+
+            <div class="sidebar-note">
+
+                <strong>
+
+                    <i class="fa-solid fa-bullseye"></i>
+
+                    A nossa filosofia
+
+                </strong>
+
+                <p>
+
+                    Superação, Equilíbrio e Resiliência.
+                    Uma jornada real de aprendizagem,
+                    disciplina e evolução.
+
+                </p>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =================================================
+             MAIN
+        ================================================== -->
+
+        <main class="main">
+
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <header class="header">
+
+                <div>
+
+                    <h2>
+                        Plataformas de Trading
+                    </h2>
+
+                    <p>
+                        Conheça plataformas utilizadas
+                        para opções binárias, digitais
+                        e operações de tempo fixo.
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="helpBtn"
+                    class="btn btn-outline"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-circle-question"></i>
+
+                    Ajuda
+
+                </button>
+
+            </header>
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <section class="platform-hero">
+
+
+                <span class="hero-badge">
+
+                    <i class="fa-solid fa-chart-candlestick"></i>
+
+                    OPÇÕES BINÁRIAS • DIGITAIS • TEMPO FIXO
+
+                </span>
+
+
+                <h3>
+                    Plataformas para conhecer
+                </h3>
+
+
+                <p>
+
+                    Nesta área reunimos algumas plataformas
+                    conhecidas no universo de operações de
+                    curto prazo. Cada plataforma possui as
+                    suas próprias regras, instrumentos,
+                    condições e disponibilidade por região.
+
+                    Antes de abrir uma conta, verifica
+                    directamente as condições oficiais
+                    da plataforma.
+
+                </p>
+
+
+                <!-- FILTROS -->
+
+                <div class="platform-filters">
+
+                    <button
+                        class="filter-btn active"
+                        data-filter="all"
+                        type="button"
+                    >
+                        Todas
+                    </button>
+
+
+                    <button
+                        class="filter-btn"
+                        data-filter="binary"
+                        type="button"
+                    >
+                        Opções Binárias
+                    </button>
+
+
+                    <button
+                        class="filter-btn"
+                        data-filter="digital"
+                        type="button"
+                    >
+                        Opções Digitais
+                    </button>
+
+
+                    <button
+                        class="filter-btn"
+                        data-filter="fixed"
+                        type="button"
+                    >
+                        Tempo Fixo
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 PLATAFORMAS
+            ================================================== -->
+
+            <section class="resource-section">
+
+
+                <div class="section-heading">
+
+                    <h3>
+
+                        <i class="fa-solid fa-building-columns"></i>
+
+                        Plataformas disponíveis
+
+                    </h3>
+
+                </div>
+
+
+                <p class="section-description">
+
+                    Escolha uma plataforma para consultar
+                    as informações e utilizar o seu link
+                    de cadastro.
+
+                </p>
+
+
+                <div
+                    class="platform-grid"
+                    id="platformGrid"
+                >
+
+
+                    <!-- =================================================
+                         IQ OPTION
+                    ================================================== -->
+
+                    <article
+                        class="platform-card"
+                        data-category="binary digital"
+                    >
+
+                        <div class="platform-top">
+
+                            <div class="platform-icon">
+
+                                <i class="fa-solid fa-chart-line"></i>
+
+                            </div>
+
+                            <span class="platform-number">
+                                01
+                            </span>
+
+                        </div>
+
+
+                        <h4>
+                            IQ Option
+                        </h4>
+
+
+                        <span class="platform-type">
+
+                            <i class="fa-solid fa-bolt"></i>
+
+                            Opções Binárias / Digitais
+
+                        </span>
+
+
+                        <p>
+
+                            Plataforma conhecida no mercado
+                            de trading online e que disponibiliza
+                            opções binárias e digitais, além de
+                            outros instrumentos, conforme
+                            disponibilidade regional.
+
+                        </p>
+
+
+                        <div class="platform-features">
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Demo
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Gráficos
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Indicadores
+                            </span>
+
+                        </div>
+
+
+                        <!-- COLOCA AQUI O TEU LINK DE CADASTRO -->
+
+                        <a
+                            class="btn"
+                            href="SEU_LINK_IQ_OPTION_AQUI"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+
+                            <i class="fa-solid fa-user-plus"></i>
+
+                            Abrir cadastro
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         POCKET OPTION
+                    ================================================== -->
+
+                    <article
+                        class="platform-card"
+                        data-category="binary"
+                    >
+
+                        <div class="platform-top">
+
+                            <div class="platform-icon">
+
+                                <i class="fa-solid fa-bolt"></i>
+
+                            </div>
+
+                            <span class="platform-number">
+                                02
+                            </span>
+
+                        </div>
+
+
+                        <h4>
+                            Pocket Option
+                        </h4>
+
+
+                        <span class="platform-type">
+
+                            <i class="fa-solid fa-bolt"></i>
+
+                            Operações de curto prazo
+
+                        </span>
+
+
+                        <p>
+
+                            Plataforma de trading online
+                            com operações de curto prazo,
+                            gráficos, indicadores e conta
+                            demo para prática.
+
+                        </p>
+
+
+                        <div class="platform-features">
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Conta Demo
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Indicadores
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Gráficos
+                            </span>
+
+                        </div>
+
+
+                        <!-- COLOCA AQUI O TEU LINK DE CADASTRO -->
+
+                        <a
+                            class="btn"
+                            href="SEU_LINK_POCKET_OPTION_AQUI"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+
+                            <i class="fa-solid fa-user-plus"></i>
+
+                            Abrir cadastro
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         QUOTEX
+                    ================================================== -->
+
+                    <article
+                        class="platform-card"
+                        data-category="binary digital"
+                    >
+
+                        <div class="platform-top">
+
+                            <div class="platform-icon">
+
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+
+                            </div>
+
+                            <span class="platform-number">
+                                03
+                            </span>
+
+                        </div>
+
+
+                        <h4>
+                            Quotex
+                        </h4>
+
+
+                        <span class="platform-type">
+
+                            <i class="fa-solid fa-bolt"></i>
+
+                            Opções Digitais
+
+                        </span>
+
+
+                        <p>
+
+                            Plataforma de negociação digital
+                            voltada para operações de curto prazo,
+                            com ferramentas gráficas e diferentes
+                            activos disponíveis conforme a região.
+
+                        </p>
+
+
+                        <div class="platform-features">
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Gráficos
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Indicadores
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Demo
+                            </span>
+
+                        </div>
+
+
+                        <!-- COLOCA AQUI O TEU LINK DE CADASTRO -->
+
+                        <a
+                            class="btn"
+                            href="SEU_LINK_QUOTEX_AQUI"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+
+                            <i class="fa-solid fa-user-plus"></i>
+
+                            Abrir cadastro
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         DERIV
+                    ================================================== -->
+
+                    <article
+                        class="platform-card"
+                        data-category="digital"
+                    >
+
+                        <div class="platform-top">
+
+                            <div class="platform-icon">
+
+                                <i class="fa-solid fa-globe"></i>
+
+                            </div>
+
+                            <span class="platform-number">
+                                04
+                            </span>
+
+                        </div>
+
+
+                        <h4>
+                            Deriv
+                        </h4>
+
+
+                        <span class="platform-type">
+
+                            <i class="fa-solid fa-bolt"></i>
+
+                            Opções Digitais
+
+                        </span>
+
+
+                        <p>
+
+                            Plataforma que disponibiliza
+                            diferentes tipos de opções digitais,
+                            incluindo contratos de direção,
+                            toque e outros formatos.
+
+                        </p>
+
+
+                        <div class="platform-features">
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Digital
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Demo
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Vários activos
+                            </span>
+
+                        </div>
+
+
+                        <!-- COLOCA AQUI O TEU LINK DE CADASTRO -->
+
+                        <a
+                            class="btn"
+                            href="SEU_LINK_DERIV_AQUI"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+
+                            <i class="fa-solid fa-user-plus"></i>
+
+                            Abrir cadastro
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         OLYMPTRADE
+                    ================================================== -->
+
+                    <article
+                        class="platform-card"
+                        data-category="fixed"
+                    >
+
+                        <div class="platform-top">
+
+                            <div class="platform-icon">
+
+                                <i class="fa-solid fa-clock"></i>
+
+                            </div>
+
+                            <span class="platform-number">
+                                05
+                            </span>
+
+                        </div>
+
+
+                        <h4>
+                            Olymptrade
+                        </h4>
+
+
+                        <span class="platform-type">
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            Fixed Time
+
+                        </span>
+
+
+                        <p>
+
+                            Plataforma que oferece o modo
+                            Fixed Time, no qual a operação
+                            possui uma duração definida e
+                            o resultado depende da previsão
+                            de direção do preço.
+
+                        </p>
+
+
+                        <div class="platform-features">
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Fixed Time
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Demo
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Gráficos
+                            </span>
+
+                        </div>
+
+
+                        <!-- COLOCA AQUI O TEU LINK DE CADASTRO -->
+
+                        <a
+                            class="btn"
+                            href="SEU_LINK_OLYMPTRADE_AQUI"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+
+                            <i class="fa-solid fa-user-plus"></i>
+
+                            Abrir cadastro
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         BINOMO
+                    ================================================== -->
+
+                    <article
+                        class="platform-card"
+                        data-category="fixed binary"
+                    >
+
+                        <div class="platform-top">
+
+                            <div class="platform-icon">
+
+                                <i class="fa-solid fa-chart-simple"></i>
+
+                            </div>
+
+                            <span class="platform-number">
+                                06
+                            </span>
+
+                        </div>
+
+
+                        <h4>
+                            Binomo
+                        </h4>
+
+
+                        <span class="platform-type">
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            Fixed Time
+
+                        </span>
+
+
+                        <p>
+
+                            Plataforma que utiliza o modelo
+                            Fixed Time Trading, permitindo
+                            definir o activo, a direcção
+                            e o momento de encerramento
+                            da operação.
+
+                        </p>
+
+
+                        <div class="platform-features">
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Fixed Time
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Demo
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Indicadores
+                            </span>
+
+                        </div>
+
+
+                        <!-- COLOCA AQUI O TEU LINK DE CADASTRO -->
+
+                        <a
+                            class="btn"
+                            href="SEU_LINK_BINOMO_AQUI"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+
+                            <i class="fa-solid fa-user-plus"></i>
+
+                            Abrir cadastro
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         EXPERT OPTION
+                    ================================================== -->
+
+                    <article
+                        class="platform-card"
+                        data-category="binary"
+                    >
+
+                        <div class="platform-top">
+
+                            <div class="platform-icon">
+
+                                <i class="fa-solid fa-bullseye"></i>
+
+                            </div>
+
+                            <span class="platform-number">
+                                07
+                            </span>
+
+                        </div>
+
+
+                        <h4>
+                            ExpertOption
+                        </h4>
+
+
+                        <span class="platform-type">
+
+                            <i class="fa-solid fa-bolt"></i>
+
+                            Trading de curto prazo
+
+                        </span>
+
+
+                        <p>
+
+                            Plataforma de trading online com
+                            diferentes activos, ferramentas
+                            de análise técnica e conta de
+                            demonstração.
+
+                        </p>
+
+
+                        <div class="platform-features">
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Demo
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                +100 activos
+                            </span>
+
+                            <span class="platform-feature">
+                                <i class="fa-solid fa-check"></i>
+                                Análise técnica
+                            </span>
+
+                        </div>
+
+
+                        <!-- COLOCA AQUI O TEU LINK DE CADASTRO -->
+
+                        <a
+                            class="btn"
+                            href="SEU_LINK_EXPERT_OPTION_AQUI"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+
+                            <i class="fa-solid fa-user-plus"></i>
+
+                            Abrir cadastro
+
+                        </a>
+
+                    </article>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 AVISO
+            ================================================== -->
+
+            <section class="platform-warning">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <div>
+
+                    <h4>
+                        Atenção antes de abrir uma conta
+                    </h4>
+
+                    <p>
+
+                        As plataformas apresentadas são
+                        serviços de terceiros. As condições,
+                        instrumentos disponíveis, requisitos
+                        de verificação, métodos de depósito e
+                        retirada e disponibilidade podem mudar
+                        conforme o país e o momento.
+
+                        Verifica sempre as informações
+                        directamente na plataforma antes
+                        de efectuar qualquer depósito.
+
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 COMO ESCOLHER
+            ================================================== -->
+
+            <section class="resource-section">
+
+                <div class="section-heading">
+
+                    <h3>
+
+                        <i class="fa-solid fa-list-check"></i>
+
+                        Antes de escolher uma plataforma
+
+                    </h3>
+
+                </div>
+
+
+                <div class="info-grid">
+
+
+                    <article class="info-card">
+
+                        <i class="fa-solid fa-globe"></i>
+
+                        <h4>
+                            Disponibilidade
+                        </h4>
+
+                        <p>
+
+                            Confirma se a plataforma aceita
+                            utilizadores do teu país e quais
+                            produtos estão disponíveis
+                            na tua região.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="info-card">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        <h4>
+                            Verificação
+                        </h4>
+
+                        <p>
+
+                            Consulta os requisitos de
+                            identificação, KYC, termos de
+                            utilização e políticas da conta.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="info-card">
+
+                        <i class="fa-solid fa-wallet"></i>
+
+                        <h4>
+                            Depósitos e saques
+                        </h4>
+
+                        <p>
+
+                            Verifica quais métodos de
+                            pagamento estão disponíveis
+                            para o teu país e as respectivas
+                            condições.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="info-card">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        <h4>
+                            Conta Demo
+                        </h4>
+
+                        <p>
+
+                            Quando disponível, utiliza a
+                            conta de demonstração para
+                            conhecer a interface antes de
+                            utilizar dinheiro real.
+
+                        </p>
+
+                    </article>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 RISCO
+            ================================================== -->
+
+            <section class="platform-warning">
+
+                <i class="fa-solid fa-circle-exclamation"></i>
+
+                <div>
+
+                    <h4>
+                        Risco financeiro
+                    </h4>
+
+                    <p>
+
+                        Opções binárias, opções digitais e
+                        operações de tempo fixo envolvem risco
+                        elevado. Uma previsão incorrecta pode
+                        resultar na perda do valor utilizado
+                        na operação.
+
+                        O SER TRADER SEM RÉ apresenta estas
+                        plataformas para fins informativos
+                        e educativos e não garante resultados
+                        financeiros.
+
+                    </p>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <div data-footer></div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+
+                /* ==========================================
+                   FILTROS
+                =========================================== */
+
+                const filterButtons =
+                    document.querySelectorAll(
+                        ".filter-btn"
+                    );
+
+
+                const platformCards =
+                    document.querySelectorAll(
+                        ".platform-card"
+                    );
+
+
+                filterButtons.forEach(
+                    function (button) {
+
+                        button.addEventListener(
+                            "click",
+                            function () {
+
+                                const filter =
+                                    button.dataset.filter;
+
+
+                                /* remover activo */
+
+                                filterButtons.forEach(
+                                    function (btn) {
+
+                                        btn.classList.remove(
+                                            "active"
+                                        );
+
+                                    }
+                                );
+
+
+                                /* activar botão */
+
+                                button.classList.add(
+                                    "active"
+                                );
+
+
+                                /* mostrar cards */
+
+                                platformCards.forEach(
+                                    function (card) {
+
+                                        const categories =
+                                            card.dataset.category
+                                                .split(" ");
+
+
+                                        if (
+                                            filter === "all" ||
+                                            categories.includes(
+                                                filter
+                                            )
+                                        ) {
+
+                                            card.style.display =
+                                                "flex";
+
+                                        } else {
+
+                                            card.style.display =
+                                                "none";
+
+                                        }
+
+                                    }
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+
+                /* ==========================================
+                   BOTÃO AJUDA
+                =========================================== */
+
+                const helpBtn =
+                    document.getElementById(
+                        "helpBtn"
+                    );
+
+
+                if (helpBtn) {
+
+                    helpBtn.addEventListener(
+                        "click",
+                        function () {
+
+                            alert(
+                                "Escolha uma plataforma e clique em 'Abrir cadastro'. Antes de criar uma conta, verifique a disponibilidade do serviço no seu país, os termos, os riscos e as condições de depósito e retirada."
+                            );
+
+                        }
+                    );
+
+                }
+
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

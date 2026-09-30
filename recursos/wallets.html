@@ -1,0 +1,2193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>SER TRADER SEM RÉ | Carteiras Eletrónicas</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="recursos-pages.css" />
+
+  <link rel="icon" href="../static/img/logo_do_site.png" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <script type="module" src="../site-common.js" defer></script>
+
+  <style>
+    /* =========================================================
+       CARTEIRAS - ESTILOS
+       ========================================================= */
+
+    .wallet-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0 28px;
+    }
+
+    .wallet-filter {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: inherit;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: .2s ease;
+    }
+
+    .wallet-filter:hover,
+    .wallet-filter.active {
+      background: rgba(0, 190, 255, .15);
+      border-color: rgba(0, 200, 255, .55);
+      transform: translateY(-1px);
+    }
+
+    .wallet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .wallet-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 420px;
+    }
+
+    .wallet-card.hidden {
+      display: none;
+    }
+
+    .wallet-icon {
+      width: 58px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      background: rgba(0, 190, 255, .10);
+      border: 1px solid rgba(0, 190, 255, .25);
+      font-size: 26px;
+    }
+
+    .wallet-card h4 {
+      font-size: 21px;
+      margin-bottom: 10px;
+    }
+
+    .wallet-description {
+      line-height: 1.65;
+      opacity: .85;
+      margin-bottom: 18px;
+    }
+
+    .wallet-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .wallet-meta-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .wallet-meta-row strong {
+      min-width: 95px;
+    }
+
+    .wallet-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .wallet-type {
+      display: inline-flex;
+      padding: 5px 9px;
+      border-radius: 7px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: 12px;
+    }
+
+    .broker-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .broker {
+      display: inline-flex;
+      padding: 5px 9px;
+      border-radius: 7px;
+      background: rgba(0, 200, 150, .08);
+      border: 1px solid rgba(0, 200, 150, .18);
+      font-size: 12px;
+    }
+
+    .wallet-tag {
+      display: inline-block;
+      margin-top: auto;
+      margin-bottom: 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      opacity: .65;
+    }
+
+    .availability {
+      padding: 10px 12px;
+      border-radius: 9px;
+      margin-bottom: 15px;
+      font-size: 12px;
+      line-height: 1.55;
+      background: rgba(255, 190, 0, .08);
+      border: 1px solid rgba(255, 190, 0, .18);
+    }
+
+    .wallet-card .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .notice {
+      margin-top: 28px;
+      padding: 20px;
+      border-left: 4px solid #00bfff;
+      background: rgba(0, 191, 255, .06);
+      border-radius: 10px;
+      line-height: 1.7;
+    }
+
+    .notice strong {
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .broker-table-wrapper {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    .broker-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+
+    .broker-table th,
+    .broker-table td {
+      padding: 13px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .broker-table th {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      opacity: .7;
+    }
+
+    .broker-table td {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .info-box {
+      margin-top: 25px;
+      padding: 18px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.08);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 700px) {
+
+      .wallet-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wallet-meta-row {
+        flex-direction: column;
+        gap: 4px;
+      }
+
+    }
+  </style>
+</head>
+
+<body class="resources-detail-page">
+
+  <div class="container">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+      <div class="logo">
+
+        <a href="../index.html">
+
+          <img
+            src="../static/img/logo_do_site.png"
+            alt="Logo SER TRADER SEM RÉ"
+          />
+
+        </a>
+
+        <h1>SER TRADER SEM RÉ</h1>
+
+        <p>
+          DISCIPLINA • PSICOLOGIA • RESULTADOS
+        </p>
+
+      </div>
+
+
+      <nav aria-label="Navegação principal">
+
+        <p class="menu-title">
+          Menu principal
+        </p>
+
+        <div class="menu">
+
+          <a href="../navegacao/dashboard.html">
+            <i class="fa-solid fa-chart-line"></i>
+            Dashboard
+          </a>
+
+          <a href="../navegacao/cadastrar.html">
+            <i class="fa-solid fa-pen-to-square"></i>
+            Cadastrar
+          </a>
+
+          <a href="../navegacao/relatorios.html">
+            <i class="fa-solid fa-chart-column"></i>
+            Relatórios
+          </a>
+
+          <a href="../navegacao/recursos.html">
+            <i class="fa-solid fa-compass"></i>
+            Hub de Recursos
+          </a>
+
+        </div>
+
+
+        <p class="menu-title">
+          Páginas detalhadas
+        </p>
+
+        <div class="menu">
+
+          <a href="corretoras.html">
+            <i class="fa-solid fa-building-columns"></i>
+            Plataformas
+          </a>
+
+          <a
+            class="active"
+            href="wallets.html"
+            aria-current="page"
+          >
+            <i class="fa-solid fa-wallet"></i>
+            Carteiras
+          </a>
+
+          <a href="formacao.html">
+            <i class="fa-solid fa-graduation-cap"></i>
+            Formação
+          </a>
+
+          <a href="materiais.html">
+            <i class="fa-solid fa-folder-open"></i>
+            Materiais
+          </a>
+
+        </div>
+
+      </nav>
+
+
+      <div class="sidebar-note">
+
+        <strong>
+          <i class="fa-solid fa-bullseye"></i>
+          A nossa filosofia
+        </strong>
+
+        <p>
+          Superação, Equilíbrio e Resiliência.
+          Uma jornada real de aprendizagem,
+          disciplina e evolução.
+        </p>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+         ===================================================== -->
+
+    <main class="main">
+
+      <header class="header">
+
+        <div>
+
+          <h2>
+            Carteiras Eletrónicas
+          </h2>
+
+          <p>
+            Carteiras e métodos de pagamento utilizados
+            no universo do trading.
+          </p>
+
+        </div>
+
+
+        <button
+          id="helpBtn"
+          class="btn btn-outline"
+          type="button"
+        >
+
+          <i class="fa-solid fa-circle-question"></i>
+
+          Ajuda
+
+        </button>
+
+      </header>
+
+
+      <!-- ===================================================
+           INTRODUÇÃO
+           =================================================== -->
+
+      <section class="resource-section">
+
+        <div class="section-heading">
+
+          <h3>
+
+            <i class="fa-solid fa-wallet"></i>
+
+            Carteiras e formas de pagamento
+
+          </h3>
+
+        </div>
+
+
+        <p class="section-description">
+
+          Encontre diferentes carteiras eletrónicas e métodos
+          digitais utilizados para depósitos, levantamentos e
+          movimentação de fundos em plataformas de trading.
+
+        </p>
+
+
+        <!-- =================================================
+             FILTROS
+             ================================================= -->
+
+        <div class="wallet-filters">
+
+          <button
+            class="wallet-filter active"
+            data-filter="all"
+          >
+            Todas
+          </button>
+
+
+          <button
+            class="wallet-filter"
+            data-filter="ewallet"
+          >
+            E-Wallets
+          </button>
+
+
+          <button
+            class="wallet-filter"
+            data-filter="crypto"
+          >
+            Cripto
+          </button>
+
+
+          <button
+            class="wallet-filter"
+            data-filter="stablecoin"
+          >
+            Stablecoins
+          </button>
+
+
+          <button
+            class="wallet-filter"
+            data-filter="payment"
+          >
+            Pagamentos
+          </button>
+
+        </div>
+
+
+        <!-- =================================================
+             CARTEIRAS
+             ================================================= -->
+
+        <div class="wallet-grid">
+
+
+          <!-- =================================================
+               BINANCE
+               ================================================= -->
+
+          <article
+            class="card wallet-card"
+            data-type="ewallet crypto payment"
+          >
+
+            <div class="wallet-icon">
+
+              <i class="fa-brands fa-bitcoin"></i>
+
+            </div>
+
+
+            <h4>
+              Binance / Binance Pay
+            </h4>
+
+
+            <p class="wallet-description">
+
+              Ecossistema de criptomoedas que permite comprar,
+              vender, armazenar e transferir ativos digitais.
+              O Binance Pay permite pagamentos e transferências
+              entre utilizadores e comerciantes compatíveis.
+
+            </p>
+
+
+            <div class="wallet-meta">
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Tipo:
+                </strong>
+
+                <div class="wallet-tags">
+
+                  <span class="wallet-type">
+                    Cripto
+                  </span>
+
+                  <span class="wallet-type">
+                    E-Wallet
+                  </span>
+
+                  <span class="wallet-type">
+                    Pagamentos
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Plataformas:
+                </strong>
+
+                <div class="broker-list">
+
+                  <span class="broker">
+                    Plataformas cripto
+                  </span>
+
+                  <span class="broker">
+                    Algumas corretoras
+                  </span>
+
+                  <span class="broker">
+                    Depósitos via cripto
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="availability">
+
+              <strong>
+                Importante:
+              </strong>
+
+              A disponibilidade do Binance Pay ou de determinado
+              método de depósito depende da plataforma utilizada.
+
+            </div>
+
+
+            <span class="wallet-tag">
+              WAL-001 • CRYPTO / PAYMENT
+            </span>
+
+
+            <a
+              class="btn btn-save"
+              href="https://www.binance.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir Binance
+            </a>
+
+          </article>
+
+
+          <!-- =================================================
+               SKRILL
+               ================================================= -->
+
+          <article
+            class="card wallet-card"
+            data-type="ewallet payment"
+          >
+
+            <div class="wallet-icon">
+
+              <i class="fa-solid fa-wallet"></i>
+
+            </div>
+
+
+            <h4>
+              Skrill
+            </h4>
+
+
+            <p class="wallet-description">
+
+              Carteira eletrónica internacional utilizada para
+              pagamentos online, transferências e movimentação
+              de fundos em determinados serviços de trading.
+
+            </p>
+
+
+            <div class="wallet-meta">
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Tipo:
+                </strong>
+
+                <div class="wallet-tags">
+
+                  <span class="wallet-type">
+                    E-Wallet
+                  </span>
+
+                  <span class="wallet-type">
+                    Pagamentos
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Plataformas:
+                </strong>
+
+                <div class="broker-list">
+
+                  <span class="broker">
+                    Deriv
+                  </span>
+
+                  <span class="broker">
+                    IQ Option*
+                  </span>
+
+                  <span class="broker">
+                    Olymptrade*
+                  </span>
+
+                  <span class="broker">
+                    Pocket Option*
+                  </span>
+
+                  <span class="broker">
+                    ExpertOption
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="availability">
+
+              <strong>
+                Disponibilidade:
+              </strong>
+
+              Os métodos de depósito e levantamento podem variar
+              de acordo com a plataforma e a conta do utilizador.
+
+            </div>
+
+
+            <span class="wallet-tag">
+              WAL-002 • E-WALLET
+            </span>
+
+
+            <a
+              class="btn btn-save"
+              href="https://www.skrill.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir Skrill
+            </a>
+
+          </article>
+
+
+          <!-- =================================================
+               NETELLER
+               ================================================= -->
+
+          <article
+            class="card wallet-card"
+            data-type="ewallet payment"
+          >
+
+            <div class="wallet-icon">
+
+              <i class="fa-solid fa-money-bill-transfer"></i>
+
+            </div>
+
+
+            <h4>
+              Neteller
+            </h4>
+
+
+            <p class="wallet-description">
+
+              Serviço de pagamentos eletrónicos utilizado para
+              pagamentos online, transferências e movimentação
+              de fundos em plataformas compatíveis.
+
+            </p>
+
+
+            <div class="wallet-meta">
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Tipo:
+                </strong>
+
+                <div class="wallet-tags">
+
+                  <span class="wallet-type">
+                    E-Wallet
+                  </span>
+
+                  <span class="wallet-type">
+                    Pagamentos
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Plataformas:
+                </strong>
+
+                <div class="broker-list">
+
+                  <span class="broker">
+                    Deriv
+                  </span>
+
+                  <span class="broker">
+                    Olymptrade*
+                  </span>
+
+                  <span class="broker">
+                    Pocket Option*
+                  </span>
+
+                  <span class="broker">
+                    ExpertOption
+                  </span>
+
+                  <span class="broker">
+                    IQ Option*
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="availability">
+
+              <strong>
+                Disponibilidade:
+              </strong>
+
+              A disponibilidade do Neteller deve ser confirmada
+              diretamente na plataforma de trading antes do depósito.
+
+            </div>
+
+
+            <span class="wallet-tag">
+              WAL-003 • E-WALLET
+            </span>
+
+
+            <a
+              class="btn btn-save"
+              href="https://www.neteller.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir Neteller
+            </a>
+
+          </article>
+
+
+          <!-- =================================================
+               VOLET
+               ================================================= -->
+
+          <article
+            class="card wallet-card"
+            data-type="ewallet crypto payment"
+          >
+
+            <div class="wallet-icon">
+
+              <i class="fa-solid fa-money-check-dollar"></i>
+
+            </div>
+
+
+            <h4>
+              Volet
+            </h4>
+
+
+            <p class="wallet-description">
+
+              Plataforma de pagamentos que combina serviços
+              financeiros tradicionais com suporte a ativos digitais,
+              transferências e pagamentos online.
+
+            </p>
+
+
+            <div class="wallet-meta">
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Tipo:
+                </strong>
+
+                <div class="wallet-tags">
+
+                  <span class="wallet-type">
+                    E-Wallet
+                  </span>
+
+                  <span class="wallet-type">
+                    Cripto
+                  </span>
+
+                  <span class="wallet-type">
+                    Pagamentos
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Plataformas:
+                </strong>
+
+                <div class="broker-list">
+
+                  <span class="broker">
+                    IQ Option*
+                  </span>
+
+                  <span class="broker">
+                    Plataformas cripto
+                  </span>
+
+                  <span class="broker">
+                    Outros serviços*
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="availability">
+
+              <strong>
+                Disponibilidade:
+              </strong>
+
+              Os métodos disponíveis dependem da plataforma,
+              do tipo de saldo e da verificação da conta.
+
+            </div>
+
+
+            <span class="wallet-tag">
+              WAL-004 • FIAT / CRYPTO
+            </span>
+
+
+            <a
+              class="btn btn-save"
+              href="https://volet.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir Volet
+            </a>
+
+          </article>
+
+
+          <!-- =================================================
+               AIRTM
+               ================================================= -->
+
+          <article
+            class="card wallet-card"
+            data-type="ewallet payment crypto"
+          >
+
+            <div class="wallet-icon">
+
+              <i class="fa-solid fa-globe"></i>
+
+            </div>
+
+
+            <h4>
+              Airtm
+            </h4>
+
+
+            <p class="wallet-description">
+
+              Plataforma financeira digital utilizada para
+              movimentação internacional de fundos, pagamentos
+              e utilização de ativos digitais.
+
+            </p>
+
+
+            <div class="wallet-meta">
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Tipo:
+                </strong>
+
+                <div class="wallet-tags">
+
+                  <span class="wallet-type">
+                    E-Wallet
+                  </span>
+
+                  <span class="wallet-type">
+                    Digital
+                  </span>
+
+                  <span class="wallet-type">
+                    Cripto
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Plataformas:
+                </strong>
+
+                <div class="broker-list">
+
+                  <span class="broker">
+                    Plataformas compatíveis*
+                  </span>
+
+                  <span class="broker">
+                    Serviços cripto
+                  </span>
+
+                  <span class="broker">
+                    Outros serviços*
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="availability">
+
+              <strong>
+                Atenção:
+              </strong>
+
+              A compatibilidade com uma corretora deve ser
+              confirmada antes de efetuar qualquer operação.
+
+            </div>
+
+
+            <span class="wallet-tag">
+              WAL-005 • DIGITAL WALLET
+            </span>
+
+
+            <a
+              class="btn btn-save"
+              href="https://www.airtm.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir Airtm
+            </a>
+
+          </article>
+
+
+          <!-- =================================================
+               WEBMONEY
+               ================================================= -->
+
+          <article
+            class="card wallet-card"
+            data-type="ewallet payment"
+          >
+
+            <div class="wallet-icon">
+
+              <i class="fa-solid fa-earth-americas"></i>
+
+            </div>
+
+
+            <h4>
+              WebMoney
+            </h4>
+
+
+            <p class="wallet-description">
+
+              Sistema de pagamentos digitais utilizado para
+              transferências, pagamentos online e movimentação
+              de fundos em serviços compatíveis.
+
+            </p>
+
+
+            <div class="wallet-meta">
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Tipo:
+                </strong>
+
+                <div class="wallet-tags">
+
+                  <span class="wallet-type">
+                    E-Wallet
+                  </span>
+
+                  <span class="wallet-type">
+                    Pagamentos
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Plataformas:
+                </strong>
+
+                <div class="broker-list">
+
+                  <span class="broker">
+                    ExpertOption*
+                  </span>
+
+                  <span class="broker">
+                    Algumas plataformas*
+                  </span>
+
+                  <span class="broker">
+                    Serviços digitais
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="availability">
+
+              <strong>
+                Disponibilidade:
+              </strong>
+
+              A disponibilidade deve ser verificada no serviço
+              de destino antes da transferência.
+
+            </div>
+
+
+            <span class="wallet-tag">
+              WAL-006 • E-WALLET
+            </span>
+
+
+            <a
+              class="btn btn-save"
+              href="https://www.webmoney.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir WebMoney
+            </a>
+
+          </article>
+
+
+          <!-- =================================================
+               PERFECT MONEY
+               ================================================= -->
+
+          <article
+            class="card wallet-card"
+            data-type="ewallet payment"
+          >
+
+            <div class="wallet-icon">
+
+              <i class="fa-solid fa-dollar-sign"></i>
+
+            </div>
+
+
+            <h4>
+              Perfect Money
+            </h4>
+
+
+            <p class="wallet-description">
+
+              Sistema de pagamento digital utilizado em alguns
+              mercados para movimentação internacional de fundos
+              e pagamentos online.
+
+            </p>
+
+
+            <div class="wallet-meta">
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Tipo:
+                </strong>
+
+                <div class="wallet-tags">
+
+                  <span class="wallet-type">
+                    E-Wallet
+                  </span>
+
+                  <span class="wallet-type">
+                    Pagamentos
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Plataformas:
+                </strong>
+
+                <div class="broker-list">
+
+                  <span class="broker">
+                    Deriv*
+                  </span>
+
+                  <span class="broker">
+                    Binomo*
+                  </span>
+
+                  <span class="broker">
+                    Algumas plataformas*
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="availability">
+
+              <strong>
+                Atenção:
+              </strong>
+
+              Confirme se o serviço continua disponível na
+              plataforma escolhida antes de realizar uma operação.
+
+            </div>
+
+
+            <span class="wallet-tag">
+              WAL-007 • E-WALLET
+            </span>
+
+
+            <a
+              class="btn btn-save"
+              href="https://perfectmoney.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir Perfect Money
+            </a>
+
+          </article>
+
+
+          <!-- =================================================
+               USDT
+               ================================================= -->
+
+          <article
+            class="card wallet-card"
+            data-type="crypto stablecoin"
+          >
+
+            <div class="wallet-icon">
+
+              <i class="fa-solid fa-coins"></i>
+
+            </div>
+
+
+            <h4>
+              USDT — Tether
+            </h4>
+
+
+            <p class="wallet-description">
+
+              Stablecoin muito utilizada no mercado de criptomoedas
+              para transferência de valor entre exchanges, carteiras
+              e plataformas compatíveis.
+
+            </p>
+
+
+            <div class="wallet-meta">
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Tipo:
+                </strong>
+
+                <div class="wallet-tags">
+
+                  <span class="wallet-type">
+                    Stablecoin
+                  </span>
+
+                  <span class="wallet-type">
+                    Cripto
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Plataformas:
+                </strong>
+
+                <div class="broker-list">
+
+                  <span class="broker">
+                    Pocket Option
+                  </span>
+
+                  <span class="broker">
+                    Binomo
+                  </span>
+
+                  <span class="broker">
+                    Deriv*
+                  </span>
+
+                  <span class="broker">
+                    IQ Option*
+                  </span>
+
+                  <span class="broker">
+                    Outras*
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="availability">
+
+              <strong>
+                ⚠️ Atenção à rede:
+              </strong>
+
+              USDT pode existir em diferentes redes.
+              Antes de enviar, confirme exatamente a rede
+              suportada pela plataforma de destino.
+
+            </div>
+
+
+            <span class="wallet-tag">
+              WAL-008 • STABLECOIN
+            </span>
+
+
+            <a
+              class="btn btn-save"
+              href="https://tether.to/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver USDT / Tether
+            </a>
+
+          </article>
+
+
+          <!-- =================================================
+               TRUST WALLET
+               ================================================= -->
+
+          <article
+            class="card wallet-card"
+            data-type="crypto"
+          >
+
+            <div class="wallet-icon">
+
+              <i class="fa-solid fa-shield-halved"></i>
+
+            </div>
+
+
+            <h4>
+              Trust Wallet
+            </h4>
+
+
+            <p class="wallet-description">
+
+              Carteira de criptomoedas utilizada para armazenar
+              e transferir diferentes ativos digitais diretamente
+              através da carteira.
+
+            </p>
+
+
+            <div class="wallet-meta">
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Tipo:
+                </strong>
+
+                <div class="wallet-tags">
+
+                  <span class="wallet-type">
+                    Cripto
+                  </span>
+
+                  <span class="wallet-type">
+                    Non-Custodial
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Utilização:
+                </strong>
+
+                <div class="broker-list">
+
+                  <span class="broker">
+                    Transferências cripto
+                  </span>
+
+                  <span class="broker">
+                    Exchanges
+                  </span>
+
+                  <span class="broker">
+                    Plataformas compatíveis*
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="availability">
+
+              <strong>
+                Segurança:
+              </strong>
+
+              Nunca partilhe a frase de recuperação,
+              chave privada ou códigos de segurança.
+
+            </div>
+
+
+            <span class="wallet-tag">
+              WAL-009 • NON-CUSTODIAL
+            </span>
+
+
+            <a
+              class="btn btn-save"
+              href="https://trustwallet.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir Trust Wallet
+            </a>
+
+          </article>
+
+
+          <!-- =================================================
+               METAMASK
+               ================================================= -->
+
+          <article
+            class="card wallet-card"
+            data-type="crypto"
+          >
+
+            <div class="wallet-icon">
+
+              <i class="fa-brands fa-ethereum"></i>
+
+            </div>
+
+
+            <h4>
+              MetaMask
+            </h4>
+
+
+            <p class="wallet-description">
+
+              Carteira digital focada em ativos digitais e
+              aplicações blockchain, permitindo gerir e
+              transferir tokens compatíveis.
+
+            </p>
+
+
+            <div class="wallet-meta">
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Tipo:
+                </strong>
+
+                <div class="wallet-tags">
+
+                  <span class="wallet-type">
+                    Cripto
+                  </span>
+
+                  <span class="wallet-type">
+                    Web3
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Utilização:
+                </strong>
+
+                <div class="broker-list">
+
+                  <span class="broker">
+                    Exchanges
+                  </span>
+
+                  <span class="broker">
+                    Blockchain
+                  </span>
+
+                  <span class="broker">
+                    Serviços Web3
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="availability">
+
+              <strong>
+                Segurança:
+              </strong>
+
+              Confirme sempre a rede e o endereço antes
+              de realizar uma transferência.
+
+            </div>
+
+
+            <span class="wallet-tag">
+              WAL-010 • NON-CUSTODIAL
+            </span>
+
+
+            <a
+              class="btn btn-save"
+              href="https://metamask.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir MetaMask
+            </a>
+
+          </article>
+
+
+          <!-- =================================================
+               BITCOIN
+               ================================================= -->
+
+          <article
+            class="card wallet-card"
+            data-type="crypto"
+          >
+
+            <div class="wallet-icon">
+
+              <i class="fa-brands fa-bitcoin"></i>
+
+            </div>
+
+
+            <h4>
+              Bitcoin — BTC
+            </h4>
+
+
+            <p class="wallet-description">
+
+              Criptomoeda utilizada para transferências entre
+              carteiras e plataformas que aceitam BTC como
+              método de pagamento.
+
+            </p>
+
+
+            <div class="wallet-meta">
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Tipo:
+                </strong>
+
+                <div class="wallet-tags">
+
+                  <span class="wallet-type">
+                    Cripto
+                  </span>
+
+                  <span class="wallet-type">
+                    BTC
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Plataformas:
+                </strong>
+
+                <div class="broker-list">
+
+                  <span class="broker">
+                    Olymptrade*
+                  </span>
+
+                  <span class="broker">
+                    Binomo*
+                  </span>
+
+                  <span class="broker">
+                    Deriv*
+                  </span>
+
+                  <span class="broker">
+                    Outras*
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="availability">
+
+              <strong>
+                Atenção:
+              </strong>
+
+              Confirme a rede e o endereço de depósito
+              apresentado pela plataforma antes de enviar BTC.
+
+            </div>
+
+
+            <span class="wallet-tag">
+              WAL-011 • CRYPTO
+            </span>
+
+
+            <a
+              class="btn btn-save"
+              href="https://bitcoin.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver Bitcoin
+            </a>
+
+          </article>
+
+
+          <!-- =================================================
+               USDC
+               ================================================= -->
+
+          <article
+            class="card wallet-card"
+            data-type="crypto stablecoin"
+          >
+
+            <div class="wallet-icon">
+
+              <i class="fa-solid fa-circle-dollar-to-slot"></i>
+
+            </div>
+
+
+            <h4>
+              USDC
+            </h4>
+
+
+            <p class="wallet-description">
+
+              Stablecoin emitida pela Circle e utilizada em
+              diferentes redes blockchain para movimentação
+              de valor digital.
+
+            </p>
+
+
+            <div class="wallet-meta">
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Tipo:
+                </strong>
+
+                <div class="wallet-tags">
+
+                  <span class="wallet-type">
+                    Stablecoin
+                  </span>
+
+                  <span class="wallet-type">
+                    Cripto
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="wallet-meta-row">
+
+                <strong>
+                  Utilização:
+                </strong>
+
+                <div class="broker-list">
+
+                  <span class="broker">
+                    Exchanges
+                  </span>
+
+                  <span class="broker">
+                    Plataformas cripto
+                  </span>
+
+                  <span class="broker">
+                    Serviços compatíveis*
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="availability">
+
+              <strong>
+                Atenção:
+              </strong>
+
+              A plataforma de destino precisa suportar
+              USDC e a rede específica utilizada.
+
+            </div>
+
+
+            <span class="wallet-tag">
+              WAL-012 • STABLECOIN
+            </span>
+
+
+            <a
+              class="btn btn-save"
+              href="https://www.circle.com/usdc"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver USDC
+            </a>
+
+          </article>
+
+        </div>
+
+
+        <!-- =================================================
+             COMPATIBILIDADE
+             ================================================= -->
+
+        <section class="resource-section">
+
+          <div class="section-heading">
+
+            <h3>
+
+              <i class="fa-solid fa-link"></i>
+
+              Carteiras e plataformas
+
+            </h3>
+
+          </div>
+
+
+          <p class="section-description">
+
+            Alguns métodos de pagamento podem aparecer em
+            determinadas plataformas de trading. A disponibilidade
+            deve ser confirmada diretamente na área de depósito
+            ou levantamento da conta.
+
+          </p>
+
+
+          <div class="broker-table-wrapper">
+
+            <table class="broker-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Plataforma
+                  </th>
+
+                  <th>
+                    Métodos que podem aparecer
+                  </th>
+
+                  <th>
+                    Observação
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                <tr>
+
+                  <td>
+                    <strong>
+                      Deriv
+                    </strong>
+                  </td>
+
+                  <td>
+                    Skrill, Neteller, cartões,
+                    criptomoedas e outros métodos.
+                  </td>
+
+                  <td>
+                    Os métodos disponíveis dependem
+                    da conta e região.
+                  </td>
+
+                </tr>
+
+
+                <tr>
+
+                  <td>
+                    <strong>
+                      IQ Option
+                    </strong>
+                  </td>
+
+                  <td>
+                    E-wallets, cartões, transferências,
+                    criptomoedas e outros métodos.
+                  </td>
+
+                  <td>
+                    A disponibilidade pode variar
+                    conforme a conta.
+                  </td>
+
+                </tr>
+
+
+                <tr>
+
+                  <td>
+                    <strong>
+                      Pocket Option
+                    </strong>
+                  </td>
+
+                  <td>
+                    Criptomoedas, Skrill, Neteller
+                    e outros métodos digitais.
+                  </td>
+
+                  <td>
+                    Os métodos disponíveis podem mudar.
+                  </td>
+
+                </tr>
+
+
+                <tr>
+
+                  <td>
+                    <strong>
+                      Olymptrade
+                    </strong>
+                  </td>
+
+                  <td>
+                    Skrill, Neteller, Bitcoin
+                    e outros métodos.
+                  </td>
+
+                  <td>
+                    A disponibilidade depende
+                    da plataforma e da conta.
+                  </td>
+
+                </tr>
+
+
+                <tr>
+
+                  <td>
+                    <strong>
+                      Binomo
+                    </strong>
+                  </td>
+
+                  <td>
+                    Skrill, Neteller, Perfect Money,
+                    criptomoedas e outros métodos.
+                  </td>
+
+                  <td>
+                    Alguns métodos podem não estar
+                    disponíveis para todas as contas.
+                  </td>
+
+                </tr>
+
+
+                <tr>
+
+                  <td>
+                    <strong>
+                      ExpertOption
+                    </strong>
+                  </td>
+
+                  <td>
+                    Skrill, Neteller, WebMoney,
+                    cartões e outros.
+                  </td>
+
+                  <td>
+                    A plataforma disponibiliza
+                    diferentes sistemas de pagamento.
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             AVISO
+             ================================================= -->
+
+        <div class="notice">
+
+          <strong>
+
+            <i class="fa-solid fa-triangle-exclamation"></i>
+
+            Antes de fazer um depósito
+
+          </strong>
+
+
+          A disponibilidade dos métodos de pagamento pode
+          mudar conforme a plataforma, a conta, a verificação
+          e outros fatores.
+
+
+          <br /><br />
+
+
+          Antes de enviar dinheiro, confirme sempre:
+
+          <br />
+
+          • se a carteira aparece na área de depósito;<br />
+
+          • se também está disponível para levantamento;<br />
+
+          • as taxas aplicadas;<br />
+
+          • os limites mínimos e máximos;<br />
+
+          • a moeda suportada;<br />
+
+          • a rede blockchain, quando se tratar de cripto;<br />
+
+          • os requisitos de verificação.
+
+
+          <br /><br />
+
+
+          <strong>
+            Nunca envie uma criptomoeda utilizando uma rede
+            diferente daquela indicada pela plataforma de destino.
+          </strong>
+
+        </div>
+
+
+        <!-- =================================================
+             LEGENDA
+             ================================================= -->
+
+        <div class="info-box">
+
+          <strong>
+            Legenda
+          </strong>
+
+          <br /><br />
+
+          <strong>*</strong>
+          significa que a disponibilidade pode variar e deve
+          ser confirmada diretamente na plataforma.
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
+  <div data-footer></div>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
+  <script>
+
+    /* =======================================================
+       FILTROS DAS CARTEIRAS
+       ======================================================= */
+
+    const filterButtons =
+      document.querySelectorAll(".wallet-filter");
+
+    const walletCards =
+      document.querySelectorAll(".wallet-card");
+
+
+    filterButtons.forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        const filter =
+          button.dataset.filter;
+
+
+        /* Remover estado ativo */
+
+        filterButtons.forEach(btn => {
+
+          btn.classList.remove("active");
+
+        });
+
+
+        /* Ativar botão selecionado */
+
+        button.classList.add("active");
+
+
+        /* Mostrar / esconder carteiras */
+
+        walletCards.forEach(card => {
+
+          const types =
+            card.dataset.type || "";
+
+
+          if (
+            filter === "all" ||
+            types.includes(filter)
+          ) {
+
+            card.classList.remove("hidden");
+
+          } else {
+
+            card.classList.add("hidden");
+
+          }
+
+        });
+
+      });
+
+    });
+
+
+    /* =======================================================
+       BOTÃO DE AJUDA
+       ======================================================= */
+
+    const helpBtn =
+      document.getElementById("helpBtn");
+
+
+    if (helpBtn) {
+
+      helpBtn.addEventListener("click", () => {
+
+        alert(
+          "Escolha uma carteira compatível com a plataforma que utiliza. Antes de depositar ou levantar fundos, confirme sempre os métodos disponíveis diretamente na sua conta."
+        );
+
+      });
+
+    }
+
+  </script>
+
+</body>
+</html>

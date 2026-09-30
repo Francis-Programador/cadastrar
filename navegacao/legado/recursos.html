@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hub de recursos do SER TRADER SEM RÉ: corretoras, carteiras, formação, ferramentas e comunidade.">
+    <title>SER TRADER SEM RÉ | Hub de Recursos</title>
+
+    <!-- Estilos do Projeto -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="static/img/logo_do_site.png">
+    
+    <!-- Ícones e Fuentes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="resource-hub">
+    <div class="container">
+        <!-- BARRA LATERAL (SIDEBAR) -->
+        <aside class="sidebar">
+            <div class="logo">
+                <a href="index.html" class="logo-link" aria-label="Página Inicial SER TRADER SEM RÉ">
+                    <div class="logo-box">
+                        <img src="static/img/logo_do_site.png" alt="Logo SER TRADER SEM RÉ">
+                    </div>
+                </a>
+                <h1>SER TRADER SEM RÉ</h1>
+                <p>CENTRO DE OPERAÇÕES DA COMUNIDADE</p>
+            </div>
+
+            <nav class="menu" aria-label="Navegação principal">
+                <a href="index.html"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Dashboard</a>
+                <a href="cadastrar.html"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> Cadastrar</a>
+                <a href="relatorios.html"><i class="fa-solid fa-chart-column" aria-hidden="true"></i> Relatórios</a>
+                <a class="active" href="recursos.html" aria-current="page"><i class="fa-solid fa-compass" aria-hidden="true"></i> Hub de Recursos</a>
+            </nav>
+        </aside>
+
+        <!-- ÁREA PRINCIPAL -->
+        <main class="main">
+            <!-- CABEÇALHO DA PÁGINA -->
+            <header class="header">
+                <div>
+                    <h2>Portal de Recursos para Traders</h2>
+                    <span>Disciplina, gestão e execução para uma rotina mais consciente.</span>
+                </div>
+                <a class="btn btn-save" href="https://t.me/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-telegram" aria-hidden="true"></i> Comunidade no Telegram
+                </a>
+            </header>
+
+            <!-- 1. CORRETORAS RECOMENDADAS -->
+            <section class="brokers-section" id="corretoras" aria-labelledby="brokers-title">
+                <div class="card-header">
+                    <h3 id="brokers-title">Corretoras Recomendadas</h3>
+                </div>
+                <div class="dashboard-grid broker-grid">
+                    <article class="card broker-card">
+                        <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
+                        <h4>IQ Option</h4>
+                        <p>Plataforma para acompanhar e operar em diferentes mercados com facilidade.</p>
+                        <span class="broker-tag">Trading</span>
+                        <a class="btn btn-save" href="https://iqoption.com/" target="_blank" rel="noopener noreferrer">Acessar IQ Option</a>
+                    </article>
+
+                    <article class="card broker-card">
+                        <i class="fa-solid fa-globe" aria-hidden="true"></i>
+                        <h4>Deriv</h4>
+                        <p>Plataforma completa com índices sintéticos e mercados globais variados.</p>
+                        <span class="broker-tag">Trading</span>
+                        <a class="btn btn-save" href="https://deriv.com/" target="_blank" rel="noopener noreferrer">Acessar Deriv</a>
+                    </article>
+
+                    <article class="card broker-card">
+                        <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+                        <h4>Adax</h4>
+                        <p>Acesse a plataforma e confira os serviços operacionais disponíveis.</p>
+                        <span class="broker-tag">Plataforma</span>
+                        <a class="btn btn-save" href="https://adax.pro/" target="_blank" rel="noopener noreferrer">Acessar Adax</a>
+                    </article>
+
+                    <article class="card broker-card">
+                        <i class="fa-brands fa-bitcoin" aria-hidden="true"></i>
+                        <h4>Binance</h4>
+                        <p>Maior corretora global de criptoativos, P2P e soluções de pagamento.</p>
+                        <span class="broker-tag">Criptoativos</span>
+                        <a class="btn btn-save" href="https://www.binance.com/" target="_blank" rel="noopener noreferrer">Acessar Binance</a>
+                    </article>
+
+                    <article class="card broker-card">
+                        <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
+                        <h4>AvaTrade</h4>
+                        <p>Plataforma de negociação regulamentada para diferentes classes de ativos.</p>
+                        <span class="broker-tag">Trading</span>
+                        <a class="btn btn-save" href="https://www.avatrade.com/" target="_blank" rel="noopener noreferrer">Acessar AvaTrade</a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 2. WALLETS, DEPÓSITOS E SAQUES -->
+            <section class="wallets-section" id="carteiras" aria-labelledby="wallets-title">
+                <div class="card-header">
+                    <h3 id="wallets-title">Wallets, Depósitos e Saques</h3>
+                </div>
+                <div class="dashboard-grid wallet-grid">
+                    <div class="broker-links wallet-links" aria-label="Carteiras e métodos de pagamento">
+                        <a href="https://pay.binance.com/" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-bitcoin" aria-hidden="true"></i> Binance Pay
+                        </a>
+                        <a href="https://tether.to/" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-solid fa-coins" aria-hidden="true"></i> USDT / Tether
+                        </a>
+                        <a href="https://www.skrill.com/" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-solid fa-wallet" aria-hidden="true"></i> Skrill
+                        </a>
+                        <a href="https://www.neteller.com/" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-solid fa-wallet" aria-hidden="true"></i> Neteller
+                        </a>
+                    </div>
+
+                    <article class="card deposit-guide">
+                        <h4><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Guia de Depósito e Retirada Segura</h4>
+                        <ol>
+                            <li>Confira sempre se o domínio da corretora/wallet e a conta de destino são oficiais.</li>
+                            <li>Confirme o ativo, a rede (ex: TRC20, BEP20), o endereço e as taxas antes de enviar.</li>
+                            <li>Faça uma transferência de teste com um valor menor sempre que possível.</li>
+                            <li>Ative a Autenticação em Dois Fatores (2FA) e guarde com segurança os comprovantes.</li>
+                            <li>Consulte os prazos e as regras de liquidação diretamente com o provedor de serviços.</li>
+                        </ol>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 3. FORMAÇÃO, AULAS E CURSOS -->
+            <section class="courses-section" id="formacao" aria-labelledby="courses-title">
+                <div class="card-header">
+                    <h3 id="courses-title">Formação, Aulas e Cursos</h3>
+                </div>
+                <div class="dashboard-grid course-grid">
+                    <article class="card course-module">
+                        <h4><i class="fa-solid fa-seedling" aria-hidden="true"></i> Módulo Iniciante</h4>
+                        <p>Fundamentos essenciais para iniciar no mercado com método e clareza.</p>
+                        <ul>
+                            <li><a href="https://ser-trader-sem-re.netlify.app/videos" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-circle-play"></i> Introdução ao Price Action</a></li>
+                            <li><a href="https://ser-trader-sem-re.netlify.app/videos" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-circle-play"></i> Indicadores: Conceitos Básicos</a></li>
+                        </ul>
+                    </article>
+
+                    <article class="card course-module">
+                        <h4><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Módulo Intermediário</h4>
+                        <p>Estruture a sua leitura gráfica e mantenha o controle das suas operações.</p>
+                        <ul>
+                            <li><a href="https://ser-trader-sem-re.netlify.app/videos" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-circle-play"></i> Gestão de Risco na Prática</a></li>
+                            <li><a href="https://ser-trader-sem-re.netlify.app/videos" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-circle-play"></i> Operacional de Tendência</a></li>
+                        </ul>
+                    </article>
+
+                    <article class="card course-module">
+                        <h4><i class="fa-solid fa-bullseye" aria-hidden="true"></i> Módulo Avançado</h4>
+                        <p>Aprofunde a sua análise técnica, o planejamento e a revisão diária.</p>
+                        <ul>
+                            <li><a href="https://ser-trader-sem-re.netlify.app/videos" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-circle-play"></i> Price Action Aplicado</a></li>
+                            <li><a href="https://ser-trader-sem-re.netlify.app/videos" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-circle-play"></i> Plano e Execução de Estratégias</a></li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 4. MATERIAIS DE APOIO E FERRAMENTAS -->
+            <section class="tools-section" id="materiais" aria-labelledby="tools-title">
+                <div class="card-header">
+                    <h3 id="tools-title">Materiais de Apoio e Ferramentas</h3>
+                </div>
+                <div class="broker-links tools-links">
+                    <a href="https://ser-trader-sem-re.netlify.app/planilhas" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-table" aria-hidden="true"></i> Planilhas de Gerenciamento de Banca
+                    </a>
+                    <a href="https://ser-trader-sem-re.netlify.app/pdfs" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> E-books, Guias e Arquivos PDF
+                    </a>
+                    <a href="https://ser-trader-sem-re.netlify.app/scripts" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-code" aria-hidden="true"></i> Scripts Operacionais (Lua & MQL4)
+                    </a>
+                    <a href="https://ser-trader-sem-re.netlify.app/" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i> Calculadoras e Outras Ferramentas
+                    </a>
+                </div>
+            </section>
+
+            <!-- 5. COMUNIDADE E SUPORTE -->
+            <section class="community-section" id="comunidade" aria-labelledby="community-title">
+                <div class="card-header">
+                    <h3 id="community-title">Comunidade e Suporte</h3>
+                </div>
+                <div class="broker-links community-links">
+                    <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-youtube" aria-hidden="true"></i> Canal Oficial no YouTube
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-instagram" aria-hidden="true"></i> Perfil Oficial no Instagram
+                    </a>
+                    <a href="https://t.me/" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-telegram" aria-hidden="true"></i> Grupo VIP / Gratuito no Telegram
+                    </a>
+                    <a href="mailto:contato@ser-trader-sem-re.netlify.app">
+                        <i class="fa-solid fa-envelope" aria-hidden="true"></i> Suporte Direto por E-mail
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- RODAPÉ DA PÁGINA (FOOTER) -->
+    <footer class="site-footer footer">
+        <div class="footer-grid">
+            <div class="brand">
+                <a href="index.html" aria-label="Voltar ao Dashboard">
+                    <img src="static/img/logo_do_site.png" alt="SER TRADER SEM RÉ">
+                </a>
+                <div>
+                    <h4>SER TRADER SEM RÉ</h4>
+                    <p class="small">Conteúdo estritamente educacional. Negociar ativos financeiros envolve riscos elevados e pode resultar na perda parcial ou total do capital. Defina limites rígidos de gestão de risco e nunca opere com recursos que não possa perder.</p>
+                </div>
+            </div>
+            <nav class="links" aria-label="Links rápidos do rodapé">
+                <strong>Navegação</strong>
+                <a href="index.html">Dashboard</a>
+                <a href="cadastrar.html">Cadastrar Operação</a>
+                <a href="relatorios.html">Relatórios</a>
+                <a href="recursos.html">Hub de Recursos</a>
+            </nav>
+            <div>
+                <strong>Suporte</strong>
+                <p class="small"><a href="mailto:contato@ser-trader-sem-re.netlify.app">contato@ser-trader-sem-re.netlify.app</a></p>
+                <p class="small">&copy; 2026 SER TRADER SEM RÉ. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

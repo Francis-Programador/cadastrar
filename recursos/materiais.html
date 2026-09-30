@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>SER TRADER SEM RÉ | Materiais</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="recursos-pages.css" />
+
+  <link
+    rel="icon"
+    href="../static/img/logo_do_site.png"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <script
+    type="module"
+    src="../site-common.js"
+    defer
+  ></script>
+
+
+  <style>
+
+    /* =========================================================
+       MATERIAIS
+       ========================================================= */
+
+    .materials-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0;
+    }
+
+
+    .material-filter {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: inherit;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: .2s ease;
+    }
+
+
+    .material-filter:hover,
+    .material-filter.active {
+      background: rgba(0,190,255,.15);
+      border-color: rgba(0,200,255,.55);
+      transform: translateY(-1px);
+    }
+
+
+    /* =========================================================
+       GRID
+       ========================================================= */
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(290px, 1fr));
+
+      gap: 22px;
+    }
+
+
+    /* =========================================================
+       CARD
+       ========================================================= */
+
+    .material-card {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+
+    .material-card.hidden {
+      display: none;
+    }
+
+
+    /* =========================================================
+       IMAGEM / CAPA
+       ========================================================= */
+
+    .material-preview {
+      width: 100%;
+      height: 210px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(0,190,255,.10),
+          rgba(0,0,0,.25)
+        );
+
+      border-bottom:
+        1px solid rgba(255,255,255,.08);
+    }
+
+
+    .material-preview img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      display: block;
+
+      transition:
+        transform .3s ease,
+        filter .3s ease;
+    }
+
+
+    .material-card:hover
+    .material-preview img {
+
+      transform: scale(1.04);
+
+    }
+
+
+    /* Quando ainda não existir imagem */
+
+    .material-preview.no-image {
+
+      flex-direction: column;
+
+      gap: 10px;
+
+      color: rgba(255,255,255,.5);
+
+    }
+
+
+    .material-preview.no-image i {
+
+      font-size: 46px;
+
+    }
+
+
+    .material-preview.no-image span {
+
+      font-size: 12px;
+
+    }
+
+
+    /* =========================================================
+       CONTEÚDO
+       ========================================================= */
+
+    .material-content {
+
+      display: flex;
+      flex-direction: column;
+
+      flex: 1;
+
+      padding: 20px;
+
+    }
+
+
+    .material-icon {
+
+      width: 48px;
+      height: 48px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 12px;
+
+      margin-bottom: 14px;
+
+      background:
+        rgba(0,190,255,.10);
+
+      border:
+        1px solid rgba(0,190,255,.22);
+
+      font-size: 21px;
+
+    }
+
+
+    .material-card h4 {
+
+      margin:
+        0 0 9px;
+
+      font-size: 20px;
+
+      line-height: 1.3;
+
+    }
+
+
+    .material-description {
+
+      line-height: 1.65;
+
+      opacity: .82;
+
+      margin:
+        0 0 16px;
+
+    }
+
+
+    /* =========================================================
+       INFORMAÇÕES
+       ========================================================= */
+
+    .material-info {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 7px;
+
+      margin-bottom: 17px;
+
+    }
+
+
+    .material-type,
+    .material-level {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 5px;
+
+      padding:
+        6px 9px;
+
+      border-radius: 7px;
+
+      font-size: 11px;
+
+      font-weight: 700;
+
+      background:
+        rgba(255,255,255,.05);
+
+      border:
+        1px solid rgba(255,255,255,.08);
+
+    }
+
+
+    /* =========================================================
+       ID
+       ========================================================= */
+
+    .material-id {
+
+      margin-top: auto;
+
+      margin-bottom: 13px;
+
+      font-size: 11px;
+
+      letter-spacing: .5px;
+
+      opacity: .55;
+
+      font-weight: 700;
+
+    }
+
+
+    /* =========================================================
+       BOTÃO
+       ========================================================= */
+
+    .material-card .btn {
+
+      width: 100%;
+
+      text-align: center;
+
+    }
+
+
+    /* =========================================================
+       AVISO
+       ========================================================= */
+
+    .materials-notice {
+
+      margin-top: 30px;
+
+      padding: 20px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(0,190,255,.055);
+
+      border:
+        1px solid rgba(0,190,255,.15);
+
+      line-height: 1.7;
+
+    }
+
+
+    .materials-notice strong {
+
+      display: block;
+
+      margin-bottom: 7px;
+
+    }
+
+
+    /* =========================================================
+       RESPONSIVO
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      .materials-grid {
+
+        grid-template-columns: 1fr;
+
+      }
+
+
+      .material-preview {
+
+        height: 200px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body class="resources-detail-page">
+
+
+  <!-- =======================================================
+       CONTAINER
+       ======================================================= -->
+
+  <div class="container">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+
+      <div class="logo">
+
+        <a href="../index.html">
+
+          <img
+            src="../static/img/logo_do_site.png"
+            alt="Logo SER TRADER SEM RÉ"
+          />
+
+        </a>
+
+
+        <h1>
+          SER TRADER SEM RÉ
+        </h1>
+
+
+        <p>
+          DISCIPLINA • PSICOLOGIA • RESULTADOS
+        </p>
+
+      </div>
+
+
+      <nav aria-label="Navegação principal">
+
+
+        <p class="menu-title">
+          Menu principal
+        </p>
+
+
+        <div class="menu">
+
+          <a href="../navegacao/dashboard.html">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            Dashboard
+
+          </a>
+
+
+          <a href="../navegacao/cadastrar.html">
+
+            <i class="fa-solid fa-pen-to-square"></i>
+
+            Cadastrar
+
+          </a>
+
+
+          <a href="../navegacao/relatorios.html">
+
+            <i class="fa-solid fa-chart-column"></i>
+
+            Relatórios
+
+          </a>
+
+
+          <a href="../navegacao/recursos.html">
+
+            <i class="fa-solid fa-compass"></i>
+
+            Hub de Recursos
+
+          </a>
+
+        </div>
+
+
+        <p class="menu-title">
+          Páginas detalhadas
+        </p>
+
+
+        <div class="menu">
+
+
+          <a href="corretoras.html">
+
+            <i class="fa-solid fa-building-columns"></i>
+
+            Plataformas
+
+          </a>
+
+
+          <a href="wallets.html">
+
+            <i class="fa-solid fa-wallet"></i>
+
+            Carteiras
+
+          </a>
+
+
+          <a href="formacao.html">
+
+            <i class="fa-solid fa-graduation-cap"></i>
+
+            Formação
+
+          </a>
+
+
+          <a
+            class="active"
+            href="materiais.html"
+            aria-current="page"
+          >
+
+            <i class="fa-solid fa-folder-open"></i>
+
+            Materiais
+
+          </a>
+
+
+        </div>
+
+      </nav>
+
+
+      <div class="sidebar-note">
+
+        <strong>
+
+          <i class="fa-solid fa-bullseye"></i>
+
+          A nossa filosofia
+
+        </strong>
+
+
+        <p>
+
+          Superação, Equilíbrio e Resiliência.
+          Uma jornada real de aprendizagem,
+          disciplina e evolução.
+
+        </p>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="main">
+
+
+      <!-- ===================================================
+           HEADER
+           =================================================== -->
+
+      <header class="header">
+
+        <div>
+
+          <h2>
+            Materiais
+          </h2>
+
+          <p>
+            PDFs, áudios, vídeos, scripts, planilhas,
+            guias e outros materiais educativos.
+          </p>
+
+        </div>
+
+
+        <button
+          id="helpBtn"
+          class="btn btn-outline"
+          type="button"
+        >
+
+          <i class="fa-solid fa-circle-question"></i>
+
+          Ajuda
+
+        </button>
+
+      </header>
+
+
+      <!-- ===================================================
+           SEÇÃO
+           =================================================== -->
+
+      <section class="resource-section">
+
+
+        <div class="section-heading">
+
+          <h3>
+
+            <i class="fa-solid fa-folder-open"></i>
+
+            Biblioteca de materiais
+
+          </h3>
+
+        </div>
+
+
+        <p class="section-description">
+
+          Explore os materiais disponíveis para estudo,
+          organização, análise e desenvolvimento no trading.
+          Selecione um material para consultar as opções
+          disponíveis para adquiri-lo.
+
+        </p>
+
+
+        <!-- =================================================
+             FILTROS
+             ================================================= -->
+
+        <div class="materials-toolbar">
+
+
+          <button
+            class="material-filter active"
+            data-filter="all"
+            type="button"
+          >
+
+            Todos
+
+          </button>
+
+
+          <button
+            class="material-filter"
+            data-filter="pdf"
+            type="button"
+          >
+
+            <i class="fa-solid fa-file-pdf"></i>
+
+            PDFs
+
+          </button>
+
+
+          <button
+            class="material-filter"
+            data-filter="audio"
+            type="button"
+          >
+
+            <i class="fa-solid fa-headphones"></i>
+
+            Áudios
+
+          </button>
+
+
+          <button
+            class="material-filter"
+            data-filter="video"
+            type="button"
+          >
+
+            <i class="fa-solid fa-video"></i>
+
+            Vídeos
+
+          </button>
+
+
+          <button
+            class="material-filter"
+            data-filter="script"
+            type="button"
+          >
+
+            <i class="fa-solid fa-code"></i>
+
+            Scripts
+
+          </button>
+
+
+          <button
+            class="material-filter"
+            data-filter="planilha"
+            type="button"
+          >
+
+            <i class="fa-solid fa-table"></i>
+
+            Planilhas
+
+          </button>
+
+
+          <button
+            class="material-filter"
+            data-filter="guia"
+            type="button"
+          >
+
+            <i class="fa-solid fa-book"></i>
+
+            Guias
+
+          </button>
+
+
+        </div>
+
+
+        <!-- =================================================
+             GRID DOS MATERIAIS
+             ================================================= -->
+
+        <div class="materials-grid">
+
+
+          <!-- =================================================
+               01 - GUIA DE GESTÃO DE RISCO
+               ================================================= -->
+
+          <article
+            class="card material-card"
+            data-type="pdf guia"
+          >
+
+
+            <div class="material-preview">
+
+              <!-- TROQUE PELO CAMINHO DA FOTO DO MATERIAL -->
+
+              <img
+                src="../static/img/materiais/guia-gestao-risco.jpg"
+                alt="Capa do Guia de Gestão de Risco"
+                loading="lazy"
+              />
+
+            </div>
+
+
+            <div class="material-content">
+
+
+              <div class="material-icon">
+
+                <i class="fa-solid fa-file-pdf"></i>
+
+              </div>
+
+
+              <h4>
+                Guia de Gestão de Risco
+              </h4>
+
+
+              <p class="material-description">
+
+                Material dedicado à gestão de banca,
+                controlo de risco, disciplina e organização
+                das operações.
+
+              </p>
+
+
+              <div class="material-info">
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-file-pdf"></i>
+
+                  PDF
+
+                </span>
+
+
+                <span class="material-level">
+
+                  <i class="fa-solid fa-signal"></i>
+
+                  Iniciante
+
+                </span>
+
+              </div>
+
+
+              <span class="material-id">
+                ID: MAT-101
+              </span>
+
+
+              <button
+                class="btn btn-save"
+                type="button"
+                data-acquire-product="MAT-101"
+              >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Adquirir material
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- =================================================
+               02 - PLANILHA DE BANCA
+               ================================================= -->
+
+          <article
+            class="card material-card"
+            data-type="planilha"
+          >
+
+
+            <div class="material-preview">
+
+              <img
+                src="../static/img/materiais/planilha-banca.jpg"
+                alt="Pré-visualização da Planilha de Gestão de Banca"
+                loading="lazy"
+              />
+
+            </div>
+
+
+            <div class="material-content">
+
+
+              <div class="material-icon">
+
+                <i class="fa-solid fa-table"></i>
+
+              </div>
+
+
+              <h4>
+                Planilha de Gestão de Banca
+              </h4>
+
+
+              <p class="material-description">
+
+                Ferramenta para acompanhar banca,
+                entradas, risco, resultados e evolução
+                das operações.
+
+              </p>
+
+
+              <div class="material-info">
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-table"></i>
+
+                  PLANILHA
+
+                </span>
+
+
+                <span class="material-level">
+
+                  <i class="fa-solid fa-layer-group"></i>
+
+                  Gestão
+
+                </span>
+
+              </div>
+
+
+              <span class="material-id">
+                ID: MAT-102
+              </span>
+
+
+              <button
+                class="btn btn-save"
+                type="button"
+                data-acquire-product="MAT-102"
+              >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Adquirir material
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- =================================================
+               03 - MANUAL DE PRICE ACTION
+               ================================================= -->
+
+          <article
+            class="card material-card"
+            data-type="pdf guia"
+          >
+
+
+            <div class="material-preview">
+
+              <img
+                src="../static/img/materiais/manual-price-action.jpg"
+                alt="Capa do Manual de Price Action"
+                loading="lazy"
+              />
+
+            </div>
+
+
+            <div class="material-content">
+
+
+              <div class="material-icon">
+
+                <i class="fa-solid fa-chart-candlestick"></i>
+
+              </div>
+
+
+              <h4>
+                Manual de Price Action
+              </h4>
+
+
+              <p class="material-description">
+
+                Material de estudo sobre leitura de candles,
+                estrutura do preço, suportes, resistências
+                e comportamento do mercado.
+
+              </p>
+
+
+              <div class="material-info">
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-file-pdf"></i>
+
+                  PDF
+
+                </span>
+
+
+                <span class="material-level">
+
+                  <i class="fa-solid fa-signal"></i>
+
+                  Intermédio
+
+                </span>
+
+              </div>
+
+
+              <span class="material-id">
+                ID: MAT-103
+              </span>
+
+
+              <button
+                class="btn btn-save"
+                type="button"
+                data-acquire-product="MAT-103"
+              >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Adquirir material
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- =================================================
+               04 - GUIA DE INDICADORES
+               ================================================= -->
+
+          <article
+            class="card material-card"
+            data-type="pdf guia"
+          >
+
+
+            <div class="material-preview">
+
+              <img
+                src="../static/img/materiais/guia-indicadores.jpg"
+                alt="Capa do Guia de Indicadores"
+                loading="lazy"
+              />
+
+            </div>
+
+
+            <div class="material-content">
+
+
+              <div class="material-icon">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+              </div>
+
+
+              <h4>
+                Guia de Indicadores Técnicos
+              </h4>
+
+
+              <p class="material-description">
+
+                Guia de estudo sobre indicadores técnicos,
+                incluindo RSI, MACD, Bandas de Bollinger,
+                Estocástico e outros.
+
+              </p>
+
+
+              <div class="material-info">
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-file-pdf"></i>
+
+                  PDF
+
+                </span>
+
+
+                <span class="material-level">
+
+                  <i class="fa-solid fa-signal"></i>
+
+                  Intermédio
+
+                </span>
+
+              </div>
+
+
+              <span class="material-id">
+                ID: MAT-104
+              </span>
+
+
+              <button
+                class="btn btn-save"
+                type="button"
+                data-acquire-product="MAT-104"
+              >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Adquirir material
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- =================================================
+               05 - AULA EM ÁUDIO
+               ================================================= -->
+
+          <article
+            class="card material-card"
+            data-type="audio"
+          >
+
+
+            <div class="material-preview">
+
+              <img
+                src="../static/img/materiais/aula-audio-trading.jpg"
+                alt="Material em áudio sobre trading"
+                loading="lazy"
+              />
+
+            </div>
+
+
+            <div class="material-content">
+
+
+              <div class="material-icon">
+
+                <i class="fa-solid fa-headphones"></i>
+
+              </div>
+
+
+              <h4>
+                Aula em Áudio — Disciplina no Trading
+              </h4>
+
+
+              <p class="material-description">
+
+                Conteúdo em áudio para estudo sobre disciplina,
+                rotina, controlo emocional e preparação
+                antes das operações.
+
+              </p>
+
+
+              <div class="material-info">
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-headphones"></i>
+
+                  ÁUDIO
+
+                </span>
+
+
+                <span class="material-level">
+
+                  <i class="fa-solid fa-brain"></i>
+
+                  Psicologia
+
+                </span>
+
+              </div>
+
+
+              <span class="material-id">
+                ID: MAT-105
+              </span>
+
+
+              <button
+                class="btn btn-save"
+                type="button"
+                data-acquire-product="MAT-105"
+              >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Adquirir material
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- =================================================
+               06 - AULAS EM VÍDEO
+               ================================================= -->
+
+          <article
+            class="card material-card"
+            data-type="video"
+          >
+
+
+            <div class="material-preview">
+
+              <img
+                src="../static/img/materiais/aulas-video-trading.jpg"
+                alt="Aulas em vídeo sobre trading"
+                loading="lazy"
+              />
+
+            </div>
+
+
+            <div class="material-content">
+
+
+              <div class="material-icon">
+
+                <i class="fa-solid fa-video"></i>
+
+              </div>
+
+
+              <h4>
+                Aulas em Vídeo — Trading
+              </h4>
+
+
+              <p class="material-description">
+
+                Coleção de aulas em vídeo sobre análise,
+                estratégias, gestão de banca e rotina
+                de estudo.
+
+              </p>
+
+
+              <div class="material-info">
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-video"></i>
+
+                  VÍDEO
+
+                </span>
+
+
+                <span class="material-level">
+
+                  <i class="fa-solid fa-graduation-cap"></i>
+
+                  Formação
+
+                </span>
+
+              </div>
+
+
+              <span class="material-id">
+                ID: MAT-106
+              </span>
+
+
+              <button
+                class="btn btn-save"
+                type="button"
+                data-acquire-product="MAT-106"
+              >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Adquirir material
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- =================================================
+               07 - SCRIPTS
+               ================================================= -->
+
+          <article
+            class="card material-card"
+            data-type="script"
+          >
+
+
+            <div class="material-preview">
+
+              <img
+                src="../static/img/materiais/scripts-trading.jpg"
+                alt="Scripts para análise de trading"
+                loading="lazy"
+              />
+
+            </div>
+
+
+            <div class="material-content">
+
+
+              <div class="material-icon">
+
+                <i class="fa-solid fa-code"></i>
+
+              </div>
+
+
+              <h4>
+                Scripts de Trading
+              </h4>
+
+
+              <p class="material-description">
+
+                Scripts e ferramentas para plataformas
+                de análise, utilizados para estudo,
+                personalização de gráficos e identificação
+                de determinados padrões.
+
+              </p>
+
+
+              <div class="material-info">
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-code"></i>
+
+                  SCRIPT
+
+                </span>
+
+
+                <span class="material-level">
+
+                  <i class="fa-solid fa-microchip"></i>
+
+                  Ferramenta
+
+                </span>
+
+              </div>
+
+
+              <span class="material-id">
+                ID: MAT-107
+              </span>
+
+
+              <button
+                class="btn btn-save"
+                type="button"
+                data-acquire-product="MAT-107"
+              >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Adquirir material
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- =================================================
+               08 - CHECKLIST
+               ================================================= -->
+
+          <article
+            class="card material-card"
+            data-type="pdf guia"
+          >
+
+
+            <div class="material-preview">
+
+              <img
+                src="../static/img/materiais/checklist-operacao.jpg"
+                alt="Checklist de preparação para operações"
+                loading="lazy"
+              />
+
+            </div>
+
+
+            <div class="material-content">
+
+
+              <div class="material-icon">
+
+                <i class="fa-solid fa-list-check"></i>
+
+              </div>
+
+
+              <h4>
+                Checklist Pré-Operação
+              </h4>
+
+
+              <p class="material-description">
+
+                Lista de verificação para organizar a preparação
+                antes de uma operação e evitar decisões
+                impulsivas.
+
+              </p>
+
+
+              <div class="material-info">
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-file-pdf"></i>
+
+                  PDF
+
+                </span>
+
+
+                <span class="material-level">
+
+                  <i class="fa-solid fa-check-double"></i>
+
+                  Organização
+
+                </span>
+
+              </div>
+
+
+              <span class="material-id">
+                ID: MAT-108
+              </span>
+
+
+              <button
+                class="btn btn-save"
+                type="button"
+                data-acquire-product="MAT-108"
+              >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Adquirir material
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- =================================================
+               09 - ESTRATÉGIAS
+               ================================================= -->
+
+          <article
+            class="card material-card"
+            data-type="pdf guia"
+          >
+
+
+            <div class="material-preview">
+
+              <img
+                src="../static/img/materiais/estrategias-trading.jpg"
+                alt="Manual de estratégias de trading"
+                loading="lazy"
+              />
+
+            </div>
+
+
+            <div class="material-content">
+
+
+              <div class="material-icon">
+
+                <i class="fa-solid fa-chess"></i>
+
+              </div>
+
+
+              <h4>
+                Manual de Estratégias
+              </h4>
+
+
+              <p class="material-description">
+
+                Material de apoio para estudar diferentes
+                abordagens de análise técnica e construção
+                de planos de operação.
+
+              </p>
+
+
+              <div class="material-info">
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-file-pdf"></i>
+
+                  PDF
+
+                </span>
+
+
+                <span class="material-level">
+
+                  <i class="fa-solid fa-layer-group"></i>
+
+                  Estratégias
+
+                </span>
+
+              </div>
+
+
+              <span class="material-id">
+                ID: MAT-109
+              </span>
+
+
+              <button
+                class="btn btn-save"
+                type="button"
+                data-acquire-product="MAT-109"
+              >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Adquirir material
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- =================================================
+               10 - PSICOLOGIA
+               ================================================= -->
+
+          <article
+            class="card material-card"
+            data-type="pdf audio guia"
+          >
+
+
+            <div class="material-preview">
+
+              <img
+                src="../static/img/materiais/psicologia-trading.jpg"
+                alt="Material sobre psicologia no trading"
+                loading="lazy"
+              />
+
+            </div>
+
+
+            <div class="material-content">
+
+
+              <div class="material-icon">
+
+                <i class="fa-solid fa-brain"></i>
+
+              </div>
+
+
+              <h4>
+                Psicologia e Disciplina no Trading
+              </h4>
+
+
+              <p class="material-description">
+
+                Conteúdo dedicado à disciplina, controlo emocional,
+                gestão de perdas e construção de uma rotina
+                consistente de estudo.
+
+              </p>
+
+
+              <div class="material-info">
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-file-pdf"></i>
+
+                  PDF
+
+                </span>
+
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-headphones"></i>
+
+                  ÁUDIO
+
+                </span>
+
+              </div>
+
+
+              <span class="material-id">
+                ID: MAT-110
+              </span>
+
+
+              <button
+                class="btn btn-save"
+                type="button"
+                data-acquire-product="MAT-110"
+              >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Adquirir material
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- =================================================
+               11 - DIÁRIO DE TRADING
+               ================================================= -->
+
+          <article
+            class="card material-card"
+            data-type="planilha"
+          >
+
+
+            <div class="material-preview">
+
+              <img
+                src="../static/img/materiais/diario-trading.jpg"
+                alt="Diário de Trading"
+                loading="lazy"
+              />
+
+            </div>
+
+
+            <div class="material-content">
+
+
+              <div class="material-icon">
+
+                <i class="fa-solid fa-book"></i>
+
+              </div>
+
+
+              <h4>
+                Diário de Trading
+              </h4>
+
+
+              <p class="material-description">
+
+                Ferramenta para registar operações,
+                estratégias utilizadas, resultados,
+                erros e observações de cada sessão.
+
+              </p>
+
+
+              <div class="material-info">
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-table"></i>
+
+                  PLANILHA
+
+                </span>
+
+
+                <span class="material-level">
+
+                  <i class="fa-solid fa-chart-line"></i>
+
+                  Análise
+
+                </span>
+
+              </div>
+
+
+              <span class="material-id">
+                ID: MAT-111
+              </span>
+
+
+              <button
+                class="btn btn-save"
+                type="button"
+                data-acquire-product="MAT-111"
+              >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Adquirir material
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- =================================================
+               12 - GLOSSÁRIO
+               ================================================= -->
+
+          <article
+            class="card material-card"
+            data-type="pdf guia"
+          >
+
+
+            <div class="material-preview">
+
+              <img
+                src="../static/img/materiais/glossario-trading.jpg"
+                alt="Glossário de Trading"
+                loading="lazy"
+              />
+
+            </div>
+
+
+            <div class="material-content">
+
+
+              <div class="material-icon">
+
+                <i class="fa-solid fa-book-open"></i>
+
+              </div>
+
+
+              <h4>
+                Glossário do Trading
+              </h4>
+
+
+              <p class="material-description">
+
+                Dicionário com os principais termos utilizados
+                no trading, análise técnica, gestão de risco
+                e mercados financeiros.
+
+              </p>
+
+
+              <div class="material-info">
+
+                <span class="material-type">
+
+                  <i class="fa-solid fa-file-pdf"></i>
+
+                  PDF
+
+                </span>
+
+
+                <span class="material-level">
+
+                  <i class="fa-solid fa-graduation-cap"></i>
+
+                  Iniciante
+
+                </span>
+
+              </div>
+
+
+              <span class="material-id">
+                ID: MAT-112
+              </span>
+
+
+              <button
+                class="btn btn-save"
+                type="button"
+                data-acquire-product="MAT-112"
+              >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Adquirir material
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+        </div>
+
+
+        <!-- =================================================
+             AVISO
+             ================================================= -->
+
+        <div class="materials-notice">
+
+          <strong>
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            Como funciona a aquisição?
+
+          </strong>
+
+
+          Os materiais apresentados nesta página não possuem
+          links de download diretos.
+
+
+          <br /><br />
+
+
+          Ao clicar em
+          <strong>“Adquirir material”</strong>,
+          o sistema utilizará a identificação do material
+          selecionado para abrir a caixa de diálogo
+          correspondente.
+
+
+          <br /><br />
+
+
+          A imagem apresentada serve apenas como
+          <strong>pré-visualização do material</strong>.
+
+        </div>
+
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- =======================================================
+       FOOTER
+       ======================================================= -->
+
+  <div data-footer></div>
+
+
+  <!-- =======================================================
+       FILTROS
+       ======================================================= -->
+
+  <script>
+
+    const filterButtons =
+      document.querySelectorAll(
+        ".material-filter"
+      );
+
+
+    const materialCards =
+      document.querySelectorAll(
+        ".material-card"
+      );
+
+
+    filterButtons.forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const filter =
+            button.dataset.filter;
+
+
+          filterButtons.forEach(
+            btn => {
+
+              btn.classList.remove(
+                "active"
+              );
+
+            }
+          );
+
+
+          button.classList.add(
+            "active"
+          );
+
+
+          materialCards.forEach(
+            card => {
+
+              const types =
+                card.dataset.type || "";
+
+
+              if (
+                filter === "all" ||
+                types.includes(filter)
+              ) {
+
+                card.classList.remove(
+                  "hidden"
+                );
+
+              } else {
+
+                card.classList.add(
+                  "hidden"
+                );
+
+              }
+
+            }
+          );
+
+        }
+      );
+
+    });
+
+
+    /* =======================================================
+       BOTÃO DE AJUDA
+       ======================================================= */
+
+    const helpBtn =
+      document.getElementById(
+        "helpBtn"
+      );
+
+
+    if (helpBtn) {
+
+      helpBtn.addEventListener(
+        "click",
+        () => {
+
+          alert(
+            "Escolha um material para visualizar a sua prévia e, em seguida, clique em 'Adquirir material'. O sistema abrirá a janela de aquisição correspondente."
+          );
+
+        }
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>

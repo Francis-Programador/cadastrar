@@ -1,0 +1,2787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>SER TRADER SEM RÉ | Formação</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="recursos-pages.css" />
+
+  <link rel="icon" href="../static/img/logo_do_site.png" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <script type="module" src="../site-common.js" defer></script>
+
+  <style>
+    /* =========================================================
+       CATÁLOGO DE FORMAÇÕES
+       ========================================================= */
+
+    .formation-intro {
+      margin-bottom: 25px;
+    }
+
+    .formation-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px;
+      margin-top: 20px;
+      border: 1px solid rgba(0, 212, 255, 0.18);
+      border-radius: 14px;
+      background: rgba(0, 212, 255, 0.04);
+    }
+
+    .formation-notice i {
+      font-size: 20px;
+      margin-top: 2px;
+      color: #00d4ff;
+    }
+
+    .formation-notice strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .formation-notice p {
+      margin: 0;
+      line-height: 1.6;
+      opacity: 0.82;
+    }
+
+    /* FILTROS */
+
+    .formation-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0 28px;
+    }
+
+    .formation-filter {
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(255, 255, 255, 0.035);
+      color: inherit;
+      padding: 9px 15px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-family: inherit;
+    }
+
+    .formation-filter:hover,
+    .formation-filter.active {
+      border-color: rgba(0, 212, 255, 0.45);
+      background: rgba(0, 212, 255, 0.10);
+    }
+
+    /* CATEGORIAS */
+
+    .formation-category {
+      margin-top: 38px;
+    }
+
+    .formation-category:first-of-type {
+      margin-top: 0;
+    }
+
+    .formation-category-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .formation-category-heading i {
+      font-size: 19px;
+      color: #00d4ff;
+    }
+
+    .formation-category-heading h3 {
+      margin: 0;
+    }
+
+    .formation-category-description {
+      margin: -5px 0 18px;
+      opacity: 0.72;
+      line-height: 1.6;
+    }
+
+    /* GRID */
+
+    .formation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    /* CARD */
+
+    .formation-card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .formation-cover {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-bottom: 17px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(0, 212, 255, 0.08),
+          rgba(255, 255, 255, 0.02)
+        );
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .formation-cover img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .formation-cover-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      opacity: 0.55;
+    }
+
+    .formation-cover-placeholder i {
+      font-size: 34px;
+      color: #00d4ff;
+    }
+
+    .formation-cover-placeholder span {
+      font-size: 12px;
+    }
+
+    .formation-card-icon {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      background: rgba(0, 212, 255, 0.08);
+      color: #00d4ff;
+      font-size: 18px;
+    }
+
+    .formation-card h4 {
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .formation-card p {
+      line-height: 1.6;
+      opacity: 0.76;
+      margin-bottom: 14px;
+    }
+
+    .formation-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 15px;
+    }
+
+    .formation-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: rgba(255, 255, 255, 0.035);
+      opacity: 0.85;
+    }
+
+    .formation-card .btn {
+      margin-top: auto;
+      width: 100%;
+    }
+
+    .formation-level {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      background: rgba(0, 0, 0, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+    }
+
+    /* CONTADOR */
+
+    .formation-counter {
+      margin: 15px 0 0;
+      font-size: 13px;
+      opacity: 0.65;
+    }
+
+    /* ESCONDER FILTRO */
+
+    .formation-card.hidden {
+      display: none;
+    }
+
+    .formation-category.hidden {
+      display: none;
+    }
+
+    /* RESPONSIVO */
+
+    @media (max-width: 1100px) {
+      .formation-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .formation-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .formation-filters {
+        gap: 7px;
+      }
+
+      .formation-filter {
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+
+<body class="resources-detail-page">
+
+  <div class="container">
+
+    <!-- =========================================================
+         SIDEBAR
+         ========================================================= -->
+
+    <aside class="sidebar">
+
+      <div class="logo">
+
+        <a href="../index.html">
+          <img
+            src="../static/img/logo_do_site.png"
+            alt="Logo SER TRADER SEM RÉ"
+          />
+        </a>
+
+        <h1>SER TRADER SEM RÉ</h1>
+
+        <p>
+          DISCIPLINA • PSICOLOGIA • RESULTADOS
+        </p>
+
+      </div>
+
+      <nav aria-label="Navegação principal">
+
+        <p class="menu-title">
+          Menu principal
+        </p>
+
+        <div class="menu">
+
+          <a href="../navegacao/dashboard.html">
+            <i class="fa-solid fa-chart-line"></i>
+            Dashboard
+          </a>
+
+          <a href="../navegacao/cadastrar.html">
+            <i class="fa-solid fa-pen-to-square"></i>
+            Cadastrar
+          </a>
+
+          <a href="../navegacao/relatorios.html">
+            <i class="fa-solid fa-chart-column"></i>
+            Relatórios
+          </a>
+
+          <a href="../navegacao/recursos.html">
+            <i class="fa-solid fa-compass"></i>
+            Hub de Recursos
+          </a>
+
+        </div>
+
+        <p class="menu-title">
+          Páginas detalhadas
+        </p>
+
+        <div class="menu">
+
+          <a href="corretoras.html">
+            <i class="fa-solid fa-building-columns"></i>
+            Plataformas
+          </a>
+
+          <a href="wallets.html">
+            <i class="fa-solid fa-wallet"></i>
+            Carteiras
+          </a>
+
+          <a
+            class="active"
+            href="formacao.html"
+            aria-current="page"
+          >
+            <i class="fa-solid fa-graduation-cap"></i>
+            Formação
+          </a>
+
+          <a href="materiais.html">
+            <i class="fa-solid fa-folder-open"></i>
+            Materiais
+          </a>
+
+        </div>
+
+      </nav>
+
+      <div class="sidebar-note">
+
+        <strong>
+          <i class="fa-solid fa-bullseye"></i>
+          A nossa filosofia
+        </strong>
+
+        <p>
+          Superação, Equilíbrio e Resiliência.
+          Uma jornada real de aprendizagem,
+          disciplina e evolução.
+        </p>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =========================================================
+         CONTEÚDO PRINCIPAL
+         ========================================================= -->
+
+    <main class="main">
+
+      <header class="header">
+
+        <div>
+
+          <h2>
+            Formação
+          </h2>
+
+          <p>
+            Cursos, formações e trilhas de aprendizagem
+            para desenvolver conhecimento, prática e disciplina
+            no mercado.
+          </p>
+
+        </div>
+
+        <button
+          id="helpBtn"
+          class="btn btn-outline"
+          type="button"
+        >
+          <i class="fa-solid fa-circle-question"></i>
+          Ajuda
+        </button>
+
+      </header>
+
+
+      <!-- =======================================================
+           INTRODUÇÃO
+           ======================================================= -->
+
+      <section class="resource-section formation-intro">
+
+        <div class="section-heading">
+
+          <h3>
+            <i class="fa-solid fa-graduation-cap"></i>
+            Catálogo de cursos e formações
+          </h3>
+
+        </div>
+
+        <p class="section-description">
+
+          Explore as formações disponíveis na plataforma.
+          O catálogo reúne conteúdos destinados a diferentes
+          etapas da jornada de aprendizagem, desde os primeiros
+          conceitos até temas mais específicos relacionados à
+          análise, execução, gestão e desenvolvimento do trader.
+
+        </p>
+
+
+        <div class="formation-notice">
+
+          <i class="fa-solid fa-circle-info"></i>
+
+          <div>
+
+            <strong>
+              Como funciona o acesso?
+            </strong>
+
+            <p>
+              Cada formação possui um identificador próprio.
+              Ao selecionar <strong>Solicitar acesso</strong>,
+              será iniciado o processo de aquisição correspondente
+              àquela formação. As capas apresentadas servem apenas
+              como identificação e visualização do conteúdo.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             FILTROS
+             ===================================================== -->
+
+        <div class="formation-filters">
+
+          <button
+            type="button"
+            class="formation-filter active"
+            data-filter="todos"
+          >
+            Todos
+          </button>
+
+          <button
+            type="button"
+            class="formation-filter"
+            data-filter="fundamentos"
+          >
+            Fundamentos
+          </button>
+
+          <button
+            type="button"
+            class="formation-filter"
+            data-filter="plataformas"
+          >
+            Plataformas
+          </button>
+
+          <button
+            type="button"
+            class="formation-filter"
+            data-filter="analise"
+          >
+            Análise
+          </button>
+
+          <button
+            type="button"
+            class="formation-filter"
+            data-filter="estrategias"
+          >
+            Estratégias
+          </button>
+
+          <button
+            type="button"
+            class="formation-filter"
+            data-filter="gestao"
+          >
+            Gestão
+          </button>
+
+          <button
+            type="button"
+            class="formation-filter"
+            data-filter="psicologia"
+          >
+            Psicologia
+          </button>
+
+          <button
+            type="button"
+            class="formation-filter"
+            data-filter="pratica"
+          >
+            Prática
+          </button>
+
+        </div>
+
+        <p class="formation-counter">
+          <span id="formationCount">0</span>
+          formações disponíveis no catálogo.
+        </p>
+
+      </section>
+
+
+      <!-- =======================================================
+           01 — FUNDAMENTOS
+           ======================================================= -->
+
+      <section
+        class="formation-category"
+        data-category-section="fundamentos"
+      >
+
+        <div class="formation-category-heading">
+
+          <i class="fa-solid fa-seedling"></i>
+
+          <h3>
+            Fundamentos do Trading
+          </h3>
+
+        </div>
+
+        <p class="formation-category-description">
+
+          Formações destinadas a quem está a começar e precisa
+          compreender os conceitos essenciais antes de avançar
+          para conteúdos mais específicos.
+
+        </p>
+
+
+        <div class="formation-grid">
+
+
+          <!-- CUR-220 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="fundamentos"
+          >
+
+            <span class="formation-level">
+              INICIANTE
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-seedling"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-book-open"></i>
+            </div>
+
+            <h4>
+              Fundamentos do Trading
+            </h4>
+
+            <p>
+              Introdução ao universo do trading, conceitos básicos
+              de mercado, operações, gráficos, ativos, horários,
+              risco e organização da rotina de estudo.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                <i class="fa-solid fa-graduation-cap"></i>
+                Curso
+              </span>
+
+              <span class="formation-tag">
+                Base
+              </span>
+
+              <span class="formation-tag">
+                CUR-220
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-220"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-221 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="fundamentos"
+          >
+
+            <span class="formation-level">
+              INICIANTE
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+
+            <h4>
+              Introdução à Análise de Mercado
+            </h4>
+
+            <p>
+              Aprenda a observar o comportamento do mercado,
+              compreender movimentos de preço e construir uma
+              rotina básica de análise antes de tomar decisões.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Curso
+              </span>
+
+              <span class="formation-tag">
+                Iniciante
+              </span>
+
+              <span class="formation-tag">
+                CUR-221
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-221"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-222 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="fundamentos"
+          >
+
+            <span class="formation-level">
+              INICIANTE
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-language"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-book"></i>
+            </div>
+
+            <h4>
+              Glossário do Trader
+            </h4>
+
+            <p>
+              Formação dedicada aos principais termos utilizados
+              no mercado, nas plataformas de negociação e durante
+              a análise gráfica.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Curso
+              </span>
+
+              <span class="formation-tag">
+                Glossário
+              </span>
+
+              <span class="formation-tag">
+                CUR-222
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-222"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- =======================================================
+           02 — PLATAFORMAS
+           ======================================================= -->
+
+      <section
+        class="formation-category"
+        data-category-section="plataformas"
+      >
+
+        <div class="formation-category-heading">
+
+          <i class="fa-solid fa-desktop"></i>
+
+          <h3>
+            Plataformas e Corretoras
+          </h3>
+
+        </div>
+
+        <p class="formation-category-description">
+
+          Cursos práticos para aprender a utilizar plataformas,
+          conhecer as principais ferramentas disponíveis e
+          compreender o funcionamento básico de uma operação.
+
+        </p>
+
+
+        <div class="formation-grid">
+
+
+          <!-- CUR-230 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="plataformas"
+          >
+
+            <span class="formation-level">
+              INICIANTE
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-desktop"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-desktop"></i>
+            </div>
+
+            <h4>
+              Como Utilizar uma Plataforma de Trading
+            </h4>
+
+            <p>
+              Formação prática sobre a interface de uma plataforma,
+              localização dos gráficos, seleção de ativos, definição
+              de valores, períodos, operações e acompanhamento dos
+              resultados.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Prático
+              </span>
+
+              <span class="formation-tag">
+                Plataforma
+              </span>
+
+              <span class="formation-tag">
+                CUR-230
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-230"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-231 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="plataformas"
+          >
+
+            <span class="formation-level">
+              INICIANTE
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-building-columns"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-building-columns"></i>
+            </div>
+
+            <h4>
+              Conhecendo as Corretoras
+            </h4>
+
+            <p>
+              Formação sobre o funcionamento das corretoras,
+              características das plataformas, tipos de contas,
+              ambiente de negociação e cuidados básicos antes
+              de utilizar uma plataforma.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Corretoras
+              </span>
+
+              <span class="formation-tag">
+                Teórico
+              </span>
+
+              <span class="formation-tag">
+                CUR-231
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-231"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-232 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="plataformas"
+          >
+
+            <span class="formation-level">
+              INICIANTE
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-mobile-screen-button"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+            </div>
+
+            <h4>
+              Configuração e Organização da Plataforma
+            </h4>
+
+            <p>
+              Aprenda a organizar gráficos, períodos, ativos,
+              indicadores e elementos visuais para construir
+              um ambiente de análise mais limpo e funcional.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Configuração
+              </span>
+
+              <span class="formation-tag">
+                Prático
+              </span>
+
+              <span class="formation-tag">
+                CUR-232
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-232"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-233 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="plataformas"
+          >
+
+            <span class="formation-level">
+              INTERMEDIÁRIO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-arrow-right-arrow-left"></i>
+            </div>
+
+            <h4>
+              Fluxo entre Corretora e Carteira
+            </h4>
+
+            <p>
+              Formação sobre organização do processo de movimentação
+              financeira entre plataformas e carteiras, com atenção
+              à conferência de dados e à organização das transações.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Financeiro
+              </span>
+
+              <span class="formation-tag">
+                Intermediário
+              </span>
+
+              <span class="formation-tag">
+                CUR-233
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-233"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- =======================================================
+           03 — ANÁLISE TÉCNICA
+           ======================================================= -->
+
+      <section
+        class="formation-category"
+        data-category-section="analise"
+      >
+
+        <div class="formation-category-heading">
+
+          <i class="fa-solid fa-chart-line"></i>
+
+          <h3>
+            Análise Técnica
+          </h3>
+
+        </div>
+
+        <p class="formation-category-description">
+
+          Conteúdos dedicados à leitura de gráficos, comportamento
+          do preço, indicadores e construção de um processo de análise.
+
+        </p>
+
+
+        <div class="formation-grid">
+
+
+          <!-- CUR-240 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="analise"
+          >
+
+            <span class="formation-level">
+              INICIANTE
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-chart-area"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-chart-area"></i>
+            </div>
+
+            <h4>
+              Leitura de Gráficos
+            </h4>
+
+            <p>
+              Introdução à leitura dos gráficos, escalas de preço,
+              períodos, movimentos, regiões de interesse e principais
+              elementos utilizados durante uma análise.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Análise
+              </span>
+
+              <span class="formation-tag">
+                Base
+              </span>
+
+              <span class="formation-tag">
+                CUR-240
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-240"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-241 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="analise"
+          >
+
+            <span class="formation-level">
+              INTERMEDIÁRIO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-candlestick-chart"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-chart-simple"></i>
+            </div>
+
+            <h4>
+              Análise de Velas
+            </h4>
+
+            <p>
+              Estudo da estrutura das velas, abertura, fechamento,
+              máximas, mínimas, força compradora e vendedora e
+              interpretação do comportamento do preço.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Candles
+              </span>
+
+              <span class="formation-tag">
+                Análise
+              </span>
+
+              <span class="formation-tag">
+                CUR-241
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-241"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-242 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="analise"
+          >
+
+            <span class="formation-level">
+              INTERMEDIÁRIO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-wave-square"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-wave-square"></i>
+            </div>
+
+            <h4>
+              Indicadores Técnicos
+            </h4>
+
+            <p>
+              Formação sobre indicadores técnicos, sua finalidade,
+              interpretação, limitações e formas de utilização dentro
+              de um processo de análise estruturado.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Indicadores
+              </span>
+
+              <span class="formation-tag">
+                Análise
+              </span>
+
+              <span class="formation-tag">
+                CUR-242
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-242"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-243 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="analise"
+          >
+
+            <span class="formation-level">
+              INTERMEDIÁRIO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-arrows-to-circle"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-arrows-to-circle"></i>
+            </div>
+
+            <h4>
+              Suporte e Resistência
+            </h4>
+
+            <p>
+              Aprenda a identificar regiões relevantes no gráfico,
+              interpretar reações do preço e utilizar zonas de
+              suporte e resistência como parte da análise.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Price Action
+              </span>
+
+              <span class="formation-tag">
+                Zonas
+              </span>
+
+              <span class="formation-tag">
+                CUR-243
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-243"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-244 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="analise"
+          >
+
+            <span class="formation-level">
+              INTERMEDIÁRIO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-magnifying-glass-chart"></i>
+            </div>
+
+            <h4>
+              Price Action
+            </h4>
+
+            <p>
+              Estudo da movimentação do preço sem depender exclusivamente
+              de indicadores, explorando estrutura, candles, zonas,
+              impulsos, retrações e contexto.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Price Action
+              </span>
+
+              <span class="formation-tag">
+                Intermediário
+              </span>
+
+              <span class="formation-tag">
+                CUR-244
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-244"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- =======================================================
+           04 — ESTRATÉGIAS
+           ======================================================= -->
+
+      <section
+        class="formation-category"
+        data-category-section="estrategias"
+      >
+
+        <div class="formation-category-heading">
+
+          <i class="fa-solid fa-crosshairs"></i>
+
+          <h3>
+            Estratégias e Métodos
+          </h3>
+
+        </div>
+
+        <p class="formation-category-description">
+
+          Formações dedicadas ao estudo de diferentes métodos
+          de análise e execução. O objetivo é compreender a lógica
+          por trás de cada abordagem e desenvolver capacidade de
+          avaliação própria.
+
+        </p>
+
+
+        <div class="formation-grid">
+
+
+          <!-- CUR-250 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="estrategias"
+          >
+
+            <span class="formation-level">
+              INTERMEDIÁRIO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-arrow-trend-up"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-arrow-trend-up"></i>
+            </div>
+
+            <h4>
+              Estratégias de Retração
+            </h4>
+
+            <p>
+              Estudo de movimentos de impulso e retração, identificação
+              de regiões de interesse e construção de cenários para
+              análise de possíveis entradas.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Estratégia
+              </span>
+
+              <span class="formation-tag">
+                Retração
+              </span>
+
+              <span class="formation-tag">
+                CUR-250
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-250"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-251 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="estrategias"
+          >
+
+            <span class="formation-level">
+              INTERMEDIÁRIO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-arrows-rotate"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-arrows-rotate"></i>
+            </div>
+
+            <h4>
+              Estratégias de Reversão
+            </h4>
+
+            <p>
+              Formação sobre contexto de reversão, regiões importantes,
+              comportamento das velas e fatores que podem contribuir
+              para a construção de um cenário de mudança de direção.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Estratégia
+              </span>
+
+              <span class="formation-tag">
+                Reversão
+              </span>
+
+              <span class="formation-tag">
+                CUR-251
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-251"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-252 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="estrategias"
+          >
+
+            <span class="formation-level">
+              INTERMEDIÁRIO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-arrows-to-dot"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-arrows-to-dot"></i>
+            </div>
+
+            <h4>
+              Pullback e Continuação
+            </h4>
+
+            <p>
+              Estudo de movimentos de correção dentro de uma estrutura
+              de tendência, análise do contexto e identificação de
+              possíveis regiões de continuação.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Pullback
+              </span>
+
+              <span class="formation-tag">
+                Tendência
+              </span>
+
+              <span class="formation-tag">
+                CUR-252
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-252"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-253 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="estrategias"
+          >
+
+            <span class="formation-level">
+              AVANÇADO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-layer-group"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-layer-group"></i>
+            </div>
+
+            <h4>
+              Confluência de Estratégias
+            </h4>
+
+            <p>
+              Formação dedicada à combinação de diferentes elementos
+              de análise para construir cenários mais completos,
+              evitando depender de um único indicador ou sinal.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Avançado
+              </span>
+
+              <span class="formation-tag">
+                Confluência
+              </span>
+
+              <span class="formation-tag">
+                CUR-253
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-253"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- =======================================================
+           05 — GESTÃO
+           ======================================================= -->
+
+      <section
+        class="formation-category"
+        data-category-section="gestao"
+      >
+
+        <div class="formation-category-heading">
+
+          <i class="fa-solid fa-scale-balanced"></i>
+
+          <h3>
+            Gestão de Banca e Risco
+          </h3>
+
+        </div>
+
+        <p class="formation-category-description">
+
+          Conteúdos voltados para organização financeira, controle
+          de risco, tamanho das entradas, acompanhamento de resultados
+          e construção de uma rotina operacional disciplinada.
+
+        </p>
+
+
+        <div class="formation-grid">
+
+
+          <!-- CUR-260 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="gestao"
+          >
+
+            <span class="formation-level">
+              INICIANTE
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-wallet"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-wallet"></i>
+            </div>
+
+            <h4>
+              Gestão de Banca
+            </h4>
+
+            <p>
+              Fundamentos para organizar uma banca, definir limites,
+              acompanhar entradas e compreender a importância da
+              preservação do capital durante o processo de aprendizagem.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Gestão
+              </span>
+
+              <span class="formation-tag">
+                Banca
+              </span>
+
+              <span class="formation-tag">
+                CUR-260
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-260"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-261 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="gestao"
+          >
+
+            <span class="formation-level">
+              INTERMEDIÁRIO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-percent"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-percent"></i>
+            </div>
+
+            <h4>
+              Gestão de Risco por Entrada
+            </h4>
+
+            <p>
+              Aprenda a estruturar regras de exposição, definir limites
+              por operação e acompanhar o impacto das decisões sobre
+              o capital disponível.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Risco
+              </span>
+
+              <span class="formation-tag">
+                Gestão
+              </span>
+
+              <span class="formation-tag">
+                CUR-261
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-261"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-262 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="gestao"
+          >
+
+            <span class="formation-level">
+              INTERMEDIÁRIO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-list-check"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-list-check"></i>
+            </div>
+
+            <h4>
+              Diário e Controle de Operações
+            </h4>
+
+            <p>
+              Formação para registrar operações, acompanhar resultados,
+              identificar padrões de comportamento e utilizar dados
+              do próprio histórico como ferramenta de aprendizagem.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Diário
+              </span>
+
+              <span class="formation-tag">
+                Organização
+              </span>
+
+              <span class="formation-tag">
+                CUR-262
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-262"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-263 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="gestao"
+          >
+
+            <span class="formation-level">
+              AVANÇADO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-chart-pie"></i>
+            </div>
+
+            <h4>
+              Estatística e Análise de Resultados
+            </h4>
+
+            <p>
+              Aprenda a analisar o próprio histórico através de métricas,
+              frequência de resultados, desempenho por estratégia,
+              períodos e outros dados relevantes para avaliação.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Estatística
+              </span>
+
+              <span class="formation-tag">
+                Avançado
+              </span>
+
+              <span class="formation-tag">
+                CUR-263
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-263"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- =======================================================
+           06 — PSICOLOGIA
+           ======================================================= -->
+
+      <section
+        class="formation-category"
+        data-category-section="psicologia"
+      >
+
+        <div class="formation-category-heading">
+
+          <i class="fa-solid fa-brain"></i>
+
+          <h3>
+            Psicologia e Disciplina
+          </h3>
+
+        </div>
+
+        <p class="formation-category-description">
+
+          Formações relacionadas ao comportamento, disciplina,
+          preparação mental, tomada de decisão e construção de
+          uma rotina mais consciente durante o processo operacional.
+
+        </p>
+
+
+        <div class="formation-grid">
+
+
+          <!-- CUR-270 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="psicologia"
+          >
+
+            <span class="formation-level">
+              TODOS
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-brain"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+
+            <h4>
+              Psicologia do Trader
+            </h4>
+
+            <p>
+              Formação sobre emoções, expectativas, tomada de decisão,
+              comportamento diante de resultados positivos e negativos
+              e importância do equilíbrio durante a jornada.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Psicologia
+              </span>
+
+              <span class="formation-tag">
+                Disciplina
+              </span>
+
+              <span class="formation-tag">
+                CUR-270
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-270"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-271 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="psicologia"
+          >
+
+            <span class="formation-level">
+              TODOS
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <h4>
+              Disciplina Operacional
+            </h4>
+
+            <p>
+              Construção de regras pessoais, preparação antes da sessão,
+              cumprimento do plano e criação de mecanismos para evitar
+              decisões impulsivas durante a operação.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Disciplina
+              </span>
+
+              <span class="formation-tag">
+                Rotina
+              </span>
+
+              <span class="formation-tag">
+                CUR-271
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-271"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-272 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="psicologia"
+          >
+
+            <span class="formation-level">
+              INTERMEDIÁRIO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-stopwatch"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-stopwatch"></i>
+            </div>
+
+            <h4>
+              Controle da Impulsividade
+            </h4>
+
+            <p>
+              Formação focada na identificação de comportamentos
+              impulsivos, excesso de operações, tentativa de recuperação
+              imediata e quebra das próprias regras.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Psicologia
+              </span>
+
+              <span class="formation-tag">
+                Comportamento
+              </span>
+
+              <span class="formation-tag">
+                CUR-272
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-272"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- =======================================================
+           07 — PRÁTICA
+           ======================================================= -->
+
+      <section
+        class="formation-category"
+        data-category-section="pratica"
+      >
+
+        <div class="formation-category-heading">
+
+          <i class="fa-solid fa-flask"></i>
+
+          <h3>
+            Prática e Desenvolvimento
+          </h3>
+
+        </div>
+
+        <p class="formation-category-description">
+
+          Formações destinadas à aplicação prática do conhecimento,
+          construção de rotina, análise de operações e desenvolvimento
+          de um processo próprio de estudo.
+
+        </p>
+
+
+        <div class="formation-grid">
+
+
+          <!-- CUR-280 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="pratica"
+          >
+
+            <span class="formation-level">
+              INICIANTE
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-vial"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-vial"></i>
+            </div>
+
+            <h4>
+              Prática em Conta Demo
+            </h4>
+
+            <p>
+              Formação para transformar o conhecimento teórico em
+              prática através de sessões simuladas, observação do
+              mercado, registro das operações e análise posterior.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Prática
+              </span>
+
+              <span class="formation-tag">
+                Demo
+              </span>
+
+              <span class="formation-tag">
+                CUR-280
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-280"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-281 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="pratica"
+          >
+
+            <span class="formation-level">
+              INTERMEDIÁRIO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+
+            <h4>
+              Análise de Operações
+            </h4>
+
+            <p>
+              Aprenda a revisar operações realizadas, identificar
+              erros de execução, avaliar o contexto da entrada e
+              separar decisões planejadas de decisões impulsivas.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Prática
+              </span>
+
+              <span class="formation-tag">
+                Revisão
+              </span>
+
+              <span class="formation-tag">
+                CUR-281
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-281"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-282 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="pratica"
+          >
+
+            <span class="formation-level">
+              AVANÇADO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-route"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-route"></i>
+            </div>
+
+            <h4>
+              Construção do Plano Operacional
+            </h4>
+
+            <p>
+              Formação para organizar uma rotina completa de análise,
+              preparação, critérios de entrada, gestão, registro e
+              revisão das sessões realizadas.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Avançado
+              </span>
+
+              <span class="formation-tag">
+                Plano
+              </span>
+
+              <span class="formation-tag">
+                CUR-282
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-282"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+
+          <!-- CUR-283 -->
+
+          <article
+            class="card broker-card formation-card"
+            data-category="pratica"
+          >
+
+            <span class="formation-level">
+              AVANÇADO
+            </span>
+
+            <div class="formation-cover">
+
+              <div class="formation-cover-placeholder">
+
+                <i class="fa-solid fa-clipboard-check"></i>
+
+                <span>
+                  Capa da formação
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="formation-card-icon">
+              <i class="fa-solid fa-clipboard-check"></i>
+            </div>
+
+            <h4>
+              Checklist Pré-Operação
+            </h4>
+
+            <p>
+              Formação prática para criar uma sequência de verificação
+              antes de uma sessão, incluindo contexto de mercado,
+              estratégia, risco, disciplina e condições de execução.
+            </p>
+
+            <div class="formation-meta">
+
+              <span class="formation-tag">
+                Checklist
+              </span>
+
+              <span class="formation-tag">
+                Rotina
+              </span>
+
+              <span class="formation-tag">
+                CUR-283
+              </span>
+
+            </div>
+
+            <button
+              class="btn btn-save"
+              type="button"
+              data-acquire-product="CUR-283"
+            >
+              Solicitar acesso
+            </button>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- =======================================================
+           CAMINHO DE APRENDIZAGEM
+           ======================================================= -->
+
+      <section class="resource-section" style="margin-top: 45px;">
+
+        <div class="section-heading">
+
+          <h3>
+            <i class="fa-solid fa-road"></i>
+            Caminho de aprendizagem
+          </h3>
+
+        </div>
+
+        <p class="section-description">
+
+          O catálogo pode ser utilizado como uma jornada progressiva.
+          A recomendação é construir primeiro uma base de conhecimento,
+          aprender a utilizar corretamente as ferramentas, estudar
+          análise e gestão, desenvolver uma rotina de prática e,
+          posteriormente, aprofundar estratégias e aspectos psicológicos.
+
+        </p>
+
+
+        <div class="dashboard-grid broker-grid">
+
+          <article class="card broker-card">
+
+            <i class="fa-solid fa-1"></i>
+
+            <h4>
+              1. Aprender
+            </h4>
+
+            <p>
+              Conhecer os conceitos fundamentais, compreender o
+              funcionamento do mercado e familiarizar-se com
+              as principais ferramentas.
+            </p>
+
+          </article>
+
+
+          <article class="card broker-card">
+
+            <i class="fa-solid fa-2"></i>
+
+            <h4>
+              2. Praticar
+            </h4>
+
+            <p>
+              Aplicar o conhecimento em ambiente de estudo,
+              testar ideias, observar resultados e registrar
+              as operações realizadas.
+            </p>
+
+          </article>
+
+
+          <article class="card broker-card">
+
+            <i class="fa-solid fa-3"></i>
+
+            <h4>
+              3. Analisar
+            </h4>
+
+            <p>
+              Rever os resultados, identificar padrões, reconhecer
+              erros e compreender quais comportamentos precisam
+              ser corrigidos ou aprimorados.
+            </p>
+
+          </article>
+
+
+          <article class="card broker-card">
+
+            <i class="fa-solid fa-4"></i>
+
+            <h4>
+              4. Evoluir
+            </h4>
+
+            <p>
+              Desenvolver disciplina, aperfeiçoar o processo,
+              aprofundar conhecimentos e construir uma metodologia
+              de estudo cada vez mais organizada.
+            </p>
+
+          </article>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- FOOTER -->
+
+  <div data-footer></div>
+
+
+  <!-- =========================================================
+       FILTROS DOS CURSOS
+       ========================================================= -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const filters = document.querySelectorAll(".formation-filter");
+      const cards = document.querySelectorAll(".formation-card");
+      const categories = document.querySelectorAll(".formation-category");
+      const counter = document.getElementById("formationCount");
+
+      function updateCounter() {
+
+        const visibleCards = [...cards].filter(card => {
+          return !card.classList.contains("hidden");
+        });
+
+        if (counter) {
+          counter.textContent = visibleCards.length;
+        }
+      }
+
+      function applyFilter(filter) {
+
+        cards.forEach(card => {
+
+          const category = card.dataset.category;
+
+          if (filter === "todos" || category === filter) {
+            card.classList.remove("hidden");
+          } else {
+            card.classList.add("hidden");
+          }
+
+        });
+
+
+        categories.forEach(section => {
+
+          const sectionCategory =
+            section.dataset.categorySection;
+
+          if (filter === "todos" || sectionCategory === filter) {
+
+            section.classList.remove("hidden");
+
+          } else {
+
+            section.classList.add("hidden");
+
+          }
+
+        });
+
+
+        updateCounter();
+
+      }
+
+
+      filters.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+          filters.forEach(item => {
+            item.classList.remove("active");
+          });
+
+          button.classList.add("active");
+
+          const filter = button.dataset.filter;
+
+          applyFilter(filter);
+
+        });
+
+      });
+
+
+      updateCounter();
+
+    });
+  </script>
+
+</body>
+</html>

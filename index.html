@@ -1,437 +1,3794 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SER TRADER SEM RÉ | Dashboard</title>
+    <title>SER TRADER SEM RÉ | Disciplina • Psicologia • Resultados</title>
 
-    <link rel="stylesheet" href="styles.css">
+    <meta
+        name="description"
+        content="SER TRADER SEM RÉ — espaço de aprendizagem, organização, gestão, disciplina e desenvolvimento para quem está construindo a sua jornada no trading."
+    >
+
+    <meta
+        name="keywords"
+        content="trading, trader, educação trading, gestão de banca, gestão de risco, análise técnica, price action, disciplina, psicologia do trader, materiais de trading"
+    >
+
+    <meta name="theme-color" content="#08111f">
+
     <link rel="icon" href="static/img/logo_do_site.png">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-    <script src="dashboard.js" defer></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script type="module" src="site-common.js" defer></script>
+
+
+    <style>
+
+        /* =========================================================
+           SER TRADER SEM RÉ
+           INDEX / LANDING PAGE
+           ========================================================= */
+
+        :root {
+
+            --home-bg: #07101d;
+            --home-bg-soft: #0b1626;
+            --home-card: rgba(14, 27, 44, 0.88);
+            --home-card-strong: rgba(10, 22, 38, 0.96);
+
+            --home-border: rgba(255,255,255,0.08);
+            --home-border-hover: rgba(0, 212, 255, 0.34);
+
+            --home-blue: #00d4ff;
+            --home-blue-soft: #38bdf8;
+
+            --home-green: #22c55e;
+            --home-gold: #f59e0b;
+
+            --home-text: #f1f5f9;
+            --home-muted: #aebdce;
+            --home-muted-2: #7f91a7;
+
+            --home-radius: 22px;
+
+            --home-shadow:
+                0 25px 70px rgba(0,0,0,0.28);
+
+            --home-transition:
+                0.25s ease;
+        }
+
+
+        /* =========================================================
+           BASE
+           ========================================================= */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            margin: 0;
+
+            background:
+                radial-gradient(
+                    circle at 85% 5%,
+                    rgba(0,212,255,0.10),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 5% 40%,
+                    rgba(30,64,175,0.13),
+                    transparent 32%
+                ),
+
+                radial-gradient(
+                    circle at 80% 80%,
+                    rgba(34,197,94,0.05),
+                    transparent 25%
+                ),
+
+                var(--home-bg);
+
+            color: var(--home-text);
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+
+        .home-shell {
+            width: min(1240px, calc(100% - 32px));
+            margin: 0 auto;
+            padding-bottom: 60px;
+        }
+
+
+        /* =========================================================
+           HEADER
+           ========================================================= */
+
+        .home-header {
+
+            position: sticky;
+
+            top: 14px;
+
+            z-index: 100;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 25px;
+
+            padding: 13px 18px;
+
+            margin-top: 14px;
+
+            background:
+                rgba(7,16,29,0.84);
+
+            border:
+                1px solid var(--home-border);
+
+            border-radius: 18px;
+
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 15px 45px rgba(0,0,0,0.22);
+        }
+
+
+        .home-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            min-width: 0;
+        }
+
+
+        .home-brand img {
+
+            width: 48px;
+            height: 48px;
+
+            object-fit: cover;
+
+            border-radius: 12px;
+
+            flex-shrink: 0;
+
+            box-shadow:
+                0 0 25px rgba(0,212,255,0.10);
+        }
+
+
+        .home-brand-name {
+
+            display: block;
+
+            font-family: Manrope, sans-serif;
+
+            font-weight: 800;
+
+            font-size: 0.95rem;
+
+            letter-spacing: 0.03em;
+
+            color: var(--home-text);
+        }
+
+
+        .home-brand-sub {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--home-muted-2);
+
+            font-size: 0.69rem;
+
+            letter-spacing: 0.10em;
+
+            text-transform: uppercase;
+        }
+
+
+        .home-nav {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            flex-wrap: wrap;
+
+            gap: 5px;
+        }
+
+
+        .home-nav a {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 9px 11px;
+
+            color: var(--home-muted);
+
+            font-size: 0.82rem;
+
+            font-weight: 600;
+
+            border-radius: 10px;
+
+            transition: var(--home-transition);
+        }
+
+
+        .home-nav a:hover {
+
+            color: var(--home-text);
+
+            background:
+                rgba(255,255,255,0.055);
+        }
+
+
+        .home-nav .nav-main {
+
+            color: var(--home-blue);
+
+            background:
+                rgba(0,212,255,0.07);
+        }
+
+
+        .home-nav .nav-help {
+
+            margin-left: 5px;
+
+            color: var(--home-text);
+
+            border:
+                1px solid var(--home-border);
+        }
+
+
+        /* =========================================================
+           HERO
+           ========================================================= */
+
+        .home-hero {
+
+            position: relative;
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.25fr)
+                minmax(330px, 0.75fr);
+
+            gap: 24px;
+
+            align-items: stretch;
+
+            padding: 55px 0 25px;
+        }
+
+
+        .hero-main {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: clamp(28px, 5vw, 52px);
+
+            border:
+                1px solid var(--home-border);
+
+            border-radius:
+                30px;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(12,31,52,0.95),
+                    rgba(7,16,29,0.91)
+                );
+
+            box-shadow:
+                var(--home-shadow);
+        }
+
+
+        .hero-main::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 320px;
+            height: 320px;
+
+            top: -170px;
+            right: -120px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(0,212,255,0.08);
+
+            filter: blur(10px);
+
+            pointer-events: none;
+        }
+
+
+        .hero-main::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            bottom: -100px;
+            left: -80px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(30,64,175,0.10);
+
+            filter: blur(15px);
+
+            pointer-events: none;
+        }
+
+
+        .hero-eyebrow {
+
+            position: relative;
+            z-index: 2;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 12px;
+
+            border-radius: 999px;
+
+            color: var(--home-blue);
+
+            background:
+                rgba(0,212,255,0.07);
+
+            border:
+                1px solid rgba(0,212,255,0.18);
+
+            font-size: 0.73rem;
+
+            font-weight: 700;
+
+            letter-spacing: 0.08em;
+
+            text-transform: uppercase;
+        }
+
+
+        .hero-main h1 {
+
+            position: relative;
+            z-index: 2;
+
+            max-width: 850px;
+
+            margin: 21px 0 17px;
+
+            font-family: Manrope, sans-serif;
+
+            font-size:
+                clamp(2.5rem, 6vw, 5.1rem);
+
+            line-height: 0.99;
+
+            letter-spacing: -0.045em;
+
+            color: var(--home-text);
+        }
+
+
+        .hero-highlight {
+
+            color: var(--home-blue);
+
+            text-shadow:
+                0 0 35px rgba(0,212,255,0.12);
+        }
+
+
+        .hero-main > p {
+
+            position: relative;
+            z-index: 2;
+
+            max-width: 760px;
+
+            margin: 0;
+
+            color: var(--home-muted);
+
+            font-size:
+                clamp(1rem, 1.7vw, 1.13rem);
+
+            line-height: 1.75;
+        }
+
+
+        .hero-actions {
+
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-top: 28px;
+        }
+
+
+        .home-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            min-height: 48px;
+
+            padding: 0 18px;
+
+            border-radius: 12px;
+
+            font-family: inherit;
+
+            font-weight: 700;
+
+            font-size: 0.88rem;
+
+            transition:
+                transform var(--home-transition),
+                border-color var(--home-transition),
+                background var(--home-transition);
+        }
+
+
+        .home-btn:hover {
+
+            transform: translateY(-2px);
+        }
+
+
+        .home-btn-primary {
+
+            color: #03111b;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--home-blue),
+                    #67e8f9
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.12);
+
+            box-shadow:
+                0 12px 28px rgba(0,212,255,0.12);
+        }
+
+
+        .home-btn-secondary {
+
+            color: var(--home-text);
+
+            background:
+                rgba(255,255,255,0.045);
+
+            border:
+                1px solid var(--home-border);
+        }
+
+
+        .hero-principles {
+
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+
+            margin-top: 28px;
+        }
+
+
+        .principle {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 7px 10px;
+
+            border-radius: 9px;
+
+            color: var(--home-muted);
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid rgba(255,255,255,0.055);
+
+            font-size: 0.72rem;
+
+            font-weight: 600;
+        }
+
+
+        .principle i {
+
+            color: var(--home-blue);
+        }
+
+
+        /* =========================================================
+           HERO SIDE
+           ========================================================= */
+
+        .hero-side {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 15px;
+        }
+
+
+        .hero-side-card {
+
+            flex: 1;
+
+            padding: 24px;
+
+            border:
+                1px solid var(--home-border);
+
+            border-radius: 22px;
+
+            background:
+                var(--home-card);
+
+            box-shadow:
+                0 18px 45px rgba(0,0,0,0.18);
+        }
+
+
+        .hero-side-card.accent {
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(0,212,255,0.09),
+                    rgba(12,31,52,0.92)
+                );
+
+            border-color:
+                rgba(0,212,255,0.16);
+        }
+
+
+        .side-icon {
+
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-bottom: 17px;
+
+            border-radius: 12px;
+
+            color: var(--home-blue);
+
+            background:
+                rgba(0,212,255,0.08);
+
+            font-size: 18px;
+        }
+
+
+        .hero-side-card h2 {
+
+            margin: 0 0 9px;
+
+            font-family: Manrope, sans-serif;
+
+            font-size: 1.18rem;
+        }
+
+
+        .hero-side-card p {
+
+            margin: 0;
+
+            color: var(--home-muted);
+
+            line-height: 1.65;
+
+            font-size: 0.9rem;
+        }
+
+
+        .side-list {
+
+            display: grid;
+
+            gap: 11px;
+
+            margin: 18px 0 0;
+
+            padding: 0;
+
+            list-style: none;
+        }
+
+
+        .side-list li {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 10px;
+
+            color: var(--home-muted);
+
+            line-height: 1.45;
+
+            font-size: 0.84rem;
+        }
+
+
+        .side-list i {
+
+            margin-top: 3px;
+
+            color: var(--home-green);
+        }
+
+
+        /* =========================================================
+           SECTION GLOBAL
+           ========================================================= */
+
+        .home-section {
+
+            padding-top: 58px;
+        }
+
+
+        .section-heading-home {
+
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .section-heading-home > div:first-child {
+
+            max-width: 780px;
+        }
+
+
+        .section-kicker {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 8px;
+
+            color: var(--home-blue);
+
+            font-size: 0.72rem;
+
+            font-weight: 800;
+
+            letter-spacing: 0.10em;
+
+            text-transform: uppercase;
+        }
+
+
+        .section-heading-home h2 {
+
+            margin: 0 0 8px;
+
+            font-family: Manrope, sans-serif;
+
+            font-size:
+                clamp(1.7rem, 3vw, 2.45rem);
+
+            letter-spacing: -0.025em;
+        }
+
+
+        .section-heading-home p {
+
+            margin: 0;
+
+            color: var(--home-muted);
+
+            line-height: 1.65;
+        }
+
+
+        .section-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            white-space: nowrap;
+
+            color: var(--home-blue);
+
+            font-size: 0.84rem;
+
+            font-weight: 700;
+        }
+
+
+        .section-link:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================================================
+           PILARES
+           ========================================================= */
+
+        .pillars-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 16px;
+        }
+
+
+        .pillar-card {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 27px;
+
+            border:
+                1px solid var(--home-border);
+
+            border-radius: var(--home-radius);
+
+            background:
+                var(--home-card);
+
+            transition:
+                transform var(--home-transition),
+                border-color var(--home-transition);
+        }
+
+
+        .pillar-card:hover {
+
+            transform: translateY(-4px);
+
+            border-color:
+                var(--home-border-hover);
+        }
+
+
+        .pillar-letter {
+
+            position: absolute;
+
+            top: -16px;
+            right: 12px;
+
+            font-family: Manrope, sans-serif;
+
+            font-size: 7rem;
+
+            font-weight: 800;
+
+            line-height: 1;
+
+            color:
+                rgba(0,212,255,0.035);
+
+            user-select: none;
+        }
+
+
+        .pillar-icon {
+
+            position: relative;
+
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-bottom: 18px;
+
+            border-radius: 13px;
+
+            color: var(--home-blue);
+
+            background:
+                rgba(0,212,255,0.075);
+        }
+
+
+        .pillar-card h3 {
+
+            position: relative;
+
+            margin: 0 0 9px;
+
+            font-size: 1.18rem;
+        }
+
+
+        .pillar-card p {
+
+            position: relative;
+
+            margin: 0;
+
+            color: var(--home-muted);
+
+            line-height: 1.68;
+
+            font-size: 0.9rem;
+        }
+
+
+        /* =========================================================
+           HUB DE RECURSOS
+           ========================================================= */
+
+        .resource-grid-home {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 15px;
+        }
+
+
+        .resource-home-card {
+
+            display: flex;
+
+            flex-direction: column;
+
+            min-height: 225px;
+
+            padding: 23px;
+
+            border:
+                1px solid var(--home-border);
+
+            border-radius: 19px;
+
+            background:
+                var(--home-card);
+
+            transition:
+                transform var(--home-transition),
+                border-color var(--home-transition),
+                background var(--home-transition);
+        }
+
+
+        .resource-home-card:hover {
+
+            transform: translateY(-4px);
+
+            border-color:
+                var(--home-border-hover);
+
+            background:
+                rgba(15,31,50,0.96);
+        }
+
+
+        .resource-home-icon {
+
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-bottom: 17px;
+
+            border-radius: 11px;
+
+            color: var(--home-blue);
+
+            background:
+                rgba(0,212,255,0.07);
+
+            font-size: 17px;
+        }
+
+
+        .resource-home-card h3 {
+
+            margin: 0 0 8px;
+
+            font-size: 1.03rem;
+        }
+
+
+        .resource-home-card p {
+
+            margin: 0;
+
+            color: var(--home-muted);
+
+            line-height: 1.6;
+
+            font-size: 0.84rem;
+        }
+
+
+        .resource-home-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-top: auto;
+            padding-top: 18px;
+
+            color: var(--home-blue);
+
+            font-size: 0.8rem;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================================================
+           FORMAÇÃO
+           ========================================================= */
+
+        .formation-preview {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 0.8fr)
+                minmax(0, 1.2fr);
+
+            gap: 18px;
+
+            padding: 27px;
+
+            border:
+                1px solid var(--home-border);
+
+            border-radius: 24px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    rgba(0,212,255,0.055),
+                    rgba(14,27,44,0.9)
+                );
+        }
+
+
+        .formation-intro-home {
+
+            padding: 5px;
+        }
+
+
+        .formation-intro-home h3 {
+
+            margin: 0 0 12px;
+
+            font-family: Manrope, sans-serif;
+
+            font-size: 1.55rem;
+        }
+
+
+        .formation-intro-home p {
+
+            margin: 0;
+
+            color: var(--home-muted);
+
+            line-height: 1.7;
+
+            font-size: 0.91rem;
+        }
+
+
+        .formation-topics {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 10px;
+        }
+
+
+        .formation-topic {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 10px;
+
+            padding: 13px;
+
+            border-radius: 12px;
+
+            border:
+                1px solid rgba(255,255,255,0.06);
+
+            background:
+                rgba(255,255,255,0.025);
+        }
+
+
+        .formation-topic i {
+
+            color: var(--home-blue);
+
+            margin-top: 2px;
+        }
+
+
+        .formation-topic strong {
+
+            display: block;
+
+            margin-bottom: 3px;
+
+            font-size: 0.82rem;
+        }
+
+
+        .formation-topic span {
+
+            color: var(--home-muted-2);
+
+            font-size: 0.73rem;
+
+            line-height: 1.45;
+        }
+
+
+        /* =========================================================
+           MATERIAIS
+           ========================================================= */
+
+        .materials-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 15px;
+        }
+
+
+        .material-card {
+
+            padding: 22px;
+
+            border:
+                1px solid var(--home-border);
+
+            border-radius: 18px;
+
+            background:
+                var(--home-card);
+        }
+
+
+        .material-type {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            padding: 5px 8px;
+
+            border-radius: 7px;
+
+            color: var(--home-blue);
+
+            background:
+                rgba(0,212,255,0.065);
+
+            font-size: 0.66rem;
+
+            font-weight: 800;
+
+            letter-spacing: 0.06em;
+
+            text-transform: uppercase;
+        }
+
+
+        .material-card h3 {
+
+            margin: 14px 0 8px;
+
+            font-size: 1rem;
+        }
+
+
+        .material-card p {
+
+            margin: 0;
+
+            color: var(--home-muted);
+
+            line-height: 1.6;
+
+            font-size: 0.83rem;
+        }
+
+
+        /* =========================================================
+           JORNADA
+           ========================================================= */
+
+        .journey {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 0;
+
+            border:
+                1px solid var(--home-border);
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            background:
+                var(--home-card);
+        }
+
+
+        .journey-step {
+
+            position: relative;
+
+            padding: 25px;
+
+            border-right:
+                1px solid var(--home-border);
+        }
+
+
+        .journey-step:last-child {
+
+            border-right: none;
+        }
+
+
+        .journey-number {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 35px;
+            height: 35px;
+
+            margin-bottom: 17px;
+
+            border-radius: 10px;
+
+            color: #02121b;
+
+            background:
+                var(--home-blue);
+
+            font-weight: 800;
+
+            font-size: 0.82rem;
+        }
+
+
+        .journey-step h3 {
+
+            margin: 0 0 8px;
+
+            font-size: 1rem;
+        }
+
+
+        .journey-step p {
+
+            margin: 0;
+
+            color: var(--home-muted);
+
+            line-height: 1.6;
+
+            font-size: 0.8rem;
+        }
+
+
+        /* =========================================================
+           AVISO
+           ========================================================= */
+
+        .risk-box {
+
+            display: grid;
+
+            grid-template-columns: auto 1fr;
+
+            gap: 16px;
+
+            padding: 23px;
+
+            border:
+                1px solid rgba(245,158,11,0.20);
+
+            border-radius: 20px;
+
+            background:
+                rgba(245,158,11,0.045);
+        }
+
+
+        .risk-icon {
+
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 12px;
+
+            color: var(--home-gold);
+
+            background:
+                rgba(245,158,11,0.08);
+        }
+
+
+        .risk-box h3 {
+
+            margin: 0 0 7px;
+
+            font-size: 1rem;
+        }
+
+
+        .risk-box p {
+
+            margin: 0;
+
+            color: var(--home-muted);
+
+            line-height: 1.65;
+
+            font-size: 0.83rem;
+        }
+
+
+        /* =========================================================
+           APOIO
+           ========================================================= */
+
+        .support-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 16px;
+        }
+
+
+        .support-card {
+
+            padding: 27px;
+
+            border:
+                1px solid var(--home-border);
+
+            border-radius: 22px;
+
+            background:
+                var(--home-card);
+        }
+
+
+        .support-card h3 {
+
+            margin: 0 0 9px;
+
+            font-family: Manrope, sans-serif;
+
+            font-size: 1.25rem;
+        }
+
+
+        .support-card p {
+
+            margin: 0 0 20px;
+
+            color: var(--home-muted);
+
+            line-height: 1.65;
+
+            font-size: 0.88rem;
+        }
+
+
+        .support-actions {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+
+        /* =========================================================
+           FAQ
+           ========================================================= */
+
+        .faq-list {
+
+            display: grid;
+
+            gap: 10px;
+
+            max-width: 950px;
+        }
+
+
+        .faq-item {
+
+            border:
+                1px solid var(--home-border);
+
+            border-radius: 16px;
+
+            background:
+                var(--home-card);
+
+            overflow: hidden;
+        }
+
+
+        .faq-item summary {
+
+            cursor: pointer;
+
+            list-style: none;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 18px 20px;
+
+            font-weight: 700;
+
+            font-size: 0.9rem;
+        }
+
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+
+        .faq-item summary::after {
+
+            content: "+";
+
+            color: var(--home-blue);
+
+            font-size: 1.2rem;
+
+            flex-shrink: 0;
+        }
+
+
+        .faq-item[open] summary::after {
+            content: "−";
+        }
+
+
+        .faq-answer {
+
+            padding: 0 20px 19px;
+
+            color: var(--home-muted);
+
+            line-height: 1.65;
+
+            font-size: 0.83rem;
+        }
+
+
+        /* =========================================================
+           FINAL CTA
+           ========================================================= */
+
+        .final-cta {
+
+            position: relative;
+
+            overflow: hidden;
+
+            margin-top: 60px;
+
+            padding:
+                clamp(30px, 5vw, 55px);
+
+            text-align: center;
+
+            border:
+                1px solid rgba(0,212,255,0.16);
+
+            border-radius: 28px;
+
+            background:
+
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(0,212,255,0.10),
+                    transparent 55%
+                ),
+
+                var(--home-card-strong);
+
+            box-shadow:
+                var(--home-shadow);
+        }
+
+
+        .final-cta h2 {
+
+            max-width: 720px;
+
+            margin: 0 auto 12px;
+
+            font-family: Manrope, sans-serif;
+
+            font-size:
+                clamp(1.8rem, 4vw, 2.8rem);
+
+            letter-spacing: -0.03em;
+        }
+
+
+        .final-cta p {
+
+            max-width: 680px;
+
+            margin: 0 auto;
+
+            color: var(--home-muted);
+
+            line-height: 1.7;
+        }
+
+
+        .final-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 11px;
+
+            margin-top: 24px;
+        }
+
+
+        /* =========================================================
+           FOOTER
+           ========================================================= */
+
+        .home-footer-space {
+
+            padding-top: 20px;
+        }
+
+
+        /* =========================================================
+           ANIMAÇÃO
+           ========================================================= */
+
+        @keyframes homeFadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(12px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        .hero-main,
+        .hero-side-card,
+        .pillar-card,
+        .resource-home-card,
+        .formation-preview,
+        .material-card,
+        .journey,
+        .support-card,
+        .risk-box {
+
+            animation:
+                homeFadeUp 0.65s ease both;
+        }
+
+
+        /* =========================================================
+           RESPONSIVO
+           ========================================================= */
+
+        @media (max-width: 1050px) {
+
+            .home-header {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .home-nav {
+
+                width: 100%;
+
+                justify-content: flex-start;
+            }
+
+
+            .home-hero {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .resource-grid-home {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+
+            .formation-preview {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .journey {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+
+            .journey-step:nth-child(2) {
+
+                border-right: none;
+            }
+
+
+            .journey-step:nth-child(-n+2) {
+
+                border-bottom:
+                    1px solid var(--home-border);
+            }
+
+        }
+
+
+        @media (max-width: 760px) {
+
+            .home-shell {
+
+                width:
+                    min(100% - 20px, 1240px);
+            }
+
+
+            .home-header {
+
+                position: relative;
+
+                top: 0;
+
+                padding: 12px;
+            }
+
+
+            .home-nav {
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+                width: 100%;
+            }
+
+
+            .home-nav a {
+
+                justify-content: center;
+            }
+
+
+            .home-nav .nav-help {
+
+                margin-left: 0;
+            }
+
+
+            .home-hero {
+
+                padding-top: 28px;
+            }
+
+
+            .hero-main {
+
+                padding: 27px 21px;
+            }
+
+
+            .hero-main h1 {
+
+                font-size:
+                    clamp(2.25rem, 12vw, 3.6rem);
+            }
+
+
+            .hero-actions {
+
+                flex-direction: column;
+            }
+
+
+            .home-btn {
+
+                width: 100%;
+            }
+
+
+            .hero-principles {
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+
+            .pillars-grid,
+            .resource-grid-home,
+            .materials-grid,
+            .support-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .formation-topics {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .journey {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .journey-step {
+
+                border-right: none;
+
+                border-bottom:
+                    1px solid var(--home-border);
+            }
+
+
+            .journey-step:last-child {
+
+                border-bottom: none;
+            }
+
+
+            .section-heading-home {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .section-link {
+
+                white-space: normal;
+            }
+
+        }
+
+
+        @media (max-width: 470px) {
+
+            .hero-principles {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .home-brand-sub {
+
+                display: none;
+            }
+
+
+            .home-nav {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
 </head>
+
 
 <body>
 
-    <div class="container">
+<div class="home-shell">
 
 
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
 
-            <div class="logo">
-                <a href="index.html" class="logo-link">
-                    <div class="logo-box">
-                        <img src="static/img/logo_do_site.png" alt="Logo">
+    <header class="home-header">
+
+        <a
+            href="index.html"
+            class="home-brand"
+            aria-label="SER TRADER SEM RÉ - Página inicial"
+        >
+
+            <img
+                src="static/img/logo_do_site.png"
+                alt="Logo SER TRADER SEM RÉ"
+            >
+
+            <span>
+
+                <span class="home-brand-name">
+                    SER TRADER SEM RÉ
+                </span>
+
+                <span class="home-brand-sub">
+                    Disciplina • Psicologia • Resultados
+                </span>
+
+            </span>
+
+        </a>
+
+
+        <nav
+            class="home-nav"
+            aria-label="Navegação principal"
+        >
+
+            <a
+                href="index.html"
+                class="nav-main"
+                aria-current="page"
+            >
+                <i class="fa-solid fa-house"></i>
+                Início
+            </a>
+
+            <a href="navegacao/dashboard.html">
+                <i class="fa-solid fa-chart-line"></i>
+                Dashboard
+            </a>
+
+            <a href="navegacao/cadastrar.html">
+                <i class="fa-solid fa-pen-to-square"></i>
+                Cadastrar
+            </a>
+
+            <a href="navegacao/relatorios.html">
+                <i class="fa-solid fa-chart-column"></i>
+                Relatórios
+            </a>
+
+            <a href="navegacao/recursos.html">
+                <i class="fa-solid fa-compass"></i>
+                Recursos
+            </a>
+
+            <button
+                type="button"
+                class="home-btn home-btn-secondary nav-help"
+                data-help-action="doar"
+            >
+                <i class="fa-solid fa-heart"></i>
+                Apoiar
+            </button>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         CONTEÚDO
+         ========================================================= -->
+
+    <main>
+
+
+        <!-- =====================================================
+             HERO
+             ===================================================== -->
+
+        <section class="home-hero">
+
+            <div class="hero-main">
+
+                <span class="hero-eyebrow">
+
+                    <i class="fa-solid fa-compass"></i>
+
+                    Uma jornada de aprendizagem
+
+                </span>
+
+
+                <h1>
+
+                    <span class="hero-highlight">
+                        SER TRADER SEM RÉ
+                    </span>
+
+                    <br>
+
+                    Aprender. Praticar. Analisar. Evoluir.
+
+                </h1>
+
+
+                <p>
+
+                    Um espaço criado para reunir conhecimento,
+                    ferramentas, formações, materiais e organização
+                    para quem está a construir a sua jornada no trading.
+
+                    <br><br>
+
+                    Aqui, o foco não é vender uma fórmula mágica.
+                    É aprender, testar, registrar, analisar os próprios
+                    resultados e desenvolver disciplina ao longo do processo.
+
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <a
+                        href="navegacao/dashboard.html"
+                        class="home-btn home-btn-primary"
+                    >
+                        <i class="fa-solid fa-chart-line"></i>
+                        Acessar Dashboard
+                    </a>
+
+
+                    <a
+                        href="navegacao/recursos.html"
+                        class="home-btn home-btn-secondary"
+                    >
+                        <i class="fa-solid fa-compass"></i>
+                        Explorar Recursos
+                    </a>
+
+                </div>
+
+
+                <div class="hero-principles">
+
+                    <span class="principle">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        Educação
+                    </span>
+
+                    <span class="principle">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        Gestão
+                    </span>
+
+                    <span class="principle">
+                        <i class="fa-solid fa-brain"></i>
+                        Psicologia
+                    </span>
+
+                    <span class="principle">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Disciplina
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- HERO LATERAL -->
+
+            <aside class="hero-side">
+
+
+                <div class="hero-side-card accent">
+
+                    <div class="side-icon">
+
+                        <i class="fa-solid fa-bullseye"></i>
+
                     </div>
+
+
+                    <h2>
+                        O propósito
+                    </h2>
+
+
+                    <p>
+
+                        Construir um ambiente onde o trader possa
+                        organizar a sua jornada de aprendizagem,
+                        estudar diferentes conceitos e acompanhar
+                        a própria evolução.
+
+                    </p>
+
+
+                    <ul class="side-list">
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Aprender antes de executar
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Registrar antes de esquecer
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Analisar antes de repetir
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Evoluir através da experiência
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div class="hero-side-card">
+
+                    <div class="side-icon">
+
+                        <i class="fa-solid fa-layer-group"></i>
+
+                    </div>
+
+
+                    <h2>
+                        Tudo num só lugar
+                    </h2>
+
+
+                    <p>
+
+                        Dashboard, cadastro de operações,
+                        relatórios, plataformas, carteiras,
+                        formações e materiais de apoio.
+
+                    </p>
+
+                </div>
+
+            </aside>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PILARES S.E.R.
+             ===================================================== -->
+
+        <section
+            class="home-section"
+            id="filosofia"
+        >
+
+            <div class="section-heading-home">
+
+                <div>
+
+                    <span class="section-kicker">
+
+                        <i class="fa-solid fa-circle-nodes"></i>
+
+                        A filosofia S.E.R.
+
+                    </span>
+
+
+                    <h2>
+                        Três princípios que orientam o projeto
+                    </h2>
+
+
+                    <p>
+
+                        S.E.R. representa
+                        <strong>Superação, Equilíbrio e Resiliência</strong>.
+                        São os princípios que dão identidade ao projeto
+                        e à forma como a jornada de aprendizagem é apresentada.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="pillars-grid">
+
+
+                <article class="pillar-card">
+
+                    <span class="pillar-letter">
+                        S
+                    </span>
+
+
+                    <div class="pillar-icon">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Superação
+                    </h3>
+
+
+                    <p>
+
+                        Aprender com as dificuldades, reconhecer os próprios
+                        erros e continuar a desenvolver conhecimento mesmo
+                        quando o processo não acontece como esperado.
+
+                    </p>
+
+                </article>
+
+
+                <article class="pillar-card">
+
+                    <span class="pillar-letter">
+                        E
+                    </span>
+
+
+                    <div class="pillar-icon">
+
+                        <i class="fa-solid fa-scale-balanced"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Equilíbrio
+                    </h3>
+
+
+                    <p>
+
+                        Encontrar equilíbrio entre análise, gestão,
+                        disciplina e comportamento, evitando que uma
+                        única decisão determine toda a jornada.
+
+                    </p>
+
+                </article>
+
+
+                <article class="pillar-card">
+
+                    <span class="pillar-letter">
+                        R
+                    </span>
+
+
+                    <div class="pillar-icon">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Resiliência
+                    </h3>
+
+
+                    <p>
+
+                        Desenvolver capacidade de continuar aprendendo,
+                        rever decisões e adaptar o processo sem abandonar
+                        os princípios fundamentais de disciplina e gestão.
+
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SISTEMA
+             ===================================================== -->
+
+        <section class="home-section">
+
+            <div class="section-heading-home">
+
+                <div>
+
+                    <span class="section-kicker">
+
+                        <i class="fa-solid fa-table-columns"></i>
+
+                        Organização
+
+                    </span>
+
+
+                    <h2>
+                        Um espaço para acompanhar o seu processo
+                    </h2>
+
+
+                    <p>
+
+                        O site reúne ferramentas para transformar a rotina
+                        de estudo e operação em algo mais organizado e
+                        observável.
+
+                    </p>
+
+                </div>
+
+                <a
+                    href="navegacao/dashboard.html"
+                    class="section-link"
+                >
+                    Abrir Dashboard
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
 
-                <h1>SER TRADER SEM RÉ</h1>
-                <p>CENTRO DE OPERAÇÕES DA COMUNIDADE</p>
             </div>
 
-            <nav class="menu">
-                <a class="active" href="index.html">📊 Dashboard</a>
-                <a href="cadastrar.html">📝 Cadastrar</a>
-                <a href="relatorios.html">📈 Relatórios</a>
-                
-            </nav>
 
-        </aside>
+            <div class="resource-grid-home">
 
-        <!-- MAIN -->
-        <main class="main">
 
-            <!-- HEADER -->
-            <header class="header">
+                <a
+                    href="navegacao/dashboard.html"
+                    class="resource-home-card"
+                >
+
+                    <span class="resource-home-icon">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                    </span>
+
+
+                    <h3>
+                        Dashboard
+                    </h3>
+
+
+                    <p>
+
+                        Uma visão geral para acompanhar informações
+                        importantes da sua rotina e das operações
+                        registradas.
+
+                    </p>
+
+
+                    <span class="resource-home-link">
+
+                        Abrir dashboard
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="navegacao/cadastrar.html"
+                    class="resource-home-card"
+                >
+
+                    <span class="resource-home-icon">
+
+                        <i class="fa-solid fa-pen-to-square"></i>
+
+                    </span>
+
+
+                    <h3>
+                        Cadastro
+                    </h3>
+
+
+                    <p>
+
+                        Registre operações, estratégias, resultados
+                        e informações importantes para criar um
+                        histórico organizado.
+
+                    </p>
+
+
+                    <span class="resource-home-link">
+
+                        Registrar operação
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="navegacao/relatorios.html"
+                    class="resource-home-card"
+                >
+
+                    <span class="resource-home-icon">
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                    </span>
+
+
+                    <h3>
+                        Relatórios
+                    </h3>
+
+
+                    <p>
+
+                        Observe os dados registrados e utilize os
+                        relatórios para compreender melhor o seu
+                        próprio histórico.
+
+                    </p>
+
+
+                    <span class="resource-home-link">
+
+                        Ver relatórios
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="navegacao/recursos.html"
+                    class="resource-home-card"
+                >
+
+                    <span class="resource-home-icon">
+
+                        <i class="fa-solid fa-compass"></i>
+
+                    </span>
+
+
+                    <h3>
+                        Hub de Recursos
+                    </h3>
+
+
+                    <p>
+
+                        Encontre plataformas, carteiras, formações
+                        e materiais reunidos num único espaço.
+
+                    </p>
+
+
+                    <span class="resource-home-link">
+
+                        Explorar recursos
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             HUB DE RECURSOS
+             ===================================================== -->
+
+        <section
+            class="home-section"
+            id="recursos"
+        >
+
+            <div class="section-heading-home">
+
                 <div>
-                    <h2>Dashboard</h2>
-                    <span>Visão geral das operações</span>
-                </div>
 
-                <div style="display:flex;gap:12px;align-items:center;">
-                    <button id="helpBtn" class="btn-reset" title="Como usar">❔ Como usar</button>
-                    <div class="status">Online</div>
-                </div>
-            </header>
+                    <span class="section-kicker">
 
-            <!-- FILTROS -->
-            <section class="filters">
+                        <i class="fa-solid fa-compass"></i>
 
-                <div class="filters-grid">
+                        Hub de Recursos
 
-                    <select id="filtroResultado">
-                        <option value="all">Todos resultados</option>
-                    </select>
+                    </span>
 
-                    <select id="filtroConta">
-                        <option value="all">Todas contas</option>
-                    </select>
 
-                    <select id="filtroEstrategia">
-                        <option value="all">Todas estratégias</option>
-                    </select>
+                    <h2>
+                        Conhecimento, ferramentas e materiais
+                    </h2>
 
-                    <select id="filtroCorretora">
-                        <option value="all">Todas corretoras</option>
-                    </select>
 
-                    <button id="btnResetFilters" class="btn-reset">
-                        Limpar filtros
-                    </button>
+                    <p>
 
-                    <button id="btnReloadPage" class="btn-reset">
-                        Atualizar página
-                    </button>
+                        O catálogo foi dividido por áreas para facilitar
+                        a procura de cada recurso.
+
+                    </p>
 
                 </div>
 
-            </section>
 
-            <!-- RANKING DE USUÁRIOS -->
-            <section class="dashboard-card">
+                <a
+                    href="navegacao/recursos.html"
+                    class="section-link"
+                >
+                    Ver Hub completo
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
 
-                <div class="card-header">
-                    <h3>Ranking — Melhores por Lucro</h3>
+            </div>
+
+
+            <div class="resource-grid-home">
+
+
+                <a
+                    href="recursos/corretoras.html"
+                    class="resource-home-card"
+                >
+
+                    <span class="resource-home-icon">
+
+                        <i class="fa-solid fa-building-columns"></i>
+
+                    </span>
+
+
+                    <h3>
+                        Plataformas
+                    </h3>
+
+
+                    <p>
+
+                        Catálogo de plataformas e corretoras utilizadas
+                        para estudo e operação no mercado.
+
+                    </p>
+
+
+                    <span class="resource-home-link">
+
+                        Ver plataformas
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="recursos/wallets.html"
+                    class="resource-home-card"
+                >
+
+                    <span class="resource-home-icon">
+
+                        <i class="fa-solid fa-wallet"></i>
+
+                    </span>
+
+
+                    <h3>
+                        Carteiras
+                    </h3>
+
+
+                    <p>
+
+                        Reúne carteiras e soluções de pagamento que
+                        podem fazer parte da organização financeira
+                        do trader.
+
+                    </p>
+
+
+                    <span class="resource-home-link">
+
+                        Ver carteiras
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="recursos/formacao.html"
+                    class="resource-home-card"
+                >
+
+                    <span class="resource-home-icon">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                    </span>
+
+
+                    <h3>
+                        Formação
+                    </h3>
+
+
+                    <p>
+
+                        Catálogo de cursos e formações sobre fundamentos,
+                        plataformas, análise, estratégias, gestão,
+                        psicologia e prática.
+
+                    </p>
+
+
+                    <span class="resource-home-link">
+
+                        Ver formações
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </span>
+
+                </a>
+
+
+
+                <a
+                    href="recursos/materiais.html"
+                    class="resource-home-card"
+                >
+
+                    <span class="resource-home-icon">
+
+                        <i class="fa-solid fa-folder-open"></i>
+
+                    </span>
+
+
+                    <h3>
+                        Materiais
+                    </h3>
+
+
+                    <p>
+
+                        PDFs, planilhas, áudios, vídeos, scripts,
+                        guias, checklists e outros conteúdos de apoio.
+
+                    </p>
+
+
+                    <span class="resource-home-link">
+
+                        Ver materiais
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             FORMAÇÃO
+             ===================================================== -->
+
+        <section
+            class="home-section"
+            id="formacao"
+        >
+
+            <div class="section-heading-home">
+
+                <div>
+
+                    <span class="section-kicker">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                        Formação
+
+                    </span>
+
+
+                    <h2>
+                        Uma biblioteca de aprendizagem
+                    </h2>
+
+
+                    <p>
+
+                        As formações são organizadas por temas para
+                        acompanhar diferentes etapas da jornada.
+
+                    </p>
+
                 </div>
 
-                <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 0;">
-                    <label style="color:var(--text-secondary);font-weight:600;">De:
-                        <input type="date" id="rankStart">
-                    </label>
-                    <label style="color:var(--text-secondary);font-weight:600;">Até:
-                        <input type="date" id="rankEnd">
-                    </label>
-                    <label style="color:var(--text-secondary);font-weight:600;">Top Trader:
-                        <select id="rankLimit" style="width:120px;">
-                            <option value="5">Top 5</option>
-                            <option value="10" selected>Top 10</option>
-                            <option value="20">Top 20</option>
-                            <option value="50">Top 50</option>
-                            <option value="all">Todos</option>
-                        </select>
-                    </label>
-                    <button id="btnFetchRanking" class="btn-reset">Buscar Ranking</button>
-                </div>
 
-                <div class="table-wrapper">
-                    <table class="dashboard-table">
-                        <thead>
-                            <tr>
-                                <th>Pos</th>
-                                <th>Usuário</th>
-                                <th>Operações</th>
-                                <th>Lucro (USD)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabelaRanking"></tbody>
-                    </table>
-                </div>
+                <a
+                    href="recursos/formacao.html"
+                    class="section-link"
+                >
+                    Ver catálogo completo
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
 
-            </section>
+            </div>
 
-            <!-- MÉTRICAS -->
-            <section class="metrics-grid">
 
-                <div class="metric-card">
-                    <span>Total Operações</span>
-                    <h3 id="totalOperacoes">0</h3>
-                </div>
+            <div class="formation-preview">
 
-                <div class="metric-card">
-                    <span>Win Rate</span>
-                    <h3 id="winRate">0%</h3>
-                </div>
 
-                <div class="metric-card">
-                    <span>Lucro Total</span>
-                    <h3 id="lucroTotal">$0.00</h3>
-                </div>
+                <div class="formation-intro-home">
 
-                <div class="metric-card">
-                    <span>Saldo Atual</span>
-                    <h3 id="saldoAtual">$0.00</h3>
-                </div>
+                    <h3>
+                        Estude por etapas.
+                    </h3>
 
-            </section>
 
-            <!-- GRÁFICO + RESULTADOS -->
-            <section class="dashboard-grid">
+                    <p>
 
-                <div class="dashboard-card">
+                        Em vez de concentrar tudo numa única formação,
+                        o catálogo reúne diferentes áreas de estudo.
 
-                    <div class="card-header">
-                        <h3>Evolução da Banca</h3>
-                    </div>
+                        <br><br>
 
-                    <div class="chart-container">
-                        <canvas id="graficoBanca"></canvas>
-                    </div>
+                        Assim, cada pessoa pode explorar fundamentos,
+                        plataformas, análise técnica, estratégias,
+                        gestão, psicologia e prática de acordo com
+                        o seu momento de aprendizagem.
+
+                    </p>
+
+
+                    <a
+                        href="recursos/formacao.html"
+                        class="home-btn home-btn-primary"
+                        style="margin-top:22px;"
+                    >
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        Explorar formações
+                    </a>
 
                 </div>
 
-                <div class="dashboard-card">
 
-                    <div class="card-header">
-                        <h3>Resultados</h3>
-                    </div>
+                <div class="formation-topics">
 
-                    <div class="results-box">
 
-                        <div class="result-item win">
-                            <span>WIN</span>
-                            <strong id="wins">0</strong>
+                    <div class="formation-topic">
+
+                        <i class="fa-solid fa-seedling"></i>
+
+                        <div>
+
+                            <strong>
+                                Fundamentos
+                            </strong>
+
+                            <span>
+                                Conceitos essenciais para começar
+                                a compreender o mercado.
+                            </span>
+
                         </div>
 
-                        <div class="result-item loss">
-                            <span>LOSS</span>
-                            <strong id="losses">0</strong>
+                    </div>
+
+
+                    <div class="formation-topic">
+
+                        <i class="fa-solid fa-desktop"></i>
+
+                        <div>
+
+                            <strong>
+                                Plataformas
+                            </strong>
+
+                            <span>
+                                Conhecimento prático sobre
+                                ferramentas e interfaces.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="formation-topic">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        <div>
+
+                            <strong>
+                                Análise técnica
+                            </strong>
+
+                            <span>
+                                Gráficos, candles, indicadores,
+                                zonas e leitura de preço.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="formation-topic">
+
+                        <i class="fa-solid fa-crosshairs"></i>
+
+                        <div>
+
+                            <strong>
+                                Estratégias
+                            </strong>
+
+                            <span>
+                                Estudo de diferentes métodos
+                                e cenários de mercado.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="formation-topic">
+
+                        <i class="fa-solid fa-scale-balanced"></i>
+
+                        <div>
+
+                            <strong>
+                                Gestão
+                            </strong>
+
+                            <span>
+                                Banca, risco, registros e
+                                análise de resultados.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="formation-topic">
+
+                        <i class="fa-solid fa-brain"></i>
+
+                        <div>
+
+                            <strong>
+                                Psicologia
+                            </strong>
+
+                            <span>
+                                Disciplina, comportamento e
+                                tomada de decisão.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="formation-topic">
+
+                        <i class="fa-solid fa-flask"></i>
+
+                        <div>
+
+                            <strong>
+                                Prática
+                            </strong>
+
+                            <span>
+                                Aplicação, revisão e construção
+                                de rotina operacional.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="formation-topic">
+
+                        <i class="fa-solid fa-clipboard-check"></i>
+
+                        <div>
+
+                            <strong>
+                                Organização
+                            </strong>
+
+                            <span>
+                                Checklists, planos e processos
+                                para estudar melhor.
+                            </span>
+
                         </div>
 
                     </div>
 
                 </div>
 
-            </section>
+            </div>
 
-            <!-- ESTRATÉGIAS -->
-            <section class="dashboard-card">
+        </section>
 
-                <div class="card-header">
-                    <h3>Desempenho por Estratégia</h3>
-                </div>
 
-                <div class="table-wrapper">
-                    <table class="dashboard-table">
 
-                        <thead>
-                            <tr>
-                                <th>Estratégia</th>
-                                <th>Operações</th>
-                                <th>WIN</th>
-                                <th>LOSS</th>
-                                <th>Win Rate</th>
-                            </tr>
-                        </thead>
+        <!-- =====================================================
+             MATERIAIS
+             ===================================================== -->
 
-                        <tbody id="tabelaEstrategias"></tbody>
+        <section
+            class="home-section"
+            id="materiais"
+        >
 
-                    </table>
-                </div>
+            <div class="section-heading-home">
 
-            </section>
+                <div>
 
-            <!-- CORRETORAS -->
-            <section class="dashboard-card">
+                    <span class="section-kicker">
 
-                <div class="card-header">
-                    <h3>Desempenho por Corretora</h3>
-                </div>
+                        <i class="fa-solid fa-folder-open"></i>
 
-                <div class="table-wrapper">
-                    <table class="dashboard-table">
+                        Materiais
 
-                        <thead>
-                            <tr>
-                                <th>Corretora</th>
-                                <th>Operações</th>
-                                <th>WIN</th>
-                                <th>LOSS</th>
-                                <th>Win Rate</th>
-                            </tr>
-                        </thead>
+                    </span>
 
-                        <tbody id="tabelaCorretoras"></tbody>
 
-                    </table>
-                </div>
+                    <h2>
+                        Conteúdos para estudar e organizar
+                    </h2>
 
-            </section>
 
-            <!-- LINKS -->
-            <section class="dashboard-card">
+                    <p>
 
-                <div class="card-header">
-                    <h3>Links de Corretoras</h3>
-                </div>
+                        O catálogo de materiais reúne diferentes formatos
+                        para complementar as formações e a rotina de estudo.
 
-                <div class="broker-links">
-
-                    <a href="https://iqoption.com" target="_blank">IQ Option</a>
-                    <a href="https://deriv.com" target="_blank">Deriv</a>
-                    <a href="https://bybit.com" target="_blank">Bybit</a>
-                    <a href="https://pocketoption.com" target="_blank">Pocket Option</a>
+                    </p>
 
                 </div>
 
-            </section>
 
-            <!-- ÚLTIMAS OPERAÇÕES -->
-            <section class="dashboard-card">
+                <a
+                    href="recursos/materiais.html"
+                    class="section-link"
+                >
+                    Ver todos os materiais
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
 
-                <div class="card-header">
-                    <h3>Últimas Operações</h3>
+            </div>
+
+
+            <div class="materials-grid">
+
+
+                <article class="material-card">
+
+                    <span class="material-type">
+
+                        <i class="fa-solid fa-file-pdf"></i>
+
+                        PDF
+
+                    </span>
+
+
+                    <h3>
+                        Guias e manuais
+                    </h3>
+
+
+                    <p>
+
+                        Conteúdos escritos para consulta,
+                        revisão e aprofundamento de conceitos.
+
+                    </p>
+
+                </article>
+
+
+                <article class="material-card">
+
+                    <span class="material-type">
+
+                        <i class="fa-solid fa-table"></i>
+
+                        Planilhas
+
+                    </span>
+
+
+                    <h3>
+                        Ferramentas de organização
+                    </h3>
+
+
+                    <p>
+
+                        Planilhas e ferramentas para acompanhar
+                        banca, operações, resultados e rotina.
+
+                    </p>
+
+                </article>
+
+
+                <article class="material-card">
+
+                    <span class="material-type">
+
+                        <i class="fa-solid fa-video"></i>
+
+                        Vídeos
+
+                    </span>
+
+
+                    <h3>
+                        Conteúdo audiovisual
+                    </h3>
+
+
+                    <p>
+
+                        Aulas, explicações e demonstrações para
+                        complementar o estudo.
+
+                    </p>
+
+                </article>
+
+
+                <article class="material-card">
+
+                    <span class="material-type">
+
+                        <i class="fa-solid fa-headphones"></i>
+
+                        Áudios
+
+                    </span>
+
+
+                    <h3>
+                        Conteúdo em áudio
+                    </h3>
+
+
+                    <p>
+
+                        Materiais de apoio para revisão e reflexão
+                        sobre disciplina e processo.
+
+                    </p>
+
+                </article>
+
+
+                <article class="material-card">
+
+                    <span class="material-type">
+
+                        <i class="fa-solid fa-code"></i>
+
+                        Scripts
+
+                    </span>
+
+
+                    <h3>
+                        Ferramentas técnicas
+                    </h3>
+
+
+                    <p>
+
+                        Scripts e recursos destinados ao estudo
+                        e experimentação técnica.
+
+                    </p>
+
+                </article>
+
+
+                <article class="material-card">
+
+                    <span class="material-type">
+
+                        <i class="fa-solid fa-list-check"></i>
+
+                        Checklists
+
+                    </span>
+
+
+                    <h3>
+                        Rotina e preparação
+                    </h3>
+
+
+                    <p>
+
+                        Listas de verificação para organizar
+                        processos antes, durante e depois do estudo.
+
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             JORNADA
+             ===================================================== -->
+
+        <section class="home-section">
+
+            <div class="section-heading-home">
+
+                <div>
+
+                    <span class="section-kicker">
+
+                        <i class="fa-solid fa-route"></i>
+
+                        Jornada
+
+                    </span>
+
+
+                    <h2>
+                        O processo antes do resultado
+                    </h2>
+
+
+                    <p>
+
+                        O projeto foi pensado para incentivar uma
+                        abordagem baseada em processo, registro,
+                        análise e evolução.
+
+                    </p>
+
                 </div>
 
-                <div class="table-wrapper">
-                    <table class="dashboard-table">
+            </div>
 
-                        <thead>
-                            <tr>
-                                <th>Ativo</th>
-                                <th>Estratégia</th>
-                                <th>Usuário</th>
-                                <th>Entrada</th>
-                                <th>Resultado</th>
-                                <th>Conta</th>
-                                <th>Corretora</th>
-                            </tr>
-                        </thead>
 
-                        <tbody id="ultimasOperacoes"></tbody>
+            <div class="journey">
 
-                    </table>
+
+                <article class="journey-step">
+
+                    <div class="journey-number">
+                        01
+                    </div>
+
+
+                    <h3>
+                        Aprender
+                    </h3>
+
+
+                    <p>
+
+                        Estudar os conceitos, ferramentas,
+                        plataformas e diferentes formas de
+                        interpretar o mercado.
+
+                    </p>
+
+                </article>
+
+
+                <article class="journey-step">
+
+                    <div class="journey-number">
+                        02
+                    </div>
+
+
+                    <h3>
+                        Praticar
+                    </h3>
+
+
+                    <p>
+
+                        Aplicar o conhecimento em ambiente
+                        de estudo, testar ideias e observar
+                        o comportamento do mercado.
+
+                    </p>
+
+                </article>
+
+
+                <article class="journey-step">
+
+                    <div class="journey-number">
+                        03
+                    </div>
+
+
+                    <h3>
+                        Registrar
+                    </h3>
+
+
+                    <p>
+
+                        Manter um histórico das operações,
+                        decisões, resultados e observações
+                        realizadas durante a prática.
+
+                    </p>
+
+                </article>
+
+
+                <article class="journey-step">
+
+                    <div class="journey-number">
+                        04
+                    </div>
+
+
+                    <h3>
+                        Evoluir
+                    </h3>
+
+
+                    <p>
+
+                        Rever o histórico, identificar pontos
+                        de melhoria e aperfeiçoar o próprio
+                        processo de aprendizagem.
+
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             AVISO DE RISCO
+             ===================================================== -->
+
+        <section class="home-section">
+
+            <div class="risk-box">
+
+                <div class="risk-icon">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
                 </div>
 
-            </section>
 
-        </main>
+                <div>
+
+                    <h3>
+                        Informação importante
+                    </h3>
+
+
+                    <p>
+
+                        O trading e as operações em mercados financeiros
+                        envolvem riscos e podem resultar em perdas.
+                        Nenhuma estratégia, indicador, formação ou
+                        material apresentado neste projeto garante
+                        resultados. O conteúdo disponibilizado pelo
+                        SER TRADER SEM RÉ possui finalidade educacional
+                        e de estudo e não substitui aconselhamento
+                        financeiro profissional.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             APOIO AO PROJETO
+             ===================================================== -->
+
+        <section class="home-section">
+
+            <div class="section-heading-home">
+
+                <div>
+
+                    <span class="section-kicker">
+
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+
+                        Comunidade
+
+                    </span>
+
+
+                    <h2>
+                        Ajude o projeto a continuar
+                    </h2>
+
+
+                    <p>
+
+                        O projeto procura manter o acesso aos conteúdos
+                        de forma simples e construir gradualmente uma
+                        biblioteca cada vez maior.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="support-grid">
+
+
+                <article class="support-card">
+
+                    <h3>
+                        Apoio voluntário
+                    </h3>
+
+
+                    <p>
+
+                        Se o projeto for útil para você e quiser
+                        contribuir para a manutenção, desenvolvimento
+                        e expansão dos conteúdos, existe a possibilidade
+                        de apoio voluntário.
+
+                    </p>
+
+
+                    <div class="support-actions">
+
+                        <button
+                            type="button"
+                            class="home-btn home-btn-primary"
+                            data-help-action="doar"
+                        >
+
+                            <i class="fa-solid fa-heart"></i>
+
+                            Quero apoiar
+
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="support-card">
+
+                    <h3>
+                        Cursos e materiais
+                    </h3>
+
+
+                    <p>
+
+                        As formações e materiais possuem identificação
+                        própria no catálogo. Ao solicitar um conteúdo,
+                        o sistema pode apresentar as orientações
+                        necessárias para obter acesso.
+
+                    </p>
+
+
+                    <div class="support-actions">
+
+                        <a
+                            href="recursos/formacao.html"
+                            class="home-btn home-btn-secondary"
+                        >
+
+                            <i class="fa-solid fa-graduation-cap"></i>
+
+                            Ver formações
+
+                        </a>
+
+
+                        <a
+                            href="recursos/materiais.html"
+                            class="home-btn home-btn-secondary"
+                        >
+
+                            <i class="fa-solid fa-folder-open"></i>
+
+                            Ver materiais
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             FAQ
+             ===================================================== -->
+
+        <section
+            class="home-section"
+            id="faq"
+        >
+
+            <div class="section-heading-home">
+
+                <div>
+
+                    <span class="section-kicker">
+
+                        <i class="fa-solid fa-circle-question"></i>
+
+                        FAQ
+
+                    </span>
+
+
+                    <h2>
+                        Perguntas frequentes
+                    </h2>
+
+
+                    <p>
+                        Algumas respostas para começar a utilizar
+                        o projeto.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-list">
+
+
+                <details class="faq-item">
+
+                    <summary>
+                        O SER TRADER SEM RÉ é uma corretora?
+                    </summary>
+
+                    <div class="faq-answer">
+
+                        Não. O SER TRADER SEM RÉ é um projeto voltado
+                        para aprendizagem, organização, ferramentas,
+                        materiais e conteúdos relacionados ao estudo
+                        do trading.
+
+                    </div>
+
+                </details>
+
+
+                <details class="faq-item">
+
+                    <summary>
+                        Preciso saber trading para utilizar o site?
+                    </summary>
+
+                    <div class="faq-answer">
+
+                        Não. Existem conteúdos introdutórios e
+                        formações destinadas a diferentes níveis.
+                        Quem está a começar pode utilizar os
+                        fundamentos antes de avançar para temas
+                        mais específicos.
+
+                    </div>
+
+                </details>
+
+
+                <details class="faq-item">
+
+                    <summary>
+                        Onde encontro os cursos?
+                    </summary>
+
+                    <div class="faq-answer">
+
+                        Os cursos e formações estão reunidos no
+                        catálogo de Formação. Lá, cada curso possui
+                        um identificador próprio e uma opção para
+                        solicitar acesso.
+
+                    </div>
+
+                </details>
+
+
+                <details class="faq-item">
+
+                    <summary>
+                        Onde encontro os PDFs, planilhas e outros materiais?
+                    </summary>
+
+                    <div class="faq-answer">
+
+                        Eles estão reunidos na área de Materiais.
+                        O catálogo pode incluir PDFs, planilhas,
+                        vídeos, áudios, scripts, guias, checklists
+                        e outros conteúdos de apoio.
+
+                    </div>
+
+                </details>
+
+
+                <details class="faq-item">
+
+                    <summary>
+                        O site garante resultados no trading?
+                    </summary>
+
+                    <div class="faq-answer">
+
+                        Não. O objetivo do projeto é disponibilizar
+                        conhecimento, ferramentas e organização para
+                        estudo. Resultados financeiros não são
+                        garantidos e dependem de diversos fatores,
+                        incluindo risco, mercado, comportamento e
+                        decisões individuais.
+
+                    </div>
+
+                </details>
+
+
+                <details class="faq-item">
+
+                    <summary>
+                        Para que serve o Dashboard?
+                    </summary>
+
+                    <div class="faq-answer">
+
+                        O Dashboard funciona como uma área de
+                        acompanhamento das informações registradas
+                        no sistema, permitindo visualizar dados
+                        relacionados à rotina e às operações.
+
+                    </div>
+
+                </details>
+
+
+                <details class="faq-item">
+
+                    <summary>
+                        Posso começar apenas estudando?
+                    </summary>
+
+                    <div class="faq-answer">
+
+                        Sim. O estudo, a prática em ambiente apropriado,
+                        o registro e a análise do próprio histórico
+                        podem fazer parte de uma jornada de aprendizagem
+                        antes de qualquer decisão de operar com capital real.
+
+                    </div>
+
+                </details>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             CTA FINAL
+             ===================================================== -->
+
+        <section class="final-cta">
+
+            <span class="section-kicker">
+
+                <i class="fa-solid fa-flag-checkered"></i>
+
+                Comece pelo processo
+
+            </span>
+
+
+            <h2>
+
+                Sem promessas.
+                <br>
+                Sem atalhos.
+                <br>
+                Só evolução.
+
+            </h2>
+
+
+            <p>
+
+                Explore o conteúdo, organize a sua rotina,
+                registre o que faz, analise o que aconteceu
+                e continue aprendendo.
+
+                <br><br>
+
+                <strong>
+                    Superação • Equilíbrio • Resiliência
+                </strong>
+
+            </p>
+
+
+            <div class="final-actions">
+
+                <a
+                    href="navegacao/dashboard.html"
+                    class="home-btn home-btn-primary"
+                >
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    Acessar Dashboard
+
+                </a>
+
+
+                <a
+                    href="recursos/formacao.html"
+                    class="home-btn home-btn-secondary"
+                >
+
+                    <i class="fa-solid fa-graduation-cap"></i>
+
+                    Ver Formações
+
+                </a>
+
+
+                <a
+                    href="recursos/materiais.html"
+                    class="home-btn home-btn-secondary"
+                >
+
+                    <i class="fa-solid fa-folder-open"></i>
+
+                    Ver Materiais
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <div class="home-footer-space">
+
+        <div data-footer></div>
 
     </div>
 
-    <!-- SITE FOOTER -->
-    <footer class="site-footer">
-        <div class="footer-grid">
-            <div class="brand">
-                <a href="https://ser-trader-sem-re.netlify.app/"><img src="https://ser-trader-sem-re.netlify.app/assets/img/logo.png" alt="SER TRADER SEM RÉ"></a>
-                <div>
-                    <h4>SER TRADER SEM RÉ</h4>
-                    <div class="small">Aprenda Opções Binárias com Gestão e Disciplina — foco em consistência e risco controlado.</div>
-                </div>
-            </div>
 
-            <div class="links">
-                <strong>Começar</strong>
-                <a href="https://ser-trader-sem-re.netlify.app/planilhas">Começar com Gestão</a>
-                <a href="https://ser-trader-sem-re.netlify.app/scripts">Ver Scripts Simples</a>
-                <a href="https://ser-trader-sem-re.netlify.app/videos">Aprender Passo a Passo</a>
-                <div style="height:8px"></div>
-                <strong>Navegação</strong>
-                <a href="https://ser-trader-sem-re.netlify.app/">Home</a>
-                <a href="https://ser-trader-sem-re.netlify.app/downloads">Downloads</a>
-                <a href="https://ser-trader-sem-re.netlify.app/planilhas">Planilhas</a>
-                <a href="https://ser-trader-sem-re.netlify.app/scripts">Scripts</a>
-            </div>
+</div>
 
-            <div>
-                <strong>Suporte & Contato</strong>
-                <div class="small">Contato: <a href="mailto:contato@ser-trader-sem-re.netlify.app">contato@ser-trader-sem-re.netlify.app</a></div>
-                <div style="height:8px"></div>
-                <strong>Recursos</strong>
-                <a href="https://ser-trader-sem-re.netlify.app/pdfs">PDFs</a>
-                <a href="https://ser-trader-sem-re.netlify.app/videos">Vídeos</a>
-                <div class="small">© 2026 SER TRADER SEM RÉ</div>
-            </div>
-        </div>
-    </footer>
 
-    <!-- Modal Como Usar -->
-    <div id="helpModal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <button id="closeHelp" class="modal-close">✖</button>
-            <h2>Como usar — SER TRADER SEM RÉ</h2>
+<!-- =============================================================
+     PEQUENA MELHORIA DE ACESSIBILIDADE
+     ============================================================= -->
 
-            <div class="help-step">
-                <div class="step-number">1</div>
-                <div>
-                    <strong>O que é</strong>
-                    <p>Uma plataforma comunitária para registrar operações, acompanhar rankings e gerar relatórios analíticos.</p>
-                </div>
-            </div>
+<script>
 
-            <div class="help-step">
-                <div class="step-number">2</div>
-                <div>
-                    <strong>Passo a passo rápido</strong>
-                    <ul>
-                        <li>Acesse <strong>Cadastrar</strong> e preencha os campos da operação.</li>
-                        <li>Clique em <strong>Enviar</strong> — os dados vão para a planilha (Google Sheets).</li>
-                        <li>Volte ao <strong>Dashboard</strong> ou <strong>Relatórios</strong> para visualizar métricas e gráficos.</li>
-                    </ul>
-                </div>
-            </div>
+    document.addEventListener("DOMContentLoaded", () => {
 
-            <div class="help-step">
-                <div class="step-number">3</div>
-                <div>
-                    <strong>Exemplo de preenchimento</strong>
-                    <div class="example">
-                        Usuário: <strong>fulano123</strong>
-                        <br>Ativo: <strong>EUR/USD</strong>
-                        <br>Entrada: <strong>10.00</strong>
-                        <br>Payout: <strong>18.00</strong>
-                        <br>Resultado: <strong>WIN</strong>
-                        <br>Corretora: <strong>IQ Option</strong>
-                    </div>
-                </div>
-            </div>
+        const currentPageLinks =
+            document.querySelectorAll(
+                '.home-nav a[href="index.html"]'
+            );
 
-            <div class="help-step">
-                <div class="step-number">4</div>
-                <div>
-                    <strong>Formato de números e datas</strong>
-                    <p>Use pontos ou vírgulas para decimais conforme seu navegador; o sistema normaliza internamente. Datas salvas seguem o padrão <strong>YYYY-MM-DD</strong>.</p>
-                </div>
-            </div>
+        currentPageLinks.forEach(link => {
 
-            <div class="help-step">
-                <div class="step-number">5</div>
-                <div>
-                    <strong>Interpretação rápida das métricas</strong>
-                    <ul>
-                        <li><strong>Win Rate</strong>: porcentagem de operações com resultado WIN.</li>
-                        <li><strong>Lucro Total</strong>: soma dos lucros (entrada/payout) no período filtrado.</li>
-                        <li><strong>Ranking</strong>: ordenado por lucro líquido por usuário.</li>
-                    </ul>
-                </div>
-            </div>
+            link.setAttribute(
+                "aria-current",
+                "page"
+            );
 
-            <div class="help-step">
-                <div class="step-number">6</div>
-                <div>
-                    <strong>Problemas comuns</strong>
-                    <ul>
-                        <li>Números aparecem zerados: verifique o formato da entrada no formulário.</li>
-                        <li>Operações não aparecem: atualize a página e confirme que o envio retornou sucesso.</li>
-                        <li>Dados sensíveis: não envie informações pessoais.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <p style="color:var(--text-secondary);margin-top:8px;">Se precisar, peça ao administrador para revisar a planilha ou o endpoint do Apps Script.</p>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('helpBtn').addEventListener('click', function(){
-            document.getElementById('helpModal').style.display = 'block';
         });
-        document.getElementById('closeHelp').addEventListener('click', function(){
-            document.getElementById('helpModal').style.display = 'none';
-        });
-        window.addEventListener('click', function(e){
-            if(e.target === document.getElementById('helpModal')) document.getElementById('helpModal').style.display = 'none';
-        });
-    </script>
+
+    });
+
+</script>
 
 </body>
-
 </html>

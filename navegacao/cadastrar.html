@@ -8,17 +8,23 @@
 
     <title>SER TRADER SEM RÉ | Cadastro</title>
     
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="static/img/logo_do_site.png">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../static/img/logo_do_site.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-
-    <script src="sheets.js" defer></script>
-    <script src="index.js" defer></script>
+<!-- Ícones e Fuentes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+    <script type="module" src="../sheets.js" defer></script>
+    <script type="module" src="../index.js" defer></script>
+    <script type="module" src="../site-common.js" defer></script>
 
 </head>
 
-<body>
+<body class="operations-page operations-page--cadastrar">
 
     <div class="container">
 
@@ -26,9 +32,9 @@
         <aside class="sidebar">
 
             <div class="logo">
-                <a href="index.html" class="logo-link">
+                <a href="../index.html" class="logo-link">
                     <div class="logo-box">
-                        <img src="static/img/logo_do_site.png" alt="Logo">
+                        <img src="../static/img/logo_do_site.png" alt="Logo">
                     </div>
                 </a>
 
@@ -36,11 +42,12 @@
                 <p>CENTRO DE OPERAÇÕES DA COMUNIDADE</p>
             </div>
 
-            <nav class="menu">
-                <a href="index.html">📊 Dashboard</a>
-                <a class="active" href="cadastrar.html">📝 Cadastrar</a>
-                <a href="relatorios.html">📈 Relatórios</a>
-                
+            <nav class="menu" aria-label="Navegação principal">
+                <a href="../index.html"><i class="fa-solid fa-house" aria-hidden="true"></i> Início</a>
+                <a href="dashboard.html"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Dashboard</a>
+                <a class="active" href="cadastrar.html"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> Cadastrar</a>
+                <a href="relatorios.html"><i class="fa-solid fa-chart-column" aria-hidden="true"></i> Relatórios</a>
+                <a  href="recursos.html" aria-current="page"><i class="fa-solid fa-compass" aria-hidden="true"></i> Hub de Recursos</a>
             </nav>
 
         </aside>
@@ -54,9 +61,9 @@
                     <span>Registre suas operações com precisão</span>
                 </div>
 
-                <div style="display:flex;gap:12px;align-items:center;">
-                    <button id="helpBtn" class="btn-reset" title="Como usar">❔ Como usar</button>
-                    <div class="status">Online</div>
+                <div class="header-meta">
+                    <button id="helpBtn" class="btn-reset header-help-btn" title="Como usar"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> Como usar</button>
+                    <div class="status is-online">Online</div>
                 </div>
             </header>
 
@@ -211,6 +218,8 @@
 
     </div>
 
+    <div data-footer></div>
+
     <!-- Modal Como Usar -->
     <div id="helpModal" class="modal" style="display:none;">
         <div class="modal-content">
@@ -259,41 +268,7 @@
             <p style="color:var(--text-secondary);margin-top:8px;">Dica: use um nickname consistente para aparecer corretamente no ranking.</p>
         </div>
     </div>
-  <!-- SITE FOOTER -->
-    <footer class="site-footer">
-        <div class="footer-grid">
-            <div class="brand">
-                <a href="https://ser-trader-sem-re.netlify.app/"><img src="https://ser-trader-sem-re.netlify.app/assets/img/logo.png" alt="SER TRADER SEM RÉ"></a>
-                <div>
-                    <h4>SER TRADER SEM RÉ</h4>
-                    <div class="small">Aprenda Opções Binárias com Gestão e Disciplina — foco em consistência e risco controlado.</div>
-                </div>
-            </div>
 
-            <div class="links">
-                <strong>Começar</strong>
-                <a href="https://ser-trader-sem-re.netlify.app/planilhas">Começar com Gestão</a>
-                <a href="https://ser-trader-sem-re.netlify.app/scripts">Ver Scripts Simples</a>
-                <a href="https://ser-trader-sem-re.netlify.app/videos">Aprender Passo a Passo</a>
-                <div style="height:8px"></div>
-                <strong>Navegação</strong>
-                <a href="https://ser-trader-sem-re.netlify.app/">Home</a>
-                <a href="https://ser-trader-sem-re.netlify.app/downloads">Downloads</a>
-                <a href="https://ser-trader-sem-re.netlify.app/planilhas">Planilhas</a>
-                <a href="https://ser-trader-sem-re.netlify.app/scripts">Scripts</a>
-            </div>
-
-            <div>
-                <strong>Suporte & Contato</strong>
-                <div class="small">Contato: <a href="mailto:contato@ser-trader-sem-re.netlify.app">contato@ser-trader-sem-re.netlify.app</a></div>
-                <div style="height:8px"></div>
-                <strong>Recursos</strong>
-                <a href="https://ser-trader-sem-re.netlify.app/pdfs">PDFs</a>
-                <a href="https://ser-trader-sem-re.netlify.app/videos">Vídeos</a>
-                <div class="small">© 2026 SER TRADER SEM RÉ</div>
-            </div>
-        </div>
-    </footer>
 </body>
     <script>
         document.getElementById('helpBtn').addEventListener('click', function(){
