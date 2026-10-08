@@ -14,6 +14,7 @@ function createAppsScriptContext({
     validSince: '',
   },
   tokenStatus = 200,
+  fetchError = '',
 } = {}) {
   const rows = [
     [
@@ -49,15 +50,18 @@ function createAppsScriptContext({
       getScriptProperties: () => ({ getProperty: () => 'firebase-api-key' }),
     },
     UrlFetchApp: {
-      fetch: (_url, options) => ({
-        getResponseCode: () => tokenStatus,
-        getContentText: () => JSON.stringify(
-          tokenStatus === 200
-            ? { users: [firebaseUser] }
-            : { error: { message: 'INVALID_ID_TOKEN' } }
-        ),
-        payload: options.payload,
-      }),
+      fetch: (_url, options) => {
+        if (fetchError) throw new Error(fetchError);
+        return {
+          getResponseCode: () => tokenStatus,
+          getContentText: () => JSON.stringify(
+            tokenStatus === 200
+              ? { users: [firebaseUser] }
+              : { error: { message: 'INVALID_ID_TOKEN' } }
+          ),
+          payload: options.payload,
+        };
+      },
     },
     LockService: {
       getScriptLock: () => ({ waitLock: () => {}, releaseLock: () => {} }),
@@ -170,5 +174,29 @@ describe('Apps Script member authentication', () => {
 
     expect(result.success).toBe(false);
     expect(result.message).toBe('Sessão inválida. Entre novamente.');
+  });
+
+  it('explains when Apps Script needs permission to call Firebase', () => {
+    const { context } = createAppsScriptContext({
+      fetchError: 'You do not have permission to call UrlFetchApp.fetch. Required scopes: script.external_request',
+    });
+
+    const result = post(context, {
+      action: 'memberSession',
+      firebaseIdToken: makeToken(),
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.message).toContain('authorizeFirebaseRequests');
+  });
+
+  it('provides a safe Firebase authorization diagnostic without changing the sheet', () => {
+    const { context, rows } = createAppsScriptContext({ tokenStatus: 400 });
+    const originalRows = JSON.stringify(rows);
+
+    const result = context.authorizeFirebaseRequests();
+
+    expect(result).toContain('Nenhum cadastro ou dado da planilha foi alterado');
+    expect(JSON.stringify(rows)).toBe(originalRows);
   });
 });

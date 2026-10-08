@@ -62,6 +62,19 @@ Authentication. O ID do membro será associado a `Firebase_UID` na aba
 `Membros_Premium`; não crie essa coluna manualmente se ainda não existir, pois o
 script a adiciona ao final sem reordenar as colunas existentes.
 
+### Se o cadastro mostrar erro ao processar a solicitação
+
+1. No editor do Apps Script, selecione a função `authorizeFirebaseRequests` e
+   clique em **Executar** usando a conta proprietária do script.
+2. Revise e aceite as permissões solicitadas para chamadas externas. A função
+   faz uma consulta de diagnóstico com um token inválido e não altera a planilha.
+3. Confirme que a execução termina com a mensagem de autorização externa
+   confirmada. Depois, em **Implantar > Gerenciar implantações**, edite a Web App
+   e publique uma nova versão do código.
+4. Se ainda falhar, abra **Execuções** no Apps Script e consulte o erro da
+   execução `doPost`; não compartilhe tokens Firebase nem dados pessoais ao
+   pedir suporte.
+
 ## 4. Como passa a funcionar
 
 ### Novo cadastro

@@ -212,15 +212,31 @@ function verifyFirebaseIdToken(idToken) {
     throw publicError("O servidor de autenticação ainda não está configurado.", "Firebase API key is not configured.");
   }
 
-  const response = UrlFetchApp.fetch(
-    "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + encodeURIComponent(apiKey),
-    {
-      method: "post",
-      contentType: "application/json",
-      payload: JSON.stringify({ idToken: idToken }),
-      muteHttpExceptions: true
+  let response;
+  try {
+    response = UrlFetchApp.fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + encodeURIComponent(apiKey),
+      {
+        method: "post",
+        contentType: "application/json",
+        payload: JSON.stringify({ idToken: idToken }),
+        muteHttpExceptions: true
+      }
+    );
+  } catch (error) {
+    const details = String(error && error.message || error);
+    if (/permission|authoriz|scope/i.test(details)) {
+      throw publicError(
+        "O Apps Script precisa de autorização para validar contas Firebase. O administrador deve executar authorizeFirebaseRequests no editor e aceitar as permissões.",
+        "Firebase lookup permission failed: " + details
+      );
     }
-  );
+    throw publicError(
+      "O servidor não conseguiu validar a conta no Firebase. Tente novamente mais tarde.",
+      "Firebase lookup request failed: " + details
+    );
+  }
+
   const result = JSON.parse(response.getContentText() || "{}");
   const user = result.users && result.users[0];
 
@@ -240,6 +256,31 @@ function verifyFirebaseIdToken(idToken) {
     email: String(user.email || ""),
     emailVerified: user.emailVerified === true
   };
+}
+
+function authorizeFirebaseRequests() {
+  const apiKey = PropertiesService.getScriptProperties().getProperty("FIREBASE_WEB_API_KEY");
+  if (!apiKey) {
+    throw new Error("Configure FIREBASE_WEB_API_KEY nas propriedades do script antes de continuar.");
+  }
+
+  const response = UrlFetchApp.fetch(
+    "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + encodeURIComponent(apiKey),
+    {
+      method: "post",
+      contentType: "application/json",
+      payload: JSON.stringify({ idToken: "authorization-diagnostic-invalid-token" }),
+      muteHttpExceptions: true
+    }
+  );
+  const result = JSON.parse(response.getContentText() || "{}");
+  if (response.getResponseCode() !== 400 ||
+      !result.error ||
+      result.error.message !== "INVALID_ID_TOKEN") {
+    throw new Error("Não foi possível confirmar a autorização e a conexão com o Firebase.");
+  }
+
+  return "Autorização externa confirmada. Nenhum cadastro ou dado da planilha foi alterado.";
 }
 
 function decodeFirebaseTokenPayload(idToken) {
