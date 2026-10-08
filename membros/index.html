@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SER TRADER SEM RÉ | Área de Membros</title>
+    <meta
+      name="description"
+      content="Acesso exclusivo para membros da comunidade SER TRADER SEM RÉ."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/auth.css" />
+  </head>
+  <body>
+    <div class="auth-shell">
+      <section class="auth-visual">
+        <div class="brand">
+          <img src="../static/img/logo_do_site.png" alt="SER TRADER SEM RÉ" />
+          <div>
+            <span class="label">Comunidade</span>
+            <span class="title">SER TRADER SEM RÉ</span>
+          </div>
+        </div>
+
+        <div class="visual-copy">
+          <span class="eyebrow">Acesso exclusivo</span>
+          <h1>Um ambiente pensado para quem quer evoluir com disciplina.</h1>
+          <p>
+            Parceiros, materiais exclusivos, suporte emocional e acompanhamento real para que
+            sua jornada no mercado esteja mais segura e consistente.
+          </p>
+
+          <div class="feature-list">
+            <div class="feature-item"><span class="dot"></span> Sala de operações ao vivo</div>
+            <div class="feature-item"><span class="dot"></span> Biblioteca com materiais e PDFs</div>
+            <div class="feature-item"><span class="dot"></span> Conteúdo pensado para disciplina e psicologia</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="auth-panel">
+        <div class="tabs" aria-label="Acesso ao subsite">
+          <button class="tab-button active" type="button" data-tab="login">Acessar Subsite</button>
+          <button class="tab-button" type="button" data-tab="signup">Tornar-se Membro</button>
+        </div>
+
+        <div class="tab-panel active" id="login-panel">
+          <div class="panel-header">
+            <h2>Bem-vindo de volta</h2>
+            <p>Entre com seu usuário ou e-mail para acessar seu painel exclusivo.</p>
+          </div>
+
+          <form id="loginForm">
+            <div class="field">
+              <label for="loginIdentifier">Usuário ou e-mail</label>
+              <input id="loginIdentifier" name="loginIdentifier" type="text" placeholder="seuusuario ou seu@email.com" required />
+            </div>
+
+            <button class="button primary" type="submit">Entrar na área</button>
+          </form>
+        </div>
+
+        <div class="tab-panel" id="signup-panel">
+          <div class="panel-header">
+            <h2>Solicite seu acesso</h2>
+            <p>Seu cadastro será validado e você receberá acesso assim que sua mensalidade for confirmada.</p>
+          </div>
+
+          <form id="signupForm">
+            <div class="field-grid">
+              <div class="field">
+                <label for="nomeCompleto">Nome completo</label>
+                <input id="nomeCompleto" name="nomeCompleto" type="text" placeholder="Seu nome completo" required />
+              </div>
+
+              <div class="field">
+                <label for="nomeUsuario">Nome de usuário</label>
+                <input id="nomeUsuario" name="nomeUsuario" type="text" placeholder="ex: traderlucas" required />
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="email">E-mail</label>
+                <input id="email" name="email" type="email" placeholder="seu@email.com" required />
+              </div>
+
+              <div class="field">
+                <label for="whatsapp">WhatsApp</label>
+                <input id="whatsapp" name="whatsapp" type="tel" placeholder="(00) 00000-0000" required />
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="idade">Idade</label>
+                <input id="idade" name="idade" type="number" min="18" placeholder="Ex: 28" required />
+              </div>
+
+              <div class="field">
+                <label for="paisResidencia">País de residência</label>
+                <input id="paisResidencia" name="paisResidencia" type="text" placeholder="Brasil" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="comprovante">Comprovante de pagamento</label>
+              <input id="comprovante" name="comprovante" type="file" accept="image/*,.pdf" required />
+            </div>
+
+            <label class="checkbox-row">
+              <input id="aceiteTermos" name="aceiteTermos" type="checkbox" required />
+              <span>
+                Confirmo que li e aceito os  <a href="../public/regras.html#termos">termos</a> e as <a href="../public/regras.html#regras">regras da comunidade</a> SER TRADER SEM RÉ.
+              </span>
+            </label>
+
+            <button class="button primary" type="submit">Enviar cadastro</button>
+          </form>
+        </div>
+
+        <div id="authMessage" class="message" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <script type="module" src="assets/auth.js"></script>
+  </body>
+</html>

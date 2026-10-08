@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/api/membros"
+  to = "https://script.google.com/macros/s/AKfycbwaFv76W7qTpk472VWFaWDnzdALM3KkT3bCrBS5z4r9nshga2BalxYYzL_0WIxaospn2A/exec"
+  status = 200
+  force = true

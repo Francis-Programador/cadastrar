@@ -1,141 +1,141 @@
-// Apps Script pronto para colar no editor do Google Apps Script
-// Compatível com a planilha que tem 13 colunas (A..M) conforme seu exemplo
+// Nome da aba na planilha do Google Sheets
+const SHEET_NAME = "Membros_Premium";
 
+/**
+ * Função para tratar requisições POST (Cadastro de novos membros)
+ */
 function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   try {
-    // Debug: log incoming envelope
-    try { Logger.log('doPost envelope: ' + JSON.stringify(e)); } catch(z){}
+    const sheet = getOrCreateSheet();
+    const data = JSON.parse(e.postData.contents);
 
-    var data = {};
-    if (e.postData && e.postData.contents) {
-      try {
-        data = JSON.parse(e.postData.contents);
-      } catch (err) {
-        // Fallback: tenta usar parâmetros parseados (e.parameter) quando body não for JSON
-        var params = e.parameter || {};
-        for (var k in params) if (params.hasOwnProperty(k)) data[k] = params[k];
+    // Processa apenas a ação de cadastro
+    if (data.action === "register") {
+      const idMembro = "MBR-" + new Date().getTime();
+      const dataRegistro = new Date().toLocaleString("pt-BR", { timeZone: "Africa/Luanda" });
 
-        // Se ainda vazio, tenta parsear manualmente urlencoded (ex: "a=1&b=2")
-        if (Object.keys(data).length === 0 && typeof e.postData.contents === 'string') {
-          var parts = e.postData.contents.split('&');
-          parts.forEach(function(p){
-            var kv = p.split('=');
-            if (kv.length >= 1) {
-              var key = decodeURIComponent(kv[0] || '');
-              var val = decodeURIComponent((kv[1] || '').replace(/\+/g, ' '));
-              data[key] = val;
-            }
-          });
+      // Linha organizada conforme a estrutura do banco de dados
+      const newRow = [
+        idMembro,
+        dataRegistro,
+        data.nomeCompleto || "",
+        data.usuario || "",
+        data.email || "",
+        data.whatsapp || "",
+        data.idade || "",
+        data.pais || "",
+        data.urlComprovante || "",
+        "Pendente",
+        "",
+        data.aceiteTermos ? "Sim" : "Não"
+      ];
+
+      // Verifica se o usuário ou e-mail já existe
+      const existingData = sheet.getDataRange().getValues();
+      for (let i = 1; i < existingData.length; i++) {
+        if (existingData[i][3] === data.usuario) {
+          return createResponse({ success: false, message: "Este nome de usuário já está em uso." });
+        }
+        if (existingData[i][4] === data.email) {
+          return createResponse({ success: false, message: "Este e-mail já está cadastrado." });
         }
       }
-    } else {
-      // Quando a requisição vier como form-encoded (ou em ambientes que bloqueiam body), lê parâmetros
-      var params = e.parameter || {};
-      for (var k in params) if (params.hasOwnProperty(k)) data[k] = params[k];
-    }
-    var dataAtual = new Date(); // timestamp
 
-    // Validação simples de apiKey (defina API_KEY nas Script Properties)
-    var expectedKey = PropertiesService.getScriptProperties().getProperty('API_KEY');
-    if (expectedKey) {
-      var providedKey = (data.api_key || data.apiKey || '') + '';
-      if (providedKey !== expectedKey) {
-        return ContentService.createTextOutput(JSON.stringify({status: 'error', message: 'Invalid API key'})).setMimeType(ContentService.MimeType.JSON);
-      }
+      sheet.appendRow(newRow);
+      return createResponse({ success: true, message: "Cadastro realizado com sucesso! Aguarde a liberação." });
     }
 
-    // opcional: validação simples
-    if (!data.ativo) data.ativo = '';
-    if (!data.usuario) data.usuario = '';
+    return createResponse({ success: false, message: "Ação não reconhecida." });
 
-    sheet.appendRow([
-      dataAtual,          // Coluna A: DATA
-      data.ativo || '',   // Coluna B: ATIVO
-      data.mercado || '', // Coluna C: MERCADO
-      data.estrategia || '',    // Coluna D: ESTRATEGIA
-      data.timeframe || '',     // Coluna E: TIMEFRAME
-      data.direcao || '',       // Coluna F: DIRECAO
-      data.conta || '',         // Coluna G: CONTA
-      data.entrada || '',       // Coluna H: ENTRADA
-      data.payout || '',        // Coluna I: PAYOUT
-      data.resultado || '',     // Coluna J: RESULTADO
-      data.observacao || '',    // Coluna K: OBSERVAÇÃO
-      data.corretora || '',     // Coluna L: CORRETORA
-      data.usuario || ''        // Coluna M: USUARIO
-    ]);
-
-    return ContentService.createTextOutput(JSON.stringify({status: 'success'})).setMimeType(ContentService.MimeType.JSON);
   } catch (error) {
-    return ContentService.createTextOutput(JSON.stringify({status: 'error', message: error.toString()})).setMimeType(ContentService.MimeType.JSON);
+    return createResponse({ success: false, message: "Erro no servidor: " + error.toString() });
   }
 }
 
+/**
+ * Função para tratar requisições GET (Login e verificação de status)
+ */
 function doGet(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var data = sheet.getDataRange().getValues();
-  if (!data || data.length < 1) return ContentService.createTextOutput(JSON.stringify({data:[]})).setMimeType(ContentService.MimeType.JSON);
+  try {
+    const sheet = getOrCreateSheet();
+    const action = e.parameter.action;
+    const usuarioOrEmail = e.parameter.usuario;
 
-  var headers = data[0].map(function(h){ return h.toString().toLowerCase().trim().normalize('NFD').replace(/[^a-z0-9_\s]/g,''); });
-  var params = e.parameter || {};
-  var action = (params.action || 'fetch').toString().toLowerCase();
-  var start = params.start ? new Date(params.start) : null;
-  var end = params.end ? new Date(params.end) : null;
-  var userFilter = params.user ? params.user.toString().toLowerCase().trim() : null;
-  var corretoraFilter = params.corretora ? params.corretora.toString().toLowerCase().trim() : null;
-  var estrategiaFilter = params.estrategia ? params.estrategia.toString().toLowerCase().trim() : null;
-  var contaFilter = params.conta ? params.conta.toString().toLowerCase().trim() : null;
-  var resultadoFilter = params.resultado ? params.resultado.toString().toLowerCase().trim() : null;
-  var mercadoFilter = params.mercado ? params.mercado.toString().toLowerCase().trim() : null;
-  var timeframeFilter = params.timeframe ? params.timeframe.toString().toLowerCase().trim() : null;
-  var limit = params.limit ? parseInt(params.limit, 10) : null;
+    if (action === "login") {
+      const data = sheet.getDataRange().getValues();
 
-  var rows = [];
-  for (var i = 1; i < data.length; i++) {
-    var row = data[i];
-    var obj = {};
-    for (var j = 0; j < headers.length; j++) obj[headers[j]] = row[j];
-    rows.push(obj);
-  }
+      // Percorre a planilha procurando o usuário/e-mail
+      for (let i = 1; i < data.length; i++) {
+        const userRow = data[i];
+        const username = userRow[3];
+        const email = userRow[4];
+        const status = userRow[9];
+        const nomeCompleto = userRow[2];
+        const dataVencimento = userRow[10];
 
-  var filtered = rows.filter(function(r){
-    try {
-      if (start || end) {
-        var d = new Date(r['data'] || r['date'] || r['timestamp'] || r['hora'] || r['datahora']);
-        if (start && d < start) return false;
-        if (end && d > end) return false;
+        if (username === usuarioOrEmail || email === usuarioOrEmail) {
+          if (status === "Ativo") {
+            return createResponse({
+              success: true,
+              status: "Ativo",
+              user: {
+                nome: nomeCompleto,
+                usuario: username,
+                vencimento: dataVencimento
+              }
+            });
+          } else if (status === "Pendente") {
+            return createResponse({ success: false, status: "Pendente", message: "Seu cadastro ainda está em análise." });
+          } else if (status === "Expirado") {
+            return createResponse({ success: false, status: "Expirado", message: "Sua assinatura expirou. Faça a renovação." });
+          } else {
+            return createResponse({ success: false, message: "Acesso bloqueado ou inativo." });
+          }
+        }
       }
-        if (userFilter && ('' + (r['usuario'] || '')).toLowerCase().trim() !== userFilter) return false;
-        if (corretoraFilter && ('' + (r['corretora'] || '')).toLowerCase().trim() !== corretoraFilter) return false;
-        if (estrategiaFilter && ('' + (r['estrategia'] || '')).toLowerCase().trim() !== estrategiaFilter) return false;
-        if (contaFilter && ('' + (r['conta'] || '')).toLowerCase().trim() !== contaFilter) return false;
-        if (resultadoFilter && ('' + (r['resultado'] || '')).toLowerCase().trim() !== resultadoFilter) return false;
-        if (mercadoFilter && ('' + (r['mercado'] || '')).toLowerCase().trim() !== mercadoFilter) return false;
-        if (timeframeFilter && ('' + (r['timeframe'] || '')).toLowerCase().trim() !== timeframeFilter) return false;
-      return true;
-    } catch (e) { return false; }
-  });
 
-  if (action === 'ranking') {
-    var agg = {};
-    filtered.forEach(function(r){
-      var user = (r['usuario'] || 'anon').toString();
-      var entrada = parseFloat(r['entrada']) || 0;
-      var payout = parseFloat(r['payout']) || 0;
-      var resultado = ('' + (r['resultado'] || '')).toUpperCase().trim();
-      var lucro = 0;
-      if (resultado === 'WIN') lucro = entrada * (payout / 100);
-      else if (resultado === 'LOSS') lucro = -entrada;
-      if (!agg[user]) agg[user] = { usuario: user, totalOperacoes: 0, lucro: 0 };
-      agg[user].totalOperacoes++;
-      agg[user].lucro += lucro;
-    });
-    var ranking = Object.keys(agg).map(function(k){ return agg[k]; }).sort(function(a,b){ return b.lucro - a.lucro; });
-    var result = limit ? ranking.slice(0, limit) : ranking;
-    return ContentService.createTextOutput(JSON.stringify({data: result})).setMimeType(ContentService.MimeType.JSON);
+      return createResponse({ success: false, message: "Usuário não encontrado." });
+    }
+
+    return createResponse({ success: false, message: "Parâmetros inválidos." });
+
+  } catch (error) {
+    return createResponse({ success: false, message: "Erro no processamento: " + error.toString() });
   }
+}
 
-  var out = filtered;
-  if (limit) out = filtered.slice(0, limit);
-  return ContentService.createTextOutput(JSON.stringify({data: out})).setMimeType(ContentService.MimeType.JSON);
+/**
+ * Utilitário: Obtém a aba existente ou cria com o cabeçalho correto
+ */
+function getOrCreateSheet() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(SHEET_NAME);
+
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME);
+    // Cria os cabeçalhos na primeira linha
+    sheet.appendRow([
+      "ID_Membro",
+      "Data_Registro",
+      "Nome_Completo",
+      "Nome_Usuario",
+      "Email",
+      "WhatsApp",
+      "Idade",
+      "Pais_Residencia",
+      "Url_Comprovante",
+      "Status_Conta",
+      "Data_Vencimento",
+      "Aceite_Termos"
+    ]);
+  }
+  return sheet;
+}
+
+/**
+ * Utilitário: Formata a resposta no formato JSON para o front-end
+ */
+function createResponse(data) {
+  return ContentService.createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
 }

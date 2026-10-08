@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | SER TRADER SEM RÉ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/dashboard.css" />
+    <script src="guard.js"></script>
+  </head>
+  <body>
+    <div class="dashboard-shell">
+      <header class="topbar">
+        <div class="brand">
+          <img src="../static/img/logo_do_site.png" alt="SER TRADER SEM RÉ" />
+          <div>
+            <strong id="memberName">Membro</strong>
+            <span>Área exclusiva</span>
+          </div>
+        </div>
+
+        <nav class="nav-links" aria-label="Navegação do subsite">
+          <a href="dashboard.html" class="nav-link active">Dashboard</a>
+          <a href="sala-ao-vivo.html" class="nav-link">Sala ao vivo</a>
+          <a href="suporte-emocional.html" class="nav-link">Suporte</a>
+          <a href="biblioteca.html" class="nav-link">Biblioteca</a>
+        </nav>
+
+        <div class="top-actions">
+          <span class="badge" id="memberStatus">Status: Pendente</span>
+          <button class="logout-btn" type="button" id="logoutBtn">Sair</button>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="card welcome">
+          <span class="eyebrow">Área exclusiva</span>
+          <h1>Bem-vindo, <span id="memberFirstName">membro</span>.</h1>
+          <p>
+            Sua jornada continua em um ambiente focado em disciplina, organização e evolução real.
+            Abaixo você acompanha indicadores importantes, gestão de risco e acesso às ferramentas
+            que apoiam sua rotina.
+          </p>
+
+          <div class="quick-links">
+            <a class="quick-link" href="sala-ao-vivo.html">Sala ao vivo</a>
+            <a class="quick-link" href="biblioteca.html">Biblioteca</a>
+            <a class="quick-link" href="suporte-emocional.html">Suporte emocional</a>
+          </div>
+
+          <div class="stats">
+            <div class="card stat-card">
+              <small>Plano</small>
+              <strong class="primary">Premium</strong>
+            </div>
+            <div class="card stat-card">
+              <small>Status</small>
+              <strong id="statusValue" class="positive">Ativo</strong>
+            </div>
+            <div class="card stat-card">
+              <small>Vencimento</small>
+              <strong id="vencimentoValue" class="warning">--</strong>
+            </div>
+            <div class="card stat-card">
+              <small>Dias restantes</small>
+              <strong id="diasRestantes" class="muted">--</strong>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card support-box">
+          <h3>Checklist emocional pré-operacional</h3>
+          <div class="checklist">
+            <label class="check-row"><input type="checkbox" /> Estou calmo e sem pressa?</label>
+            <label class="check-row"><input type="checkbox" /> Minha análise está clara e sem dúvida?</label>
+            <label class="check-row"><input type="checkbox" /> O risco está dentro do plano?</label>
+            <label class="check-row"><input type="checkbox" /> Se não houver clareza, eu não entro.</label>
+          </div>
+        </aside>
+      </section>
+
+      <section class="grid">
+        <div class="card">
+          <h3>Calculadora de gerenciamento de risco</h3>
+          <form id="riskForm">
+            <div class="field-grid">
+              <div class="field">
+                <label for="bancaInicial">Banca inicial</label>
+                <input id="bancaInicial" type="number" min="0" step="0.01" value="500" />
+              </div>
+              <div class="field">
+                <label for="metaDiaria">Meta diária (%)</label>
+                <input id="metaDiaria" type="number" min="0" max="100" step="0.1" value="3" />
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="stopDiario">Stop loss diário (%)</label>
+                <input id="stopDiario" type="number" min="0" max="100" step="0.1" value="2" />
+              </div>
+              <div class="field">
+                <label for="payoutCorretora">Payout da corretora (%)</label>
+                <input id="payoutCorretora" type="number" min="0" max="1000" step="0.1" value="80" />
+              </div>
+            </div>
+
+            <button class="button primary" type="submit">Calcular</button>
+          </form>
+
+          <div class="summary">
+            <div class="summary-row"><span>Meta financeira</span><strong id="metaFinanceira">R$ 0,00</strong></div>
+            <div class="summary-row"><span>Stop diário</span><strong id="stopFinanceiro">R$ 0,00</strong></div>
+            <div class="summary-row"><span>1ª entrada recomendada</span><strong id="primeiraEntrada">R$ 0,00</strong></div>
+            <div class="summary-row"><span>Soros / recuperação</span><strong id="sorosRecuperacao">R$ 0,00</strong></div>
+          </div>
+        </div>
+
+        <aside class="card">
+          <h3>Resumo comportamental</h3>
+          <div id="riskNotes" class="risk-notes">
+            <p>Seu plano de risco está dentro de um desenho saudável para a banca atual.</p>
+          </div>
+        </aside>
+      </section>
+    </div>
+
+    <script src="assets/dashboard.js"></script>
+  </body>
+</html>

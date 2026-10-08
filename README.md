@@ -34,6 +34,11 @@ Dicas e resolução de problemas
 - Se uma operação não aparece: verifique se o envio retornou sucesso; aguarde alguns segundos e atualize a página.
 - Evite enviar informações pessoais sensíveis — use apenas nicknames públicos.
 
+Área de membros local
+
+- Para testar o cadastro de membros, execute `npm run dev` na pasta do projeto e abra `http://localhost:8080/membros/`.
+- Não use o botão “Go Live” do Live Server nessa página: o envio depende do proxy do Vite para se conectar ao Apps Script.
+
 Perguntas frequentes (FAQ)
 
 - Por que meu nickname aparece diferente no ranking?

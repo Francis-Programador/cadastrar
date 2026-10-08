@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sala Ao Vivo | SER TRADER SEM RÉ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/dashboard.css" />
+    <script src="guard.js"></script>
+    <style>
+      .page-shell { width: min(1180px, 100%); margin: 0 auto; display: grid; gap: 24px; }
+      .content-grid { display: grid; grid-template-columns: 1.4fr 0.8fr; gap: 24px; }
+      .video-frame { aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; border: 1px solid rgba(148, 163, 184, 0.18); background: #020817; }
+      .video-frame iframe { width: 100%; height: 100%; border: 0; }
+      .notes-box textarea { width: 100%; min-height: 170px; resize: vertical; border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.18); background: rgba(15, 23, 42, 0.9); color: var(--text); padding: 14px; font: inherit; }
+      .notes-box textarea:focus { outline: 2px solid rgba(56, 189, 248, 0.45); outline-offset: 1px; }
+      .quick-actions { display: grid; gap: 12px; }
+      .action-btn { display: block; text-decoration: none; color: var(--text); background: rgba(148, 163, 184, 0.06); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; font-weight: 700; }
+      .action-btn.primary { background: linear-gradient(135deg, #38bdf8, #0ea5e9); color: #04111a; }
+      @media (max-width: 900px) { .content-grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand">
+          <img src="../static/img/logo_do_site.png" alt="SER TRADER SEM RÉ" />
+          <div>
+            <strong id="memberName">Membro</strong>
+            <span>Área exclusiva</span>
+          </div>
+        </div>
+
+        <nav class="nav-links" aria-label="Navegação do subsite">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="sala-ao-vivo.html" class="nav-link active">Sala ao vivo</a>
+          <a href="suporte-emocional.html" class="nav-link">Suporte</a>
+          <a href="biblioteca.html" class="nav-link">Biblioteca</a>
+        </nav>
+
+        <div class="top-actions">
+          <span class="badge" id="memberStatus">Status: Ativo</span>
+          <button class="logout-btn" type="button" id="logoutBtn">Sair</button>
+        </div>
+      </header>
+
+      <main class="content-grid">
+        <section class="card">
+          <h3>Transmissão ao vivo</h3>
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=0" title="Live da comunidade" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </section>
+
+        <aside class="card">
+          <h3>Atalhos</h3>
+          <div class="quick-actions">
+            <a class="action-btn primary" href="https://chat.whatsapp.com/" target="_blank" rel="noreferrer">Entrar no grupo de voz/chat</a>
+            <a class="action-btn" href="dashboard.html">Voltar ao dashboard</a>
+            <a class="action-btn" href="biblioteca.html">Abrir biblioteca</a>
+          </div>
+        </aside>
+      </main>
+
+      <section class="card notes-box">
+        <h3>Notas rápidas da live</h3>
+        <textarea id="liveNotes" placeholder="Registre os pontos importantes da operação, entradas, stop, e o que você precisa reforçar..."></textarea>
+        <div class="quick-links" style="margin-top: 18px;">
+          <button class="quick-link save-notes" type="button">Salvar rascunho</button>
+        </div>
+      </section>
+    </div>
+
+    <script src="assets/dashboard.js"></script>
+    <script>
+      const liveNotes = document.getElementById('liveNotes');
+      const saved = localStorage.getItem('serTraderLiveNotes');
+      if (saved) {
+        liveNotes.value = saved;
+      }
+
+      document.querySelector('.save-notes')?.addEventListener('click', () => {
+        localStorage.setItem('serTraderLiveNotes', liveNotes.value.trim());
+        const button = document.querySelector('.save-notes');
+        const previousText = button.textContent;
+        button.textContent = 'Salvo';
+        setTimeout(() => { button.textContent = previousText; }, 1200);
+      });
+
+      document.getElementById('logoutBtn')?.addEventListener('click', () => {
+        sessionStorage.removeItem('serTraderMember');
+        localStorage.removeItem('serTraderMember');
+        window.location.href = '../index.html';
+      });
+    </script>
+  </body>
+</html>

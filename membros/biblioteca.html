@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biblioteca | SER TRADER SEM RÉ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/dashboard.css" />
+    <script src="guard.js"></script>
+    <style>
+      .library-shell { width: min(1160px, 100%); margin: 0 auto; display: grid; gap: 24px; }
+      .library-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+      .resource-card { padding: 22px; border-radius: 18px; background: rgba(15, 23, 42, 0.92); border: 1px solid rgba(148, 163, 184, 0.18); display: grid; gap: 12px; }
+      .resource-card h4 { margin: 0; font-size: 1.1rem; }
+      .resource-card p { margin: 0; color: rgba(226, 232, 240, 0.75); line-height: 1.6; }
+      .resource-card a { display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; padding: 10px 14px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(125, 211, 252, 0.3); color: #dff5ff; text-decoration: none; font-weight: 700; }
+      @media (max-width: 860px) { .library-grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <div class="library-shell">
+      <header class="topbar">
+        <div class="brand">
+          <img src="../static/img/logo_do_site.png" alt="SER TRADER SEM RÉ" />
+          <div>
+            <strong id="memberName">Membro</strong>
+            <span>Área exclusiva</span>
+          </div>
+        </div>
+
+        <nav class="nav-links" aria-label="Navegação do subsite">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="sala-ao-vivo.html" class="nav-link">Sala ao vivo</a>
+          <a href="suporte-emocional.html" class="nav-link">Suporte</a>
+          <a href="biblioteca.html" class="nav-link active">Biblioteca</a>
+        </nav>
+
+        <div class="top-actions">
+          <span class="badge" id="memberStatus">Status: Ativo</span>
+          <button class="logout-btn" type="button" id="logoutBtn">Sair</button>
+        </div>
+      </header>
+
+      <section class="card">
+        <h3>Biblioteca de recursos</h3>
+        <div class="library-grid">
+          <article class="resource-card">
+            <h4>Planilhas de gestão</h4>
+            <p>Modelos prontos para controlar risco, banca, evolução e anotações operacionais do dia.</p>
+            <a href="https://drive.google.com/" target="_blank" rel="noreferrer">Abrir materiais</a>
+          </article>
+
+          <article class="resource-card">
+            <h4>Psicologia do trader</h4>
+            <p>Livros, PDFs e materiais para melhorar disciplina emocional, foco e gestão de pressão.</p>
+            <a href="https://drive.google.com/" target="_blank" rel="noreferrer">Acessar PDFs</a>
+          </article>
+
+          <article class="resource-card">
+            <h4>Scripts e indicadores</h4>
+            <p>Ferramentas para plataformas, automações e apoio visual nas operações e organização.</p>
+            <a href="https://drive.google.com/" target="_blank" rel="noreferrer">Ver indicadores</a>
+          </article>
+
+          <article class="resource-card">
+            <h4>Gravações e mentorias</h4>
+            <p>Material antigo em vídeo para revisão de setups, erros clássicos e reforço de conceitos.</p>
+            <a href="https://youtube.com/" target="_blank" rel="noreferrer">Abrir gravações</a>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <script src="assets/dashboard.js"></script>
+    <script>
+      document.getElementById('logoutBtn')?.addEventListener('click', () => {
+        sessionStorage.removeItem('serTraderMember');
+        localStorage.removeItem('serTraderMember');
+        window.location.href = '../index.html';
+      });
+    </script>
+  </body>
+</html>

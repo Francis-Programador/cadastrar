@@ -1,0 +1,27 @@
+quero uma pagina de login/cadastro, essa pagina deve levar a um lugar que so quem fez login tem acesso.
+para isso, vamos ter que fazer um subsite, dentro desse site, ou seja, uma pasta separada
+dentro do subsite o usuario deverá se sentir unico.
+o meu banco de dados será a planilha do google sheets, para guardar usuarios cadastrados.
+
+pagina de cadastro
+o subsite é pago, e terá recursos premiuns.
+para isso a pagina de cadastro deverá pedir os seguintes dados: nome, usuario, email, whatsap ativo,
+comprovativo de pagamento, idade, pais de residencia, termos e condições, acordos.
+o sheets deverá alocar tudo isso, incluindo data de registro, status (pendente, ativo, expirado),
+o pagamento é mensal exige renovação. (outras coisas acrescenta conforme o seu criterio, e organiza
+deixando como site profissional)
+o login deve pedir dados de acesso, e abrir o subsite apenas se o status estiver ativo, lá na planilha.
+
+objetivo do subsite
+não é sobre venda, nenhum curso, material, estratégia serão vendidas, pelo contrário, terá acesso
+a todos os materiais/cursos da comunidade, sem pedir acesso. apenas oferecemos, mais atenção em ti,
+conselhos de operações, apoio emocional, analisamos suas operações em tempo real e damos feedback,
+participação de operações ao vivo com a comunidade, ajudamos a desenvolver seu estilo de trader 
+aprimorando seu gerenciamento, estratégia, emoções, análise, vida pré e pós trader.
+ter seu proprio gerenciamento online, cadastro individual, dashboard pessoa, formulario de mensagem.
+
+atenção: eu não tenho ideia de como será estruturado o subsite, mas sei que as ferramentas gratis que
+uso são: emailjs, cloudinary, app script, google sheets, github, netlify, drive/dropbox, youtube e as redes sociais.
+e quero um subsite com diversas paginas premiuns, que o usuario se sinta bem aconchegante, com cores e letras premiun,
+que estudos dizem fazer as pessoas a lerem melhor, sem exagero nas escritas excessiva.
+

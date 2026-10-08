@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suporte Emocional | SER TRADER SEM RÉ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/dashboard.css" />
+    <script src="guard.js"></script>
+    <style>
+      .support-shell { width: min(1000px, 100%); margin: 0 auto; display: grid; gap: 24px; }
+      form { display: grid; gap: 18px; }
+      .field { display: grid; gap: 8px; }
+      .field label { font-size: 0.82rem; font-weight: 700; }
+      .field input, .field select, .field textarea { width: 100%; border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.18); background: rgba(15, 23, 42, 0.9); color: var(--text); padding: 12px 14px; font: inherit; }
+      .field textarea { min-height: 160px; resize: vertical; }
+      .button.primary { background: linear-gradient(135deg, #22c55e, #16a34a); color: #03130b; }
+    </style>
+  </head>
+  <body>
+    <div class="support-shell">
+      <header class="topbar">
+        <div class="brand">
+          <img src="../static/img/logo_do_site.png" alt="SER TRADER SEM RÉ" />
+          <div>
+            <strong id="memberName">Membro</strong>
+            <span>Área exclusiva</span>
+          </div>
+        </div>
+
+        <nav class="nav-links" aria-label="Navegação do subsite">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="sala-ao-vivo.html" class="nav-link">Sala ao vivo</a>
+          <a href="suporte-emocional.html" class="nav-link active">Suporte</a>
+          <a href="biblioteca.html" class="nav-link">Biblioteca</a>
+        </nav>
+
+        <div class="top-actions">
+          <span class="badge" id="memberStatus">Status: Ativo</span>
+          <button class="logout-btn" type="button" id="logoutBtn">Sair</button>
+        </div>
+      </header>
+
+      <section class="card">
+        <h3>Suporte emocional & análise de trades</h3>
+        <form id="supportForm">
+          <div class="field">
+            <label for="tipoSolicitacao">Tipo de solicitação</label>
+            <select id="tipoSolicitacao">
+              <option value="Análise de Operação (Print)">Análise de Operação (Print)</option>
+              <option value="Desabafo Operacional / Psicologia">Desabafo Operacional / Psicologia</option>
+              <option value="Dúvida Estratégica">Dúvida Estratégica</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="urlPrint">URL do print / imagem</label>
+            <input id="urlPrint" type="url" placeholder="https://..." />
+          </div>
+
+          <div class="field">
+            <label for="mensagem">Descreva sua situação</label>
+            <textarea id="mensagem" placeholder="Conte o que você sentiu, a lógica da entrada, o que percebeu de risco, e qual apoio você precisa..."></textarea>
+          </div>
+
+          <button class="button primary" type="submit">Enviar para o suporte</button>
+        </form>
+      </section>
+    </div>
+
+    <script src="assets/dashboard.js"></script>
+    <script>
+      document.getElementById('supportForm')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const tipo = document.getElementById('tipoSolicitacao').value;
+        const url = document.getElementById('urlPrint').value.trim();
+        const mensagem = document.getElementById('mensagem').value.trim();
+        const assunto = encodeURIComponent(`Suporte - ${tipo}`);
+        const body = encodeURIComponent(`Tipo de solicitação: ${tipo}\n\nURL do print: ${url || 'Não informado'}\n\nMensagem:\n${mensagem}`);
+        window.location.href = `mailto:suporte@sertradersemre.com?subject=${assunto}&body=${body}`;
+      });
+
+      document.getElementById('logoutBtn')?.addEventListener('click', () => {
+        sessionStorage.removeItem('serTraderMember');
+        localStorage.removeItem('serTraderMember');
+        window.location.href = '../index.html';
+      });
+    </script>
+  </body>
+</html>

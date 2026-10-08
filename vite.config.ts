@@ -9,6 +9,14 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    proxy: {
+      "/api/membros": {
+        target: "https://script.google.com/macros/s/AKfycbwaFv76W7qTpk472VWFaWDnzdALM3KkT3bCrBS5z4r9nshga2BalxYYzL_0WIxaospn2A/exec",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/api\/membros/, ""),
+      },
+    },
     hmr: {
       overlay: false,
     },
@@ -41,6 +49,11 @@ export default defineConfig(({ mode }) => ({
         "recursos/corretoras": path.resolve(__dirname, "recursos/corretoras.html"),
         "recursos/materiais": path.resolve(__dirname, "recursos/materiais.html"),
         "recursos/formacao": path.resolve(__dirname, "recursos/formacao.html"),
+        "membros/index": path.resolve(__dirname, "membros/index.html"),
+        "membros/dashboard": path.resolve(__dirname, "membros/dashboard.html"),
+        "membros/sala-ao-vivo": path.resolve(__dirname, "membros/sala-ao-vivo.html"),
+        "membros/suporte-emocional": path.resolve(__dirname, "membros/suporte-emocional.html"),
+        "membros/biblioteca": path.resolve(__dirname, "membros/biblioteca.html"),
       },
     },
   },
