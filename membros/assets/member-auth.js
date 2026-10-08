@@ -56,6 +56,15 @@ async function firebaseRequest(action, body) {
   return parseResponse(response);
 }
 
+async function getFirebaseUser(idToken) {
+  const result = await firebaseRequest('lookup', { idToken });
+  const user = result.users?.[0];
+  if (!user) {
+    throw new Error('Não foi possível confirmar o estado da conta no Firebase. Tente novamente.');
+  }
+  return user;
+}
+
 async function appsScriptRequest(payload) {
   const response = await fetch(APP_SCRIPT_URL, {
     method: 'POST',
@@ -96,7 +105,8 @@ export async function createMemberAccount({ email, password, registration }) {
     });
   }
 
-  if (account.emailVerified !== true) {
+  const user = await getFirebaseUser(account.idToken);
+  if (user.emailVerified !== true) {
     await firebaseRequest('sendOobCode', {
       requestType: 'VERIFY_EMAIL',
       idToken: account.idToken,
@@ -187,7 +197,8 @@ export async function authenticateMember(email, password) {
     returnSecureToken: true,
   });
 
-  if (account.emailVerified !== true) {
+  const user = await getFirebaseUser(account.idToken);
+  if (user.emailVerified !== true) {
     throw new Error('Confirme seu e-mail pelo link enviado antes de entrar.');
   }
 

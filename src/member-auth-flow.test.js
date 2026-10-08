@@ -4,7 +4,10 @@ vi.mock('../membros/assets/firebase-config.js', () => ({
   firebaseConfig: { apiKey: 'test-firebase-key' },
 }));
 
-import { authenticateMember } from '../membros/assets/member-auth.js';
+import {
+  authenticateMember,
+  createMemberAccount,
+} from '../membros/assets/member-auth.js';
 
 describe('Firebase member sign-in flow', () => {
   beforeEach(() => {
@@ -24,7 +27,12 @@ describe('Firebase member sign-in flow', () => {
           idToken: 'firebase-id-token',
           refreshToken: 'firebase-refresh-token',
           expiresIn: '3600',
-          emailVerified: true,
+        }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          users: [{ localId: 'firebase-uid-1', emailVerified: true }],
         }),
       })
       .mockResolvedValueOnce({
@@ -48,6 +56,14 @@ describe('Firebase member sign-in flow', () => {
       .toBe('firebase-id-token');
     expect(fetch).toHaveBeenNthCalledWith(
       2,
+      expect.stringContaining('/accounts:lookup?'),
+      expect.objectContaining({
+        method: 'POST',
+        body: JSON.stringify({ idToken: 'firebase-id-token' }),
+      })
+    );
+    expect(fetch).toHaveBeenNthCalledWith(
+      3,
       '/api/membros',
       expect.objectContaining({
         method: 'POST',
@@ -67,7 +83,12 @@ describe('Firebase member sign-in flow', () => {
           idToken: 'firebase-id-token',
           refreshToken: 'firebase-refresh-token',
           expiresIn: '3600',
-          emailVerified: true,
+        }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          users: [{ localId: 'firebase-uid-1', emailVerified: true }],
         }),
       })
       .mockResolvedValueOnce({
@@ -81,6 +102,90 @@ describe('Firebase member sign-in flow', () => {
 
     await expect(authenticateMember('ana@example.com', 'password123'))
       .rejects.toThrow('Cadastro em análise.');
+    expect(sessionStorage.getItem('serTraderFirebaseSession')).toBeNull();
+  });
+
+  it('allows verified accounts even when sign-in omits the email verification field', async () => {
+    vi.stubGlobal('fetch', vi.fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          idToken: 'firebase-id-token',
+          refreshToken: 'firebase-refresh-token',
+          expiresIn: '3600',
+        }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          users: [{ localId: 'firebase-uid-1', emailVerified: true }],
+        }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          success: true,
+          member: { ID_Membro: 'MBR-123', Status_Conta: 'Ativo' },
+        }),
+      }));
+
+    await expect(authenticateMember('ana@example.com', 'password123'))
+      .resolves.toMatchObject({ ID_Membro: 'MBR-123' });
+  });
+
+  it('requests email verification only when the Firebase profile is unverified', async () => {
+    vi.stubGlobal('fetch', vi.fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ idToken: 'firebase-id-token' }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          users: [{ localId: 'firebase-uid-1', emailVerified: true }],
+        }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ success: true }),
+      }));
+
+    await createMemberAccount({
+      email: 'ana@example.com',
+      password: 'password123',
+      registration: { nomeCompleto: 'Ana Trader' },
+    });
+
+    expect(fetch).toHaveBeenCalledTimes(3);
+    expect(fetch).toHaveBeenNthCalledWith(
+      3,
+      '/api/membros',
+      expect.objectContaining({
+        body: expect.stringContaining('"action":"register"'),
+      })
+    );
+  });
+
+  it('keeps unverified users from accessing member sessions', async () => {
+    vi.stubGlobal('fetch', vi.fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          idToken: 'firebase-id-token',
+          refreshToken: 'firebase-refresh-token',
+          expiresIn: '3600',
+        }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          users: [{ localId: 'firebase-uid-1', emailVerified: false }],
+        }),
+      }));
+
+    await expect(authenticateMember('ana@example.com', 'password123'))
+      .rejects.toThrow('Confirme seu e-mail pelo link enviado antes de entrar.');
+    expect(fetch).toHaveBeenCalledTimes(2);
     expect(sessionStorage.getItem('serTraderFirebaseSession')).toBeNull();
   });
 });
