@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/dashboard.css" />
-    <script src="guard.js"></script>
+    <script type="module" src="guard.js"></script>
     <style>
       .support-shell { width: min(1000px, 100%); margin: 0 auto; display: grid; gap: 24px; }
       form { display: grid; gap: 18px; }
@@ -70,7 +70,7 @@
       </section>
     </div>
 
-    <script src="assets/dashboard.js"></script>
+    <script type="module" src="assets/dashboard.js"></script>
     <script>
       document.getElementById('supportForm')?.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -82,11 +82,6 @@
         window.location.href = `mailto:suporte@sertradersemre.com?subject=${assunto}&body=${body}`;
       });
 
-      document.getElementById('logoutBtn')?.addEventListener('click', () => {
-        sessionStorage.removeItem('serTraderMember');
-        localStorage.removeItem('serTraderMember');
-        window.location.href = '../index.html';
-      });
     </script>
   </body>
 </html>

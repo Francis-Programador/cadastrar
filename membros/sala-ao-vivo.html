@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/dashboard.css" />
-    <script src="guard.js"></script>
+    <script type="module" src="guard.js"></script>
     <style>
       .page-shell { width: min(1180px, 100%); margin: 0 auto; display: grid; gap: 24px; }
       .content-grid { display: grid; grid-template-columns: 1.4fr 0.8fr; gap: 24px; }
@@ -73,27 +73,26 @@
       </section>
     </div>
 
-    <script src="assets/dashboard.js"></script>
-    <script>
+    <script type="module" src="assets/dashboard.js"></script>
+    <script type="module">
       const liveNotes = document.getElementById('liveNotes');
-      const saved = localStorage.getItem('serTraderLiveNotes');
+      const member = JSON.parse(sessionStorage.getItem('serTraderMember') || '{}');
+      const account = member.ID_Membro;
+      const notesKey = `serTraderLiveNotes:${account}`;
+      const saved = account ? localStorage.getItem(notesKey) : '';
       if (saved) {
         liveNotes.value = saved;
       }
 
       document.querySelector('.save-notes')?.addEventListener('click', () => {
-        localStorage.setItem('serTraderLiveNotes', liveNotes.value.trim());
+        if (!account) return;
+        localStorage.setItem(notesKey, liveNotes.value.trim());
         const button = document.querySelector('.save-notes');
         const previousText = button.textContent;
         button.textContent = 'Salvo';
         setTimeout(() => { button.textContent = previousText; }, 1200);
       });
 
-      document.getElementById('logoutBtn')?.addEventListener('click', () => {
-        sessionStorage.removeItem('serTraderMember');
-        localStorage.removeItem('serTraderMember');
-        window.location.href = '../index.html';
-      });
     </script>
   </body>
 </html>

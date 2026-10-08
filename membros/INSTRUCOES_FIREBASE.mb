@@ -1,0 +1,128 @@
+# Configurar autenticação segura para a Área de Membros
+
+Este projeto usa Firebase Authentication para verificar e-mail/senha e Google
+Apps Script para validar o status da assinatura no Google Sheets. O Firebase
+autentica a pessoa; o Apps Script continua decidindo se o cadastro está ativo.
+
+## 1. Criar ou escolher projeto Firebase
+
+1. Acesse https://console.firebase.google.com/ com a conta administradora.
+2. Crie um projeto para SER TRADER SEM RÉ ou selecione um projeto existente.
+3. No projeto, abra **Authentication > Sign-in method**.
+4. Ative o provedor **Email/Password** e salve.
+5. Abra **Authentication > Settings > Authorized domains**.
+6. Adicione os domínios reais usados pelo site e `localhost` para desenvolvimento.
+   `127.0.0.1` pode ser adicionado também se usar esse endereço local.
+7. Abra **Configurações do projeto > Geral > Seus apps**.
+8. Registre um app Web caso ainda não exista e copie a **Web API Key**.
+
+O frontend só precisa da Web API Key. Ela é um identificador público do Firebase,
+não uma senha de administrador. Nunca copie credenciais de conta de serviço,
+chaves privadas ou tokens para os arquivos do site.
+
+## 2. Configurar o frontend
+
+Abra `membros/assets/firebase-config.js` e substitua:
+
+```js
+apiKey: 'CONFIGURE_FIREBASE_WEB_API_KEY'
+```
+
+pela Web API Key copiada do Firebase:
+
+```js
+apiKey: 'AIza...'
+```
+
+O arquivo é público quando o site é publicado. Restrinja a chave no Google Cloud
+Console às APIs necessárias para Firebase Authentication (Identity Toolkit e
+Secure Token), se as restrições escolhidas forem compatíveis com o site e com o
+Apps Script.
+
+## 3. Configurar o Apps Script
+
+1. Abra o projeto Google Apps Script vinculado à planilha.
+2. Abra **Configurações do projeto > Propriedades do script**.
+3. Crie uma propriedade:
+   - Nome: `FIREBASE_WEB_API_KEY`
+   - Valor: a mesma Web API Key configurada no arquivo frontend.
+4. Substitua o conteúdo do projeto pelo `apps_script.gs` atualizado deste
+   repositório.
+5. Salve. Ao executar/publicar pela primeira vez, revise e autorize as
+   permissões solicitadas, inclusive chamadas externas feitas por `UrlFetchApp`.
+6. Em **Implantar > Gerenciar implantações**, edite a implantação de Web App
+   existente ou crie uma nova versão. A execução deve continuar sendo feita pela
+   conta proprietária da planilha e o acesso deve permitir que o site chame a
+   API.
+7. Se a URL da implantação mudar, atualize o proxy em `vite.config.ts` e o
+   redirect `/api/membros` em `netlify.toml`.
+
+O Apps Script validará o ID token chamando o endpoint oficial do Firebase
+Authentication. O ID do membro será associado a `Firebase_UID` na aba
+`Membros_Premium`; não crie essa coluna manualmente se ainda não existir, pois o
+script a adiciona ao final sem reordenar as colunas existentes.
+
+## 4. Como passa a funcionar
+
+### Novo cadastro
+
+1. A pessoa preenche o formulário, cria uma senha e envia o comprovativo.
+2. Firebase cria a conta e envia a mensagem de verificação do e-mail.
+3. O Apps Script registra a solicitação como `Pendente`; conta pendente não abre
+   as páginas privadas.
+4. A pessoa clica no link recebido por e-mail.
+5. A equipe confirma a mensalidade e altera `Status_Conta` para `Ativo` e
+   preenche `Data_Vencimento` na aba atual `Membros_Premium`.
+6. A pessoa entra com e-mail e senha. O Apps Script verifica o token, associa a
+   conta ao `ID_Membro`, valida o status e só então devolve os dados mínimos da
+   própria conta.
+
+### Membros já existentes na planilha
+
+- Não apague nem recrie as linhas atuais.
+- A pessoa deve abrir **Tornar-se Membro**, informar o mesmo e-mail que consta na
+  linha do cadastro, criar uma senha e verificar esse e-mail. O formulário ainda
+  pede um comprovativo para manter a validação de cadastro existente.
+- Se já houver uma conta Firebase com esse e-mail, use a senha correspondente;
+  se necessário, solicite uma redefinição de senha na tela de login.
+- Depois da verificação, o primeiro login válido associa o UID do Firebase ao
+  cadastro existente pelo e-mail confirmado.
+- Se o cadastro estiver pendente/expirado, o acesso permanece bloqueado mesmo
+  que a autenticação Firebase esteja correta.
+- Se o e-mail cadastrado não puder ser acessado, a equipe deve corrigir e
+  confirmar a identidade do membro antes de alterar a planilha. Não associe uma
+  conta usando apenas usuário, nome ou um ID fornecido pelo navegador.
+
+## 5. Testes antes de liberar
+
+Faça os testes com contas controladas pela equipe, nunca com dados pessoais de
+membros sem necessidade:
+
+1. Cadastro com e-mail válido: confirmar que chega a mensagem de verificação e
+   que a linha fica pendente.
+2. Tentar entrar sem verificar o e-mail: deve ser bloqueado.
+3. Verificar o e-mail e tentar entrar com status pendente: deve continuar
+   bloqueado.
+4. Ativar o membro e definir vencimento futuro: o dashboard deve abrir e mostrar
+   somente os dados retornados para aquele token.
+5. Expirar a data/status e tentar abrir cada página privada: deve voltar à tela
+   de login com aviso de renovação.
+6. Sair e tentar abrir uma URL privada: deve voltar ao login.
+7. Usar uma conta diferente: deve receber somente os dados associados ao seu
+   próprio UID.
+8. Testar redefinição de senha e verificar os links autorizados no Firebase.
+
+## 6. Limites e cuidados
+
+- O navegador guarda tokens apenas em `sessionStorage`; não os copie para
+  `localStorage`, URLs, logs ou planilhas.
+- O `sessionStorage` não é a autoridade de autorização. Cada página chama o
+  Apps Script, que valida o token no Firebase e consulta o status do membro.
+- Qualquer nova rota que leia ou escreva dados individuais também deverá validar
+  o ID token no Apps Script e derivar o ID do membro do UID verificado.
+- Nunca aceite `ID_Membro`, email ou username enviados pelo navegador como prova
+  de identidade.
+- A planilha e a implantação Apps Script devem permanecer sob controle da
+  equipe. Não publique nem compartilhe a planilha com membros.
+- A conta Firebase autenticada não equivale a uma assinatura paga. O Sheets
+  continua sendo a fonte administrativa de status e vencimento.

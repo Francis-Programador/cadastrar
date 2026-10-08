@@ -1,3 +1,11 @@
+import {
+  authenticateMember,
+  createMemberAccount,
+  isFirebaseConfigured,
+  requestPasswordReset,
+  validateMemberSession,
+} from './member-auth.js';
+
 const APP_CONFIG = {
   appScriptUrl: '/api/membros',
   cloudinary: {
@@ -49,26 +57,6 @@ function validateConfig() {
   return hasAppScript && hasCloudinary;
 }
 
-async function fetchJson(url, options = {}) {
-  const response = await fetch(url, options);
-  const rawText = await response.text();
-
-  if (!rawText) {
-    return { success: false, message: `Servidor respondeu vazio (status ${response.status}).` };
-  }
-
-  try {
-    return JSON.parse(rawText);
-  } catch (error) {
-    throw new Error(buildServerErrorMessage({
-      status: response.status,
-      rawText,
-      route: APP_SCRIPT_URL,
-      redirected: response.redirected || response.status === 302 || response.status === 301
-    }));
-  }
-}
-
 if (typeof document !== 'undefined') {
   const tabs = document.querySelectorAll('.tab-button');
   const panels = document.querySelectorAll('.tab-panel');
@@ -80,12 +68,23 @@ if (typeof document !== 'undefined') {
     messageBox.className = 'message ' + type;
   }
 
-  if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('serTraderMember')) {
-    window.location.href = 'dashboard.html';
+  const loginReason = new URLSearchParams(window.location.search).get('reason');
+  if (loginReason === 'expired') {
+    setMessage('Sua assinatura expirou. Fale com o administrador para renovar o acesso.', 'info');
+  } else if (loginReason === 'auth') {
+    setMessage('Entre com sua conta para acessar a área de membros.', 'info');
+  }
+
+  if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('serTraderFirebaseSession')) {
+    validateMemberSession().then((session) => {
+      if (session.valid) window.location.href = 'dashboard.html';
+    });
   }
 
   if (!validateConfig()) {
     setMessage('Configure primeiro as credenciais do Apps Script e do Cloudinary no arquivo membros/assets/auth.js antes de publicar.', 'error');
+  } else if (!isFirebaseConfigured()) {
+    setMessage('Configure a chave pública do Firebase em membros/assets/firebase-config.js antes de usar login e cadastro.', 'error');
   }
 
   tabs.forEach((button) => {
@@ -121,41 +120,33 @@ if (typeof document !== 'undefined') {
       setMessage('Informe um nome de usuário válido com pelo menos 3 caracteres.', 'error');
       return;
     }
+    if (!/^[a-z0-9._-]{3,40}$/i.test(nomeUsuario)) {
+      setMessage('Use apenas letras, números, ponto, hífen ou sublinhado no nome de usuário.', 'error');
+      return;
+    }
 
     try {
-      setMessage('Enviando comprovante e registrando seu acesso...', 'info');
+      const password = String(formData.get('password') || '');
+      const confirmPassword = String(formData.get('confirmPassword') || '');
+
+      if (password.length < 8) {
+        throw new Error('A senha precisa ter pelo menos 8 caracteres.');
+      }
+      if (password !== confirmPassword) {
+        throw new Error('As senhas não coincidem.');
+      }
+
+      setMessage('Enviando comprovante e criando sua conta segura...', 'info');
       const comprovanteUrl = await uploadComprovante(file);
       formData.set('comprovanteUrl', comprovanteUrl);
 
-      const payload = buildMemberPayload(formData);
-
-      const response = await fetch(APP_SCRIPT_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
+      await createMemberAccount({
+        email: String(formData.get('email') || ''),
+        password,
+        registration: buildMemberPayload(formData),
       });
 
-      const rawText = await response.text();
-      let result = {};
-
-      try {
-        result = JSON.parse(rawText);
-      } catch (error) {
-        throw new Error(buildServerErrorMessage({
-          status: response.status,
-          rawText,
-          route: APP_SCRIPT_URL,
-          redirected: response.redirected || response.status === 302 || response.status === 301
-        }));
-      }
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || 'Não foi possível concluir o cadastro.');
-      }
-
-      setMessage('Cadastro recebido! Assim que validarmos a sua mensalidade, seu acesso será ativado.', 'success');
+      setMessage('Cadastro recebido. Confirme seu e-mail pelo link enviado; o acesso será liberado após validarmos sua mensalidade.', 'success');
       form.reset();
     } catch (error) {
       setMessage(error.message || 'Ocorreu um erro ao processar o cadastro.', 'error');
@@ -164,37 +155,34 @@ if (typeof document !== 'undefined') {
 
   document.getElementById('loginForm')?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const identifier = document.getElementById('loginIdentifier').value.trim();
+    const form = event.currentTarget;
+    const submitButton = form.querySelector('button[type="submit"]');
+    if (submitButton) submitButton.disabled = true;
+    try {
+      setMessage('Validando sua conta e o status da assinatura...', 'info');
+      await authenticateMember(
+        document.getElementById('loginEmail').value,
+        document.getElementById('loginPassword').value
+      );
+      window.location.href = 'dashboard.html';
+    } catch (error) {
+      setMessage(error.message || 'Não foi possível entrar no sistema.', 'error');
+      if (submitButton) submitButton.disabled = false;
+    }
+  });
 
-    if (!identifier) {
-      setMessage('Informe seu usuário ou e-mail para continuar.', 'error');
+  document.getElementById('resetPassword')?.addEventListener('click', async () => {
+    const email = document.getElementById('loginEmail').value.trim();
+    if (!email) {
+      setMessage('Informe seu e-mail para receber o link de redefinição.', 'error');
       return;
     }
 
     try {
-      setMessage('Validando suas credenciais...', 'info');
-
-      const params = new URLSearchParams({
-        action: 'login',
-        usuario: identifier
-      });
-
-      const result = await fetchJson(`${APP_SCRIPT_URL}?${params.toString()}`);
-
-      if (!result.success) {
-        throw new Error(result.message || 'Credenciais inválidas.');
-      }
-
-      const user = result.user || {};
-      sessionStorage.setItem('serTraderMember', JSON.stringify({
-        Nome_Completo: user.nome || '',
-        Nome_Usuario: user.usuario || identifier,
-        Status_Conta: result.status || 'Ativo',
-        Data_Vencimento: user.vencimento || ''
-      }));
-      window.location.href = 'dashboard.html';
+      await requestPasswordReset(email);
+      setMessage('Se houver uma conta para esse e-mail, você receberá instruções para redefinir a senha.', 'success');
     } catch (error) {
-      setMessage(error.message || 'Não foi possível entrar no sistema.', 'error');
+      setMessage(error.message || 'Não foi possível enviar as instruções de redefinição.', 'error');
     }
   });
 }
@@ -232,7 +220,6 @@ async function uploadComprovante(file) {
 
 function buildMemberPayload(formData) {
   return {
-    action: 'register',
     nomeCompleto: formData.get('nomeCompleto'),
     usuario: formData.get('nomeUsuario'),
     email: formData.get('email'),

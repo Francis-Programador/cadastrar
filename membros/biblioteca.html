@@ -3,83 +3,162 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101310" />
+    <meta
+      name="description"
+      content="Biblioteca educativa da comunidade SER TRADER SEM RÉ."
+    />
     <title>Biblioteca | SER TRADER SEM RÉ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/dashboard.css" />
-    <script src="guard.js"></script>
-    <style>
-      .library-shell { width: min(1160px, 100%); margin: 0 auto; display: grid; gap: 24px; }
-      .library-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-      .resource-card { padding: 22px; border-radius: 18px; background: rgba(15, 23, 42, 0.92); border: 1px solid rgba(148, 163, 184, 0.18); display: grid; gap: 12px; }
-      .resource-card h4 { margin: 0; font-size: 1.1rem; }
-      .resource-card p { margin: 0; color: rgba(226, 232, 240, 0.75); line-height: 1.6; }
-      .resource-card a { display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; padding: 10px 14px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(125, 211, 252, 0.3); color: #dff5ff; text-decoration: none; font-weight: 700; }
-      @media (max-width: 860px) { .library-grid { grid-template-columns: 1fr; } }
-    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/member-home.css" />
+    <link rel="stylesheet" href="assets/library.css" />
+    <script type="module" src="guard.js"></script>
   </head>
   <body>
-    <div class="library-shell">
-      <header class="topbar">
-        <div class="brand">
-          <img src="../static/img/logo_do_site.png" alt="SER TRADER SEM RÉ" />
-          <div>
-            <strong id="memberName">Membro</strong>
-            <span>Área exclusiva</span>
-          </div>
-        </div>
+    <div class="member-layout">
+      <aside class="sidebar" aria-label="Menu da área de membros">
+        <a class="brand" href="dashboard.html" aria-label="SER TRADER SEM RÉ — início">
+          <img src="../static/img/logo_do_site.png" alt="" />
+          <span class="brand-copy">
+            <strong>SER TRADER</strong>
+            <span>SEM RÉ · MEMBROS</span>
+          </span>
+        </a>
 
-        <nav class="nav-links" aria-label="Navegação do subsite">
-          <a href="dashboard.html" class="nav-link">Dashboard</a>
-          <a href="sala-ao-vivo.html" class="nav-link">Sala ao vivo</a>
-          <a href="suporte-emocional.html" class="nav-link">Suporte</a>
-          <a href="biblioteca.html" class="nav-link active">Biblioteca</a>
+        <div class="sidebar-label">ESPAÇO PESSOAL</div>
+        <nav class="side-nav" aria-label="Navegação principal">
+          <a href="dashboard.html" class="side-link">
+            <span class="nav-mark" aria-hidden="true">⌂</span>
+            <span>Visão geral</span>
+          </a>
+          <a href="sala-ao-vivo.html" class="side-link">
+            <span class="nav-mark" aria-hidden="true">◉</span>
+            <span>Sala ao vivo</span>
+          </a>
+          <a href="biblioteca.html" class="side-link active" aria-current="page">
+            <span class="nav-mark" aria-hidden="true">▤</span>
+            <span>Biblioteca</span>
+          </a>
+          <a href="suporte-emocional.html" class="side-link">
+            <span class="nav-mark" aria-hidden="true">♡</span>
+            <span>Bem-estar</span>
+          </a>
         </nav>
 
-        <div class="top-actions">
-          <span class="badge" id="memberStatus">Status: Ativo</span>
-          <button class="logout-btn" type="button" id="logoutBtn">Sair</button>
+        <div class="sidebar-bottom">
+          <div class="sidebar-member">
+            <span class="avatar" id="memberInitials" aria-hidden="true">M</span>
+            <span class="sidebar-member-copy">
+              <strong id="memberName">Membro</strong>
+              <span>Área exclusiva</span>
+            </span>
+          </div>
+          <button class="logout-btn" type="button" id="logoutBtn">
+            <span aria-hidden="true">↪</span>
+            Sair da conta
+          </button>
         </div>
-      </header>
+      </aside>
 
-      <section class="card">
-        <h3>Biblioteca de recursos</h3>
-        <div class="library-grid">
-          <article class="resource-card">
-            <h4>Planilhas de gestão</h4>
-            <p>Modelos prontos para controlar risco, banca, evolução e anotações operacionais do dia.</p>
-            <a href="https://drive.google.com/" target="_blank" rel="noreferrer">Abrir materiais</a>
-          </article>
+      <main class="main-content library-main">
+        <header class="page-top">
+          <div>
+            <span class="overline">CONHECIMENTO PARA CONSULTAR COM CALMA</span>
+            <p class="today-date">Biblioteca da comunidade</p>
+          </div>
+          <a class="library-back-link" href="dashboard.html">← Voltar ao início</a>
+        </header>
 
-          <article class="resource-card">
-            <h4>Psicologia do trader</h4>
-            <p>Livros, PDFs e materiais para melhorar disciplina emocional, foco e gestão de pressão.</p>
-            <a href="https://drive.google.com/" target="_blank" rel="noreferrer">Acessar PDFs</a>
-          </article>
+        <section class="library-intro" aria-labelledby="libraryTitle">
+          <div class="library-intro-copy">
+            <span class="eyebrow"><span class="eyebrow-line"></span> APRENDER É PARTE DA JORNADA</span>
+            <h1 id="libraryTitle">Biblioteca</h1>
+            <p>
+              Um espaço para reunir materiais educativos, ferramentas e referências
+              da comunidade, organizados para você explorar no seu próprio ritmo.
+            </p>
+          </div>
+          <div class="library-mark" aria-hidden="true">
+            <span>▤</span>
+          </div>
+        </section>
 
-          <article class="resource-card">
-            <h4>Scripts e indicadores</h4>
-            <p>Ferramentas para plataformas, automações e apoio visual nas operações e organização.</p>
-            <a href="https://drive.google.com/" target="_blank" rel="noreferrer">Ver indicadores</a>
-          </article>
+        <section class="library-categories" aria-labelledby="categoriesTitle">
+          <div class="library-section-heading">
+            <div>
+              <span class="overline">TEMAS DA COMUNIDADE</span>
+              <h2 id="categoriesTitle">Aprendizado sem pressa</h2>
+            </div>
+            <span class="library-note">Os materiais serão adicionados pela equipe.</span>
+          </div>
 
-          <article class="resource-card">
-            <h4>Gravações e mentorias</h4>
-            <p>Material antigo em vídeo para revisão de setups, erros clássicos e reforço de conceitos.</p>
-            <a href="https://youtube.com/" target="_blank" rel="noreferrer">Abrir gravações</a>
-          </article>
-        </div>
-      </section>
+          <div class="category-grid">
+            <article class="category-card">
+              <span class="category-number">01</span>
+              <span class="category-icon" aria-hidden="true">◌</span>
+              <h3>Fundamentos</h3>
+              <p>Conceitos essenciais para compreender o mercado e seus riscos.</p>
+              <span class="category-state">Conteúdo em preparação</span>
+            </article>
+            <article class="category-card">
+              <span class="category-number">02</span>
+              <span class="category-icon" aria-hidden="true">⌁</span>
+              <h3>Análise</h3>
+              <p>Observação, contexto e critérios para tomar decisões conscientes.</p>
+              <span class="category-state">Conteúdo em preparação</span>
+            </article>
+            <article class="category-card">
+              <span class="category-number">03</span>
+              <span class="category-icon" aria-hidden="true">▥</span>
+              <h3>Gestão</h3>
+              <p>Organização, limites e cuidado com o risco em cada etapa.</p>
+              <span class="category-state">Conteúdo em preparação</span>
+            </article>
+            <article class="category-card">
+              <span class="category-number">04</span>
+              <span class="category-icon" aria-hidden="true">✳</span>
+              <h3>Estratégia</h3>
+              <p>Estudo e construção de um processo que faça sentido para você.</p>
+              <span class="category-state">Conteúdo em preparação</span>
+            </article>
+            <article class="category-card">
+              <span class="category-number">05</span>
+              <span class="category-icon" aria-hidden="true">♡</span>
+              <h3>Psicologia</h3>
+              <p>Autoconsciência e reflexão sobre emoções durante a rotina.</p>
+              <span class="category-state">Conteúdo em preparação</span>
+            </article>
+            <article class="category-card">
+              <span class="category-number">06</span>
+              <span class="category-icon" aria-hidden="true">↗</span>
+              <h3>Disciplina</h3>
+              <p>Hábitos para respeitar o próprio plano e reconhecer quando pausar.</p>
+              <span class="category-state">Conteúdo em preparação</span>
+            </article>
+          </div>
+        </section>
+
+        <aside class="library-notice">
+          <span class="notice-icon" aria-hidden="true">i</span>
+          <p>
+            A biblioteca está sendo organizada. Quando a equipe publicar materiais,
+            eles aparecerão aqui com as informações e links correspondentes.
+          </p>
+        </aside>
+
+        <footer class="member-footer">
+          <span>SER TRADER SEM RÉ</span>
+          <span>Conteúdo educacional. Respeite seus limites e cuide do seu bem-estar.</span>
+        </footer>
+      </main>
     </div>
 
-    <script src="assets/dashboard.js"></script>
-    <script>
-      document.getElementById('logoutBtn')?.addEventListener('click', () => {
-        sessionStorage.removeItem('serTraderMember');
-        localStorage.removeItem('serTraderMember');
-        window.location.href = '../index.html';
-      });
-    </script>
+    <script type="module" src="assets/dashboard.js"></script>
+    <script type="module" src="assets/member-home.js"></script>
   </body>
 </html>

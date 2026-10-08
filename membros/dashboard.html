@@ -3,133 +3,211 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard | SER TRADER SEM RÉ</title>
+    <meta name="theme-color" content="#101310" />
+    <meta
+      name="description"
+      content="Seu espaço pessoal na comunidade SER TRADER SEM RÉ."
+    />
+    <title>Meu espaço | SER TRADER SEM RÉ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="assets/dashboard.css" />
-    <script src="guard.js"></script>
+    <link rel="stylesheet" href="assets/member-home.css" />
+    <script type="module" src="guard.js"></script>
   </head>
   <body>
-    <div class="dashboard-shell">
-      <header class="topbar">
-        <div class="brand">
-          <img src="../static/img/logo_do_site.png" alt="SER TRADER SEM RÉ" />
-          <div>
-            <strong id="memberName">Membro</strong>
-            <span>Área exclusiva</span>
-          </div>
-        </div>
+    <div class="member-layout">
+      <aside class="sidebar" aria-label="Menu da área de membros">
+        <a class="brand" href="dashboard.html" aria-label="SER TRADER SEM RÉ — início">
+          <img src="../static/img/logo_do_site.png" alt="" />
+          <span class="brand-copy">
+            <strong>SER TRADER</strong>
+            <span>SEM RÉ · MEMBROS</span>
+          </span>
+        </a>
 
-        <nav class="nav-links" aria-label="Navegação do subsite">
-          <a href="dashboard.html" class="nav-link active">Dashboard</a>
-          <a href="sala-ao-vivo.html" class="nav-link">Sala ao vivo</a>
-          <a href="suporte-emocional.html" class="nav-link">Suporte</a>
-          <a href="biblioteca.html" class="nav-link">Biblioteca</a>
+        <div class="sidebar-label">ESPAÇO PESSOAL</div>
+        <nav class="side-nav" aria-label="Navegação principal">
+          <a href="dashboard.html" class="side-link active" aria-current="page">
+            <span class="nav-mark" aria-hidden="true">⌂</span>
+            <span>Visão geral</span>
+          </a>
+          <a href="sala-ao-vivo.html" class="side-link">
+            <span class="nav-mark" aria-hidden="true">◉</span>
+            <span>Sala ao vivo</span>
+          </a>
+          <a href="biblioteca.html" class="side-link">
+            <span class="nav-mark" aria-hidden="true">▤</span>
+            <span>Biblioteca</span>
+          </a>
+          <a href="suporte-emocional.html" class="side-link">
+            <span class="nav-mark" aria-hidden="true">♡</span>
+            <span>Bem-estar</span>
+          </a>
         </nav>
 
-        <div class="top-actions">
-          <span class="badge" id="memberStatus">Status: Pendente</span>
-          <button class="logout-btn" type="button" id="logoutBtn">Sair</button>
+        <div class="sidebar-bottom">
+          <div class="sidebar-member">
+            <span class="avatar" id="memberInitials" aria-hidden="true">M</span>
+            <span class="sidebar-member-copy">
+              <strong id="memberName">Membro</strong>
+              <span>Área exclusiva</span>
+            </span>
+          </div>
+          <button class="logout-btn" type="button" id="logoutBtn">
+            <span aria-hidden="true">↪</span>
+            Sair da conta
+          </button>
         </div>
-      </header>
+      </aside>
 
-      <section class="hero">
-        <div class="card welcome">
-          <span class="eyebrow">Área exclusiva</span>
-          <h1>Bem-vindo, <span id="memberFirstName">membro</span>.</h1>
-          <p>
-            Sua jornada continua em um ambiente focado em disciplina, organização e evolução real.
-            Abaixo você acompanha indicadores importantes, gestão de risco e acesso às ferramentas
-            que apoiam sua rotina.
-          </p>
+      <main class="main-content">
+        <header class="page-top">
+          <div>
+            <span class="overline">SEU ESPAÇO, NO SEU RITMO</span>
+            <p class="today-date" id="todayDate"></p>
+          </div>
+          <div class="account-status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="memberStatus">Membro ativo</span>
+          </div>
+        </header>
 
-          <div class="quick-links">
-            <a class="quick-link" href="sala-ao-vivo.html">Sala ao vivo</a>
-            <a class="quick-link" href="biblioteca.html">Biblioteca</a>
-            <a class="quick-link" href="suporte-emocional.html">Suporte emocional</a>
+        <section class="welcome-grid" aria-labelledby="welcomeTitle">
+          <div class="welcome-card">
+            <div class="welcome-content">
+              <span class="eyebrow"><span class="eyebrow-line"></span> UM PASSO DE CADA VEZ</span>
+              <h1 id="welcomeTitle">Bom ter você por aqui,<br /><span id="memberFirstName">membro</span>.</h1>
+              <p>
+                Este espaço é seu. Use-o para cuidar da sua rotina, aprender com calma
+                e construir uma relação mais consciente com o mercado.
+              </p>
+              <a class="button button-light" href="biblioteca.html">
+                Explorar a biblioteca <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <div class="welcome-art" aria-hidden="true">
+              <div class="art-orbit orbit-one"></div>
+              <div class="art-orbit orbit-two"></div>
+              <div class="art-sun"></div>
+              <div class="art-horizon"></div>
+            </div>
           </div>
 
-          <div class="stats">
-            <div class="card stat-card">
-              <small>Plano</small>
-              <strong class="primary">Premium</strong>
+          <aside class="membership-card" aria-labelledby="membershipTitle">
+            <div class="membership-heading">
+              <span class="membership-icon" aria-hidden="true">✳</span>
+              <span class="eyebrow">SUA JORNADA</span>
             </div>
-            <div class="card stat-card">
-              <small>Status</small>
-              <strong id="statusValue" class="positive">Ativo</strong>
+            <h2 id="membershipTitle">Membro Premium</h2>
+            <p class="membership-copy">Seu espaço de aprendizagem e acompanhamento.</p>
+            <div class="membership-divider"></div>
+            <div class="membership-detail">
+              <span>Situação</span>
+              <strong id="statusValue">Ativo</strong>
             </div>
-            <div class="card stat-card">
-              <small>Vencimento</small>
-              <strong id="vencimentoValue" class="warning">--</strong>
+            <div class="membership-detail">
+              <span>Próxima renovação</span>
+              <strong id="vencimentoValue">Consulte o administrador</strong>
             </div>
-            <div class="card stat-card">
-              <small>Dias restantes</small>
-              <strong id="diasRestantes" class="muted">--</strong>
-            </div>
-          </div>
-        </div>
+            <p class="renewal-note" id="diasRestantes">Acompanhe sua assinatura com o administrador.</p>
+          </aside>
+        </section>
 
-        <aside class="card support-box">
-          <h3>Checklist emocional pré-operacional</h3>
-          <div class="checklist">
-            <label class="check-row"><input type="checkbox" /> Estou calmo e sem pressa?</label>
-            <label class="check-row"><input type="checkbox" /> Minha análise está clara e sem dúvida?</label>
-            <label class="check-row"><input type="checkbox" /> O risco está dentro do plano?</label>
-            <label class="check-row"><input type="checkbox" /> Se não houver clareza, eu não entro.</label>
+        <section class="section-block" aria-labelledby="shortcutsTitle">
+          <div class="section-heading">
+            <div>
+              <span class="overline">CONTINUE DE ONDE PAROU</span>
+              <h2 id="shortcutsTitle">Seu espaço de evolução</h2>
+            </div>
+            <span class="section-caption">Recursos para apoiar sua jornada</span>
           </div>
-        </aside>
-      </section>
 
-      <section class="grid">
-        <div class="card">
-          <h3>Calculadora de gerenciamento de risco</h3>
-          <form id="riskForm">
-            <div class="field-grid">
-              <div class="field">
-                <label for="bancaInicial">Banca inicial</label>
-                <input id="bancaInicial" type="number" min="0" step="0.01" value="500" />
+          <div class="resource-grid">
+            <a class="resource-card resource-live" href="sala-ao-vivo.html">
+              <span class="resource-icon" aria-hidden="true">◉</span>
+              <span class="resource-text">
+                <strong>Sala ao vivo</strong>
+                <span>Acompanhe os encontros da comunidade.</span>
+              </span>
+              <span class="resource-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="resource-card resource-library" href="biblioteca.html">
+              <span class="resource-icon" aria-hidden="true">▤</span>
+              <span class="resource-text">
+                <strong>Biblioteca</strong>
+                <span>Materiais para estudar e consultar.</span>
+              </span>
+              <span class="resource-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="resource-card resource-wellbeing" href="suporte-emocional.html">
+              <span class="resource-icon" aria-hidden="true">♡</span>
+              <span class="resource-text">
+                <strong>Bem-estar</strong>
+                <span>Cuide da mente antes de cuidar da operação.</span>
+              </span>
+              <span class="resource-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="routine-grid" aria-label="Rotina pessoal">
+          <div class="panel routine-panel">
+            <div class="section-heading compact-heading">
+              <div>
+                <span class="overline">ANTES DE COMEÇAR</span>
+                <h2>Uma pausa para você</h2>
               </div>
-              <div class="field">
-                <label for="metaDiaria">Meta diária (%)</label>
-                <input id="metaDiaria" type="number" min="0" max="100" step="0.1" value="3" />
-              </div>
+              <span class="routine-counter" id="routineCounter">0 de 4</span>
             </div>
-
-            <div class="field-grid">
-              <div class="field">
-                <label for="stopDiario">Stop loss diário (%)</label>
-                <input id="stopDiario" type="number" min="0" max="100" step="0.1" value="2" />
-              </div>
-              <div class="field">
-                <label for="payoutCorretora">Payout da corretora (%)</label>
-                <input id="payoutCorretora" type="number" min="0" max="1000" step="0.1" value="80" />
-              </div>
+            <p class="panel-intro">Sem pressa. Confira como você está hoje.</p>
+            <div class="checklist" id="dailyChecklist">
+              <label class="check-row">
+                <input type="checkbox" name="routine" value="calmo" />
+                <span class="custom-check" aria-hidden="true"></span>
+                <span>Estou com a mente tranquila e sem pressa.</span>
+              </label>
+              <label class="check-row">
+                <input type="checkbox" name="routine" value="plano" />
+                <span class="custom-check" aria-hidden="true"></span>
+                <span>Sei qual é o meu plano para hoje.</span>
+              </label>
+              <label class="check-row">
+                <input type="checkbox" name="routine" value="limite" />
+                <span class="custom-check" aria-hidden="true"></span>
+                <span>Tenho limites definidos e vou respeitá-los.</span>
+              </label>
+              <label class="check-row">
+                <input type="checkbox" name="routine" value="pausa" />
+                <span class="custom-check" aria-hidden="true"></span>
+                <span>Estou disposto a parar se não me sentir bem.</span>
+              </label>
             </div>
-
-            <button class="button primary" type="submit">Calcular</button>
-          </form>
-
-          <div class="summary">
-            <div class="summary-row"><span>Meta financeira</span><strong id="metaFinanceira">R$ 0,00</strong></div>
-            <div class="summary-row"><span>Stop diário</span><strong id="stopFinanceiro">R$ 0,00</strong></div>
-            <div class="summary-row"><span>1ª entrada recomendada</span><strong id="primeiraEntrada">R$ 0,00</strong></div>
-            <div class="summary-row"><span>Soros / recuperação</span><strong id="sorosRecuperacao">R$ 0,00</strong></div>
+            <p class="routine-footnote">Suas marcações ficam salvas neste dispositivo por hoje.</p>
           </div>
-        </div>
 
-        <aside class="card">
-          <h3>Resumo comportamental</h3>
-          <div id="riskNotes" class="risk-notes">
-            <p>Seu plano de risco está dentro de um desenho saudável para a banca atual.</p>
-          </div>
-        </aside>
-      </section>
+          <aside class="reflection-card">
+            <span class="reflection-symbol" aria-hidden="true">“</span>
+            <span class="overline">LEMBRETE DO DIA</span>
+            <blockquote>
+              Consistência não é fazer mais. É respeitar o processo, inclusive quando a melhor decisão é esperar.
+            </blockquote>
+            <span class="reflection-rule"></span>
+            <p>Aprendizado e disciplina vêm antes de qualquer resultado.</p>
+          </aside>
+        </section>
+
+        <footer class="member-footer">
+          <span>SER TRADER SEM RÉ</span>
+          <span>Conteúdo educacional. Respeite seus limites e cuide do seu bem-estar.</span>
+        </footer>
+      </main>
     </div>
 
-    <script src="assets/dashboard.js"></script>
+    <script type="module" src="assets/dashboard.js"></script>
+    <script type="module" src="assets/member-home.js"></script>
   </body>
 </html>

@@ -1,22 +1,8 @@
-(function () {
-  const member = sessionStorage.getItem('serTraderMember') || localStorage.getItem('serTraderMember');
-  if (!member) {
-    window.location.href = '../index.html';
-    return;
-  }
+import { getCachedMember, signOutMember } from './member-auth.js';
 
-  try {
-    const parsed = JSON.parse(member);
-    if ((parsed.Status_Conta || parsed.status || '').toString().toLowerCase() !== 'ativo') {
-      window.location.href = '../index.html';
-      return;
-    }
-  } catch (error) {
-    window.location.href = '../index.html';
-  }
-})();
-
-const member = JSON.parse(sessionStorage.getItem('serTraderMember') || localStorage.getItem('serTraderMember') || '{}');
+async function initializeMemberPage() {
+const validatedMember = await window.memberSessionReady;
+const member = validatedMember || getCachedMember();
 
 const memberName = document.getElementById('memberName');
 const memberFirstName = document.getElementById('memberFirstName');
@@ -49,9 +35,8 @@ if (vencimento) {
 }
 
 document.getElementById('logoutBtn')?.addEventListener('click', () => {
-  sessionStorage.removeItem('serTraderMember');
-  localStorage.removeItem('serTraderMember');
-  window.location.href = '../index.html';
+  signOutMember();
+  window.location.href = 'index.html';
 });
 
 document.getElementById('riskForm')?.addEventListener('submit', (event) => {
@@ -89,3 +74,6 @@ function formatCurrency(value) {
     currency: 'BRL'
   }).format(Number(value || 0));
 }
+}
+
+initializeMemberPage();

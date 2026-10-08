@@ -1,0 +1,218 @@
+# Preparacao do Google Sheets — Area de Membros SER TRADER SEM RE
+
+Este guia prepara a planilha para a area privada por etapas. A preparacao das abas
+nao ativa por si so as novas funcoes: o Apps Script precisa ser atualizado e
+publicado antes de a aplicacao poder usar as novas abas.
+
+## Importante antes de comecar
+
+O Apps Script que esta no projeto atualmente procura uma aba chamada
+`Membros_Premium` e espera nela 12 colunas em uma ordem especifica. O login
+atual tambem consulta essa estrutura antiga.
+
+Por isso:
+
+1. Faca uma copia de seguranca da planilha atual.
+2. Nao renomeie, apague, mova ou reordene colunas da aba `Membros_Premium`.
+3. Nao cole os novos cabecalhos por cima dos dados existentes.
+4. Crie as novas abas abaixo separadamente. Elas ficarao prontas para a proxima
+   versao do Apps Script, mas ainda nao serao lidas pelo site atual.
+5. Nao copie dados pessoais reais para abas novas ate a migracao ser planejada.
+
+## 1. Criar ou localizar a planilha
+
+1. Entre na conta Google que e proprietaria do Apps Script.
+2. Abra a planilha usada atualmente pelo Apps Script.
+3. Use **Arquivo > Fazer uma copia** e guarde a copia como backup privado.
+4. Na planilha de trabalho, mantenha a aba `Membros_Premium` sem alteracoes.
+5. Crie cada aba abaixo usando o nome indicado, sem espacos adicionais.
+6. Em cada aba nova, cole a linha de cabecalhos correspondente na celula A1.
+   Os campos estao separados por tabulacoes; ao colar no Google Sheets, cada
+   nome deve ocupar uma coluna.
+
+## 2. Aba `MEMBROS`
+
+Cole na celula A1:
+
+```text
+ID_Membro	Nome	Usuario	Email	WhatsApp	Idade	Pais	Data_Nascimento	Data_Registro	Status	Plano	Data_Aprovacao	Data_Inicio	Data_Vencimento	Data_Ultimo_Pagamento	Comprovativo_URL	Termos_Aceitos	Acordo_Aceito	Ultimo_Login	Ultimo_Acesso	Observacoes	Criado_Em	Atualizado_Em
+```
+
+Regras:
+
+- `ID_Membro` e o identificador interno unico. Nao use nome ou email como chave.
+- O formato final de IDs (`STR-000001` ou outro) sera gerado pelo Apps Script; nao
+  invente IDs manualmente nem use formula de linha como identificador permanente.
+- `Status` deve usar valores controlados: `PENDENTE`, `ATIVO`,
+  `PROXIMO_DO_VENCIMENTO`, `EXPIRADO`, `SUSPENSO` ou `CANCELADO`.
+- `Plano` e administrado pela equipe. A mensalidade e o modelo atual.
+- Campos de aprovacao, pagamento, vencimento, ultimo login e auditoria sao
+  administrativos; o membro nao deve poder altera-los.
+- `Termos_Aceitos` e `Acordo_Aceito` devem registrar a confirmacao e a versao/data
+  quando o Apps Script for atualizado para guardar essa informacao.
+- Nao crie coluna de senha em texto puro. Nao guarde senha, hash improvisado,
+  token de sessao ou chave de API nesta aba.
+
+## 3. Aba `PAGAMENTOS`
+
+```text
+ID_Pagamento	ID_Membro	Data	Valor	Moeda	Metodo	Comprovativo_URL	Status	Data_Confirmacao	Data_Vencimento	Observacao
+```
+
+- Cada pagamento deve referenciar um `ID_Membro` existente.
+- A equipe confirma pagamentos e define a data de vencimento.
+- O estado do pagamento e diferente do estado geral da conta; use valores
+  consistentes, por exemplo `PENDENTE`, `CONFIRMADO`, `RECUSADO` ou `ESTORNADO`.
+- Guarde somente o link do comprovativo, nunca o arquivo dentro da planilha.
+
+## 4. Aba `RECURSOS`
+
+```text
+ID_Recurso	Titulo	Categoria	Tipo	Descricao	Imagem_URL	Link	Autor	Data_Publicacao	Status	Destaque	Observacoes
+```
+
+Tipos sugeridos: `VIDEO`, `PDF`, `PLANILHA`, `GUIA`, `AULA`, `CHECKLIST`,
+`FERRAMENTA`, `OUTRO`.
+
+Use `PUBLICADO` para conteudo disponivel e `RASCUNHO` para conteudo ainda nao
+liberado. Os links privados devem ser compartilhados somente com a audiencia
+adequada; esconder um link na interface nao o torna privado.
+
+## 5. Aba `PROGRESSO`
+
+```text
+ID_Progresso	ID_Membro	ID_Recurso	Status	Data_Inicio	Data_Conclusao	Ultima_Visualizacao
+```
+
+- Cada registro pertence a um unico membro e a um recurso.
+- O servidor deve definir o `ID_Membro` a partir da sessao autenticada, nunca de
+  um ID enviado livremente pelo navegador.
+- A leitura e a escrita precisam ser filtradas pelo membro no Apps Script.
+
+## 6. Aba `OPERACOES`
+
+```text
+ID_Operacao	ID_Membro	Data	Hora	Mercado	Ativo	Direcao	Estrategia	Entrada	Payout	Resultado	Valor	Lucro	Estado_Emocional	Observacao	Imagem_URL	Feedback	Status_Analise	Data_Feedback
+```
+
+- `ID_Membro` deve ser preenchido pelo backend a partir da sessao autenticada.
+- Nao conceda acesso direto a esta aba aos membros.
+- Evite registrar dados financeiros que nao sejam necessarios para o
+  acompanhamento solicitado pelo membro.
+
+## 7. Aba `MENSAGENS`
+
+```text
+ID_Mensagem	ID_Membro	Remetente	Assunto	Mensagem	Data	Lida	Resposta	Data_Resposta
+```
+
+Mensagens privadas devem sempre ser consultadas pelo `ID_Membro` obtido e
+validado no backend.
+
+## 8. Aba `SUPORTE`
+
+```text
+ID_Ticket	ID_Membro	Data	Categoria	Assunto	Mensagem	Anexo_URL	Status	Resposta	Data_Resposta
+```
+
+Estados sugeridos: `ABERTO`, `EM_ANALISE`, `RESPONDIDO`, `FECHADO`.
+
+## 9. Abas recomendadas para as etapas seguintes
+
+Crie estas abas quando a funcionalidade correspondente for iniciada.
+
+### `GESTAO`
+
+```text
+ID_Gestao	ID_Membro	Banca	Moeda	Risco_Por_Operacao	Limite_Diario	Limite_Semanal	Plano_Pessoal	Observacoes	Criado_Em	Atualizado_Em
+```
+
+### `DIARIO`
+
+```text
+ID_Entrada	ID_Membro	Data	Mercado	Ativo	Estrategia	Entrada	Resultado	Estado_Emocional	Motivo	Aprendizado	Imagem_URL	Criado_Em
+```
+
+### `NOTIFICACOES`
+
+```text
+ID_Notificacao	ID_Membro	Titulo	Mensagem	Tipo	Link	Criado_Em	Lida
+```
+
+### `EVENTOS`
+
+```text
+ID_Evento	Titulo	Tema	Data	Hora	Fuso_Horario	Link	Status	Descricao
+```
+
+Eventos podem ser gerais da comunidade. Nao coloque dados privados de um membro
+nesta aba.
+
+## 10. Formatacao recomendada
+
+- Formate as colunas de ID, usuario, telefone, email, status e URLs como **Texto
+  simples**.
+- Formate datas como data e hora; use o fuso horario da comunidade
+  (`Africa/Luanda`) no projeto Apps Script.
+- Defina a localidade da planilha conforme a equipe administra valores e datas.
+- Congele a primeira linha e ative um filtro nos cabecalhos.
+- Nao use formulas para fabricar IDs nem apague linhas para "corrigir" IDs.
+
+## 11. Privacidade e compartilhamento
+
+1. Deixe a planilha restrita a conta proprietaria e a administradores que
+   realmente precisem dela.
+2. Nao publique a planilha na web.
+3. Nao compartilhe a planilha com "qualquer pessoa com o link".
+4. Membros nao devem receber permissao direta na planilha.
+5. Nao coloque senha, token, segredo ou comprovativos como texto nas celulas.
+6. O Apps Script deve ser a unica camada da aplicacao com acesso aos dados.
+7. A API deve validar uma sessao real e derivar dela o membro em cada pedido.
+   Nao aceite `ID_Membro`, `email` ou `usuario` como prova de identidade.
+
+## 12. O que nao fazer ainda
+
+- Nao migre os registros de `Membros_Premium` para `MEMBROS` manualmente.
+- Nao publique uma nova versao do Apps Script antes da atualizacao do codigo e
+  dos testes de compatibilidade.
+- Nao adicione senhas em planilhas.
+- Nao use dados reais para testar acesso de um membro a dados de outro.
+- Nao considere esta preparacao como garantia de privacidade: a garantia depende
+  da validacao de sessao e do filtro no backend.
+
+## 13. Aba atualmente usada para login e cadastro
+
+A primeira etapa de autenticacao Firebase ainda usa a aba existente
+`Membros_Premium`, para preservar os cadastros atuais. O Apps Script atualizado
+adiciona automaticamente ao final da linha 1 a coluna `Firebase_UID` e grava ali
+o UID verificado pelo Firebase. Nao altere a ordem das 12 colunas atuais.
+
+- Novos membros continuam sendo inseridos nessa aba existente.
+- Membros antigos sao associados pelo e-mail somente depois da verificacao do
+  e-mail no Firebase.
+- Para liberar acesso, a equipe deve aprovar a mensalidade na linha correta,
+  definir `Status_Conta` como `Ativo` e preencher `Data_Vencimento`.
+- `Pendente`, `Expirado`, `Suspenso` e `Cancelado` nao concedem acesso privado.
+- O ID atualmente gerado segue o formato legado `MBR-...`; a mudanca para IDs
+  `STR-...` exige uma migracao planejada e nao deve ser feita manualmente.
+- A etapa atual nao le nem grava nas novas abas `MEMBROS`, `PAGAMENTOS`,
+  `RECURSOS`, `PROGRESSO`, `OPERACOES`, `MENSAGENS` ou `SUPORTE`. Elas sao uma
+  preparacao para migracoes e funcionalidades futuras.
+
+Para habilitar a validação do token Firebase, siga também
+`INSTRUCOES_FIREBASE.mb` e configure a propriedade de script
+`FIREBASE_WEB_API_KEY` antes de publicar o Apps Script.
+
+## 14. Quando terminar a preparacao
+
+Confirme que:
+
+- a copia de seguranca foi criada e esta privada;
+- `Membros_Premium` continua intacta;
+- as abas novas foram criadas com os cabecalhos na linha 1;
+- nenhum dado real foi duplicado ou migrado;
+- a planilha nao esta publicada nem compartilhada publicamente.
+
+Depois, a proxima etapa de desenvolvimento e definir a autenticacao segura e
+atualizar/testar o Apps Script para usar `ID_Membro` autenticado. Somente depois
+dessa etapa os dados pessoais deverao ser migrados para a nova aba `MEMBROS`.

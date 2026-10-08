@@ -14,6 +14,9 @@
 
 * { box-sizing: border-box; }
 
+html:not(.member-session-ready) body { visibility: hidden; }
+html.member-session-ready body { visibility: visible; }
+
 html, body {
   margin: 0;
   min-height: 100%;

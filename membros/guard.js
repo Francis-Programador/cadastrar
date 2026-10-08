@@ -1,19 +1,12 @@
-(function () {
-  const rawMember = sessionStorage.getItem('serTraderMember') || localStorage.getItem('serTraderMember');
+import { validateMemberSession } from './assets/member-auth.js';
 
-  if (!rawMember) {
-    window.location.href = '../index.html';
-    return;
+window.memberSessionReady = validateMemberSession().then((result) => {
+  if (result.valid) {
+    document.documentElement.classList.add('member-session-ready');
+    return result.member;
   }
 
-  try {
-    const member = JSON.parse(rawMember);
-    const status = (member.Status_Conta || member.status || '').toString().toLowerCase();
-
-    if (status !== 'ativo') {
-      window.location.href = '../index.html';
-    }
-  } catch (error) {
-    window.location.href = '../index.html';
-  }
-})();
+  const reason = result.status === 'EXPIRADO' ? 'expired' : 'auth';
+  window.location.replace(`index.html?reason=${reason}`);
+  return null;
+});

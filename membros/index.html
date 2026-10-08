@@ -52,17 +52,23 @@
         <div class="tab-panel active" id="login-panel">
           <div class="panel-header">
             <h2>Bem-vindo de volta</h2>
-            <p>Entre com seu usuário ou e-mail para acessar seu painel exclusivo.</p>
+            <p>Entre com seu e-mail e senha para acessar seu espaço.</p>
           </div>
 
           <form id="loginForm">
             <div class="field">
-              <label for="loginIdentifier">Usuário ou e-mail</label>
-              <input id="loginIdentifier" name="loginIdentifier" type="text" placeholder="seuusuario ou seu@email.com" required />
+              <label for="loginEmail">E-mail</label>
+              <input id="loginEmail" name="email" type="email" autocomplete="email" placeholder="seu@email.com" required />
+            </div>
+
+            <div class="field">
+              <label for="loginPassword">Senha</label>
+              <input id="loginPassword" name="password" type="password" autocomplete="current-password" minlength="8" required />
             </div>
 
             <button class="button primary" type="submit">Entrar na área</button>
           </form>
+          <button class="text-button" id="resetPassword" type="button">Esqueci minha senha</button>
         </div>
 
         <div class="tab-panel" id="signup-panel">
@@ -87,7 +93,7 @@
             <div class="field-grid">
               <div class="field">
                 <label for="email">E-mail</label>
-                <input id="email" name="email" type="email" placeholder="seu@email.com" required />
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="seu@email.com" required />
               </div>
 
               <div class="field">
@@ -111,6 +117,18 @@
             <div class="field">
               <label for="comprovante">Comprovante de pagamento</label>
               <input id="comprovante" name="comprovante" type="file" accept="image/*,.pdf" required />
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="signupPassword">Criar senha</label>
+                <input id="signupPassword" name="password" type="password" autocomplete="new-password" minlength="8" required />
+              </div>
+
+              <div class="field">
+                <label for="confirmPassword">Confirmar senha</label>
+                <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" required />
+              </div>
             </div>
 
             <label class="checkbox-row">
