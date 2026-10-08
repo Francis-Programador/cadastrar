@@ -40,10 +40,12 @@ function createAppsScriptContext({
 
   const context = {
     console,
+    Date,
     SpreadsheetApp: {
       getActiveSpreadsheet: () => ({
         getSheetByName: () => sheet,
         insertSheet: () => sheet,
+        getSpreadsheetTimeZone: () => 'Africa/Luanda',
       }),
     },
     PropertiesService: {
@@ -69,7 +71,12 @@ function createAppsScriptContext({
     Utilities: {
       base64DecodeWebSafe: (value) => Buffer.from(value, 'base64url'),
       newBlob: (bytes) => ({ getDataAsString: () => Buffer.from(bytes).toString('utf8') }),
-      formatDate: () => '2026-10-08',
+      formatDate: (date, timeZone) => new Intl.DateTimeFormat('en-CA', {
+        timeZone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }).format(date),
       getUuid: () => '12345678-1234-1234-1234-123456789abc',
     },
     ContentService: {
@@ -144,6 +151,81 @@ describe('Apps Script member authentication', () => {
     expect(result.success).toBe(false);
     expect(result.status).toBe('PENDENTE');
     expect(result.member).toBeUndefined();
+  });
+
+  it('does not change an active status when the expiration date has an unsupported format', () => {
+    const { context, rows } = createAppsScriptContext({
+      members: [[
+        'MBR-1', '01/10/2026', 'Ana Trader', 'ana', 'ana@example.com',
+        '+244900000000', 28, 'Angola', 'https://res.cloudinary.com/demo/proof.jpg',
+        'Ativo', 'data a confirmar', 'Sim', 'firebase-uid-1',
+      ]],
+    });
+
+    const result = post(context, {
+      action: 'memberSession',
+      firebaseIdToken: makeToken(),
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.status).toBe('DATA_VENCIMENTO_INVALIDA');
+    expect(rows[1][9]).toBe('Ativo');
+  });
+
+  it('keeps an active member with a future day-first expiration date active', () => {
+    const { context, rows } = createAppsScriptContext({
+      members: [[
+        'MBR-1', '01/10/2026', 'Ana Trader', 'ana', 'ana@example.com',
+        '+244900000000', 28, 'Angola', 'https://res.cloudinary.com/demo/proof.jpg',
+        'Ativo', '31-12-2099', 'Sim', 'firebase-uid-1',
+      ]],
+    });
+
+    const result = post(context, {
+      action: 'memberSession',
+      firebaseIdToken: makeToken(),
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.member.ID_Membro).toBe('MBR-1');
+    expect(rows[1][9]).toBe('Ativo');
+  });
+
+  it('compares date-cell values using the spreadsheet timezone', () => {
+    const { context } = createAppsScriptContext({
+      members: [[
+        'MBR-1', '01/10/2026', 'Ana Trader', 'ana', 'ana@example.com',
+        '+244900000000', 28, 'Angola', 'https://res.cloudinary.com/demo/proof.jpg',
+        'Ativo', new Date('2099-12-31T00:00:00.000Z'), 'Sim', 'firebase-uid-1',
+      ]],
+    });
+
+    const result = post(context, {
+      action: 'memberSession',
+      firebaseIdToken: makeToken(),
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.member.ID_Membro).toBe('MBR-1');
+  });
+
+  it('marks an active member expired only when a valid expiration date is in the past', () => {
+    const { context, rows } = createAppsScriptContext({
+      members: [[
+        'MBR-1', '01/10/2026', 'Ana Trader', 'ana', 'ana@example.com',
+        '+244900000000', 28, 'Angola', 'https://res.cloudinary.com/demo/proof.jpg',
+        'Ativo', '01/01/2000', 'Sim', 'firebase-uid-1',
+      ]],
+    });
+
+    const result = post(context, {
+      action: 'memberSession',
+      firebaseIdToken: makeToken(),
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.status).toBe('EXPIRADO');
+    expect(rows[1][9]).toBe('EXPIRADO');
   });
 
   it('does not associate a verified email when the legacy row is linked to another UID', () => {

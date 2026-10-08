@@ -166,9 +166,20 @@ function getMemberSession(idToken) {
 
   const row = rows[memberIndex];
   let status = String(row[9] || "").trim().toUpperCase();
-  const expiry = parseSheetDate(row[10]);
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const timeZone = spreadsheet.getSpreadsheetTimeZone() || "Africa/Luanda";
+  const expiryDate = parseSheetDate(row[10], timeZone);
+  const today = Utilities.formatDate(new Date(), timeZone, "yyyy-MM-dd");
 
-  if (status === "ATIVO" && (!expiry || expiry.getTime() < startOfToday().getTime())) {
+  if (status === "ATIVO" && !expiryDate) {
+    return {
+      success: false,
+      status: "DATA_VENCIMENTO_INVALIDA",
+      message: "Sua conta está ativa, mas a data de vencimento está ausente ou em formato inválido. Fale com o administrador."
+    };
+  }
+
+  if (status === "ATIVO" && expiryDate < today) {
     status = "EXPIRADO";
     sheet.getRange(memberIndex + 1, 10).setValue(status);
   }
@@ -341,18 +352,36 @@ function isCloudinaryUrl(value) {
   return /^https:\/\/res\.cloudinary\.com\/[^/]+\/.+/i.test(value);
 }
 
-function parseSheetDate(value) {
-  if (value instanceof Date && !isNaN(value.getTime())) return value;
+function parseSheetDate(value, timeZone) {
+  if (value instanceof Date && !isNaN(value.getTime())) {
+    return Utilities.formatDate(value, timeZone, "yyyy-MM-dd");
+  }
+
   const text = String(value || "").trim();
-  const match = text.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-  if (match) return new Date(Number(match[3]), Number(match[2]) - 1, Number(match[1]));
-  const parsed = new Date(text);
-  return isNaN(parsed.getTime()) ? null : parsed;
+  let match = text.match(/^(\d{4})-(\d{1,2})-(\d{1,2})(?:$|T|\s)/);
+  if (match) {
+    return formatSheetCalendarDate(Number(match[1]), Number(match[2]), Number(match[3]));
+  }
+
+  match = text.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/);
+  if (!match) return null;
+
+  return formatSheetCalendarDate(Number(match[3]), Number(match[2]), Number(match[1]));
 }
 
-function startOfToday() {
-  const now = new Date();
-  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+function formatSheetCalendarDate(year, month, day) {
+  const date = new Date(Date.UTC(year, month - 1, day));
+  if (date.getUTCFullYear() !== year ||
+      date.getUTCMonth() !== month - 1 ||
+      date.getUTCDate() !== day) {
+    return null;
+  }
+
+  return [
+    String(year).padStart(4, "0"),
+    String(month).padStart(2, "0"),
+    String(day).padStart(2, "0")
+  ].join("-");
 }
 
 function publicError(publicMessage, logMessage) {
