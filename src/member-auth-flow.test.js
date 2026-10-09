@@ -105,6 +105,33 @@ describe('Firebase member sign-in flow', () => {
     expect(sessionStorage.getItem('serTraderFirebaseSession')).toBeNull();
   });
 
+  it('reports the HTTP status when the Apps Script endpoint is unavailable', async () => {
+    vi.stubGlobal('fetch', vi.fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          idToken: 'firebase-id-token',
+          refreshToken: 'firebase-refresh-token',
+          expiresIn: '3600',
+        }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          users: [{ localId: 'firebase-uid-1', emailVerified: true }],
+        }),
+      })
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 502,
+        json: async () => null,
+      }));
+
+    await expect(authenticateMember('ana@example.com', 'password123'))
+      .rejects.toThrow('HTTP 502');
+    expect(sessionStorage.getItem('serTraderFirebaseSession')).toBeNull();
+  });
+
   it('allows verified accounts even when sign-in omits the email verification field', async () => {
     vi.stubGlobal('fetch', vi.fn()
       .mockResolvedValueOnce({

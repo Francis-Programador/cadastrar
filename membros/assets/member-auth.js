@@ -65,6 +65,16 @@ async function getFirebaseUser(idToken) {
   return user;
 }
 
+export async function getAuthenticatedFirebaseIdentity() {
+  const idToken = await getValidToken();
+  const user = await getFirebaseUser(idToken);
+  if (!user.localId) {
+    throw new Error('Não foi possível confirmar a identidade Firebase desta sessão.');
+  }
+
+  return { uid: user.localId, idToken };
+}
+
 async function appsScriptRequest(payload) {
   const response = await fetch(APP_SCRIPT_URL, {
     method: 'POST',
@@ -73,8 +83,12 @@ async function appsScriptRequest(payload) {
   });
   const data = await response.json().catch(() => null);
 
-  if (!response.ok || !data) {
-    throw new Error('Não foi possível validar a conta com o servidor. Tente novamente mais tarde.');
+  if (!response.ok) {
+    throw new Error(`O servidor de validação respondeu com erro (HTTP ${response.status}). Tente novamente mais tarde.`);
+  }
+
+  if (!data) {
+    throw new Error('O servidor de validação enviou uma resposta inválida. Tente novamente mais tarde.');
   }
 
   return data;

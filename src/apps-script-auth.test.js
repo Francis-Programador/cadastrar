@@ -191,6 +191,24 @@ describe('Apps Script member authentication', () => {
     expect(rows[1][9]).toBe('Ativo');
   });
 
+  it('accepts a day-first expiration timestamp and returns its normalized date', () => {
+    const { context } = createAppsScriptContext({
+      members: [[
+        'MBR-1', '01/10/2026 17:16:19', 'Ana Trader', 'ana', 'ana@example.com',
+        '+244900000000', 28, 'Angola', 'https://res.cloudinary.com/demo/proof.jpg',
+        'Ativo', '31/12/2099 17:16:19', 'Sim', 'firebase-uid-1',
+      ]],
+    });
+
+    const result = post(context, {
+      action: 'memberSession',
+      firebaseIdToken: makeToken(),
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.member.Data_Vencimento).toBe('2099-12-31');
+  });
+
   it('compares date-cell values using the spreadsheet timezone', () => {
     const { context } = createAppsScriptContext({
       members: [[

@@ -206,9 +206,7 @@ function getMemberSession(idToken) {
       Status_Conta: "Ativo",
       Plano: "Mensal",
       Data_Registro: String(row[1] || ""),
-      Data_Vencimento: row[10] instanceof Date
-        ? Utilities.formatDate(row[10], "Africa/Luanda", "yyyy-MM-dd")
-        : String(row[10] || "")
+      Data_Vencimento: expiryDate
     }
   };
 }
@@ -363,8 +361,16 @@ function parseSheetDate(value, timeZone) {
     return formatSheetCalendarDate(Number(match[1]), Number(match[2]), Number(match[3]));
   }
 
-  match = text.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/);
+  match = text.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?)?$/);
   if (!match) return null;
+
+  if (match[4] && (
+    Number(match[4]) > 23 ||
+    Number(match[5]) > 59 ||
+    (match[6] && Number(match[6]) > 59)
+  )) {
+    return null;
+  }
 
   return formatSheetCalendarDate(Number(match[3]), Number(match[2]), Number(match[1]));
 }

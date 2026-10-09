@@ -3,96 +3,203 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sala Ao Vivo | SER TRADER SEM RÉ</title>
+    <meta name="theme-color" content="#0f172a" />
+    <title>Sala ao Vivo | SER TRADER SEM RÉ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="assets/dashboard.css" />
+    <link rel="stylesheet" href="assets/live-room.css" />
     <script type="module" src="guard.js"></script>
-    <style>
-      .page-shell { width: min(1180px, 100%); margin: 0 auto; display: grid; gap: 24px; }
-      .content-grid { display: grid; grid-template-columns: 1.4fr 0.8fr; gap: 24px; }
-      .video-frame { aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; border: 1px solid rgba(148, 163, 184, 0.18); background: #020817; }
-      .video-frame iframe { width: 100%; height: 100%; border: 0; }
-      .notes-box textarea { width: 100%; min-height: 170px; resize: vertical; border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.18); background: rgba(15, 23, 42, 0.9); color: var(--text); padding: 14px; font: inherit; }
-      .notes-box textarea:focus { outline: 2px solid rgba(56, 189, 248, 0.45); outline-offset: 1px; }
-      .quick-actions { display: grid; gap: 12px; }
-      .action-btn { display: block; text-decoration: none; color: var(--text); background: rgba(148, 163, 184, 0.06); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; font-weight: 700; }
-      .action-btn.primary { background: linear-gradient(135deg, #38bdf8, #0ea5e9); color: #04111a; }
-      @media (max-width: 900px) { .content-grid { grid-template-columns: 1fr; } }
-    </style>
   </head>
   <body>
-    <div class="page-shell">
+    <div class="dashboard-shell live-room-shell">
       <header class="topbar">
-        <div class="brand">
-          <img src="../static/img/logo_do_site.png" alt="SER TRADER SEM RÉ" />
-          <div>
-            <strong id="memberName">Membro</strong>
-            <span>Área exclusiva</span>
-          </div>
-        </div>
+        <a class="brand live-brand" href="dashboard.html" aria-label="SER TRADER SEM RÉ — início">
+          <img src="../static/img/logo_do_site.png" alt="" />
+          <span>
+            <strong>SER TRADER SEM RÉ</strong>
+            <span>ÁREA EXCLUSIVA</span>
+          </span>
+        </a>
 
-        <nav class="nav-links" aria-label="Navegação do subsite">
-          <a href="dashboard.html" class="nav-link">Dashboard</a>
-          <a href="sala-ao-vivo.html" class="nav-link active">Sala ao vivo</a>
-          <a href="suporte-emocional.html" class="nav-link">Suporte</a>
-          <a href="biblioteca.html" class="nav-link">Biblioteca</a>
+        <nav class="live-nav" aria-label="Navegação da área de membros">
+          <a href="dashboard.html">Dashboard</a>
+          <a href="sala-ao-vivo.html" aria-current="page">Sala ao Vivo</a>
+          <a href="suporte-emocional.html">Suporte</a>
+          <a href="biblioteca.html">Biblioteca</a>
         </nav>
 
         <div class="top-actions">
-          <span class="badge" id="memberStatus">Status: Ativo</span>
+          <div class="live-member">
+            <strong id="memberName">Membro</strong>
+            <span id="memberStatus" hidden></span>
+          </div>
           <button class="logout-btn" type="button" id="logoutBtn">Sair</button>
         </div>
       </header>
 
-      <main class="content-grid">
-        <section class="card">
-          <h3>Transmissão ao vivo</h3>
-          <div class="video-frame">
-            <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=0" title="Live da comunidade" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <main>
+        <section class="live-heading" aria-labelledby="pageTitle">
+          <div>
+            <span class="live-eyebrow">ESPAÇO DE TRANSMISSÃO</span>
+            <h1 id="pageTitle">Sala ao Vivo</h1>
+            <p>Acompanhe as sessões e organize os seus apontamentos num espaço privado.</p>
           </div>
+          <span class="session-state" id="sessionState" data-state="unconfigured">
+            <span class="state-dot" aria-hidden="true"></span>
+            <span id="sessionStateLabel">Sem configuração</span>
+          </span>
         </section>
 
-        <aside class="card">
-          <h3>Atalhos</h3>
-          <div class="quick-actions">
-            <a class="action-btn primary" href="https://chat.whatsapp.com/" target="_blank" rel="noreferrer">Entrar no grupo de voz/chat</a>
-            <a class="action-btn" href="dashboard.html">Voltar ao dashboard</a>
-            <a class="action-btn" href="biblioteca.html">Abrir biblioteca</a>
-          </div>
-        </aside>
-      </main>
+        <div class="live-grid">
+          <div class="live-main-column">
+            <section class="card broadcast-card" aria-labelledby="streamTitle">
+              <div class="card-heading">
+                <div>
+                  <span class="live-eyebrow">TRANSMISSÃO</span>
+                  <h2 id="streamTitle">Sessão da comunidade</h2>
+                </div>
+                <span class="stream-badge" id="streamBadge" data-state="unconfigured">
+                  Sem configuração
+                </span>
+              </div>
 
-      <section class="card notes-box">
-        <h3>Notas rápidas da live</h3>
-        <textarea id="liveNotes" placeholder="Registre os pontos importantes da operação, entradas, stop, e o que você precisa reforçar..."></textarea>
-        <div class="quick-links" style="margin-top: 18px;">
-          <button class="quick-link save-notes" type="button">Salvar rascunho</button>
+              <div class="video-frame" id="videoFrame">
+                <div class="video-placeholder" id="videoPlaceholder" role="status" aria-live="polite">
+                  <span class="placeholder-mark" aria-hidden="true">◉</span>
+                  <strong id="videoMessageTitle">Transmissão ainda não configurada</strong>
+                  <p id="videoMessage">
+                    A equipe ainda não configurou o endereço da transmissão.
+                  </p>
+                  <small id="adminHint">
+                    Administrador: configure a sala em membros/assets/live-room-config.js.
+                  </small>
+                </div>
+                <iframe
+                  id="livePlayer"
+                  title="Transmissão da comunidade"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                  hidden
+                ></iframe>
+              </div>
+
+              <div class="session-details">
+                <div class="session-copy">
+                  <span class="live-eyebrow">DETALHES DA SESSÃO</span>
+                  <h2 id="sessionTitle">Sessão da comunidade</h2>
+                  <p id="sessionDescription" hidden></p>
+                </div>
+                <dl class="session-facts">
+                  <div id="sessionStartRow" hidden>
+                    <dt>Início</dt>
+                    <dd id="sessionStart"></dd>
+                  </div>
+                  <div id="nextSessionRow" hidden>
+                    <dt>Próxima sessão</dt>
+                    <dd id="nextSession"></dd>
+                  </div>
+                  <div>
+                    <dt>Estado</dt>
+                    <dd id="sessionDetailsState">Sem configuração</dd>
+                  </div>
+                </dl>
+                <a
+                  class="recording-link"
+                  id="previousRecording"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  hidden
+                >
+                  Assistir à gravação anterior
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </section>
+          </div>
+
+          <aside class="live-sidebar" aria-label="Atalhos e notas pessoais">
+            <section class="card shortcut-card" aria-labelledby="shortcutTitle">
+              <div class="card-heading compact-heading">
+                <div>
+                  <span class="live-eyebrow">ACESSO RÁPIDO</span>
+                  <h2 id="shortcutTitle">Atalhos</h2>
+                </div>
+              </div>
+              <div class="quick-actions">
+                <a class="action-btn" href="dashboard.html">
+                  <span class="shortcut-icon" aria-hidden="true">⌂</span>
+                  <span><strong>Dashboard</strong><small>Voltar ao início</small></span>
+                  <span class="shortcut-arrow" aria-hidden="true">↗</span>
+                </a>
+                <a class="action-btn" href="biblioteca.html">
+                  <span class="shortcut-icon" aria-hidden="true">▤</span>
+                  <span><strong>Biblioteca</strong><small>Abrir materiais</small></span>
+                  <span class="shortcut-arrow" aria-hidden="true">↗</span>
+                </a>
+                <a class="action-btn" href="suporte-emocional.html">
+                  <span class="shortcut-icon" aria-hidden="true">♡</span>
+                  <span><strong>Suporte</strong><small>Falar com a equipe</small></span>
+                  <span class="shortcut-arrow" aria-hidden="true">↗</span>
+                </a>
+                <a class="action-btn" id="youtubeChannelLink" hidden target="_blank" rel="noopener noreferrer">
+                  <span class="shortcut-icon" aria-hidden="true">▶</span>
+                  <span><strong>Canal no YouTube</strong><small>Canal oficial da comunidade</small></span>
+                  <span class="shortcut-arrow" aria-hidden="true">↗</span>
+                </a>
+                <a class="action-btn" id="voiceChatLink" hidden target="_blank" rel="noopener noreferrer">
+                  <span class="shortcut-icon" aria-hidden="true">◖</span>
+                  <span><strong>Grupo de voz/chat</strong><small>Canal da comunidade</small></span>
+                  <span class="shortcut-arrow" aria-hidden="true">↗</span>
+                </a>
+                <p class="shortcut-unavailable" id="voiceChatUnavailable">
+                  Grupo de voz/chat ainda não configurado pela equipe.
+                </p>
+              </div>
+            </section>
+
+            <section class="card notes-card" aria-labelledby="notesTitle">
+              <div class="card-heading compact-heading">
+                <div>
+                  <span class="live-eyebrow">ESPAÇO PESSOAL</span>
+                  <h2 id="notesTitle">Notas rápidas da live</h2>
+                </div>
+              </div>
+
+              <label class="notes-label" for="liveNotes">Os seus apontamentos</label>
+              <textarea
+                id="liveNotes"
+                maxlength="20000"
+                placeholder="Regista aqui os teus apontamentos, observações e ideias da sessão..."
+                disabled
+              ></textarea>
+              <div class="notes-meta">
+                <span id="notesStatus" role="status" aria-live="polite">A carregar...</span>
+                <span id="lastSaved"></span>
+              </div>
+              <div class="notes-actions">
+                <button class="button primary save-notes" id="saveNotes" type="button" disabled>
+                  Guardar notas
+                </button>
+                <span class="character-count" id="characterCount">0 / 20000</span>
+              </div>
+              <div class="legacy-notice" id="legacyNotice" hidden>
+                <p id="legacyMessage"></p>
+                <button class="text-action" id="importLegacyNotes" type="button" hidden>
+                  Anexar notas deste dispositivo
+                </button>
+              </div>
+            </section>
+          </aside>
         </div>
-      </section>
+      </main>
     </div>
 
-    <script type="module" src="assets/dashboard.js"></script>
-    <script type="module">
-      const liveNotes = document.getElementById('liveNotes');
-      const member = JSON.parse(sessionStorage.getItem('serTraderMember') || '{}');
-      const account = member.ID_Membro;
-      const notesKey = `serTraderLiveNotes:${account}`;
-      const saved = account ? localStorage.getItem(notesKey) : '';
-      if (saved) {
-        liveNotes.value = saved;
-      }
-
-      document.querySelector('.save-notes')?.addEventListener('click', () => {
-        if (!account) return;
-        localStorage.setItem(notesKey, liveNotes.value.trim());
-        const button = document.querySelector('.save-notes');
-        const previousText = button.textContent;
-        button.textContent = 'Salvo';
-        setTimeout(() => { button.textContent = previousText; }, 1200);
-      });
-
-    </script>
+    <script type="module" src="assets/live-room.js"></script>
   </body>
 </html>

@@ -85,7 +85,10 @@ script a adiciona ao final sem reordenar as colunas existentes.
    as páginas privadas.
 4. A pessoa clica no link recebido por e-mail.
 5. A equipe confirma a mensalidade e altera `Status_Conta` para `Ativo` e
-   preenche `Data_Vencimento` na aba atual `Membros_Premium`.
+   preenche `Data_Vencimento` na aba atual `Membros_Premium`. Na estrutura
+   atual, esse campo fica na coluna K; a coluna B é `Data_Registro` e não
+   substitui a data de vencimento. Pode usar uma data como `31/12/2099` ou
+   `31/12/2099 17:16:19`.
 6. A pessoa entra com e-mail e senha. O Apps Script verifica o token, associa a
    conta ao `ID_Membro`, valida o status e só então devolve os dados mínimos da
    própria conta.
@@ -128,7 +131,8 @@ membros sem necessidade:
 ## 6. Limites e cuidados
 
 - O navegador guarda tokens apenas em `sessionStorage`; não os copie para
-  `localStorage`, URLs, logs ou planilhas.
+  `localStorage`, links navegáveis, logs ou planilhas. O pedido REST privado
+  descrito abaixo usa o token apenas na requisição exigida pelo Firebase.
 - O `sessionStorage` não é a autoridade de autorização. Cada página chama o
   Apps Script, que valida o token no Firebase e consulta o status do membro.
 - Qualquer nova rota que leia ou escreva dados individuais também deverá validar
@@ -139,3 +143,83 @@ membros sem necessidade:
   equipe. Não publique nem compartilhe a planilha com membros.
 - A conta Firebase autenticada não equivale a uma assinatura paga. O Sheets
   continua sendo a fonte administrativa de status e vencimento.
+
+## 7. Configurar a Sala ao Vivo e as notas privadas
+
+### Transmissão e atalhos
+
+Edite `membros/assets/live-room-config.js` durante a publicação. Essa configuração
+é somente de leitura na página dos membros; não existe formulário para alterar
+transmissão, estado ou permissões. Use:
+
+- `status`: `LIVE`, `SCHEDULED` ou `OFFLINE`. Deixe vazio até existir uma
+  configuração real.
+- `streamUrl`: URL HTTPS de um vídeo/live do YouTube. Para `LIVE`, a página
+  aceita apenas URLs com um ID de vídeo válido.
+- `title` e `description`: informações reais da sessão.
+- `sessionStartsAt` e `nextSessionAt`: datas ISO 8601 com fuso horário, por
+  exemplo `2026-10-09T18:00:00+01:00`.
+- `previousRecordingUrl`: link HTTPS da gravação anterior, se existir.
+- `channelUrl`: canal oficial do YouTube. A página já vem com o canal indicado
+  no restante site: `https://www.youtube.com/@3S.E.R_TRADER_SEM_RÉ`.
+- `voiceChatUrl`: link HTTPS real do grupo. Se ficar vazio, o atalho não
+  redireciona para um destino genérico.
+
+O projeto não tinha URL de transmissão nem link de grupo definidos. Até a equipe
+os configurar, a página mostrará o estado correspondente sem inventar uma live,
+uma data ou um destino.
+
+O link do canal abre a página do canal, não inicia nem incorpora uma transmissão.
+Quando a live estiver disponível, copie no YouTube o link direto para partilha
+da transmissão e configure esse endereço em `streamUrl`.
+
+### Banco das notas
+
+A página usa o Realtime Database com o ID token da sessão existente e o UID
+confirmado pelo Firebase; não cria outra autenticação. Se a equipe já tiver um
+Realtime Database no mesmo projeto Firebase:
+
+1. Confirme em **Realtime Database > Dados** que a URL é
+   `https://ser-trader-sem-re-default-rtdb.firebaseio.com` e mantenha esse valor
+   em `databaseURL` em `membros/assets/firebase-config.js`. Não use a URL de
+   Firestore.
+2. Integre a regra abaixo à árvore `rules` existente, sem substituir as regras
+   de outros recursos. Revise e teste as regras atuais antes de publicar.
+3. Publique as regras e o frontend. Sem URL do banco e regras publicadas, as
+   notas permanecem sinalizadas como não sincronizadas; não aparece confirmação
+   de gravação no servidor.
+
+Fragmento a integrar em `rules` (não é um ficheiro completo de regras):
+
+```json
+{
+  "memberLiveNotes": {
+    "$uid": {
+      ".read": "auth != null && auth.uid === $uid",
+      ".write": "auth != null && auth.uid === $uid && newData.hasChildren(['content', 'updatedAt'])",
+      "content": {
+        ".validate": "newData.isString() && newData.val().length <= 20000"
+      },
+      "updatedAt": {
+        ".validate": "newData.isNumber()"
+      },
+      "$other": {
+        ".validate": "false"
+      }
+    }
+  }
+}
+```
+
+O formato por membro é `memberLiveNotes/{UID}` com `content` (texto até 20.000
+caracteres) e `updatedAt` (timestamp numérico). As regras comparam o UID do
+caminho com `auth.uid`; não confiam no ID do membro enviado pelo navegador. O
+Realtime Database REST exige o ID token no parâmetro `auth` do pedido. A página
+só o usa em chamadas `fetch`; não o guarda como URL navegável, não o mostra na
+interface e não o escreve em logs ou armazenamento.
+
+Na primeira abertura da sala, um rascunho legado em `localStorage` não é apagado
+nem migrado automaticamente. O membro pode iniciar a migração; a cópia local só
+é removida depois de o Firebase confirmar que o conteúdo foi gravado. Se houver
+notas atuais no Firebase, o rascunho antigo só é anexado após a ação explícita do
+membro.
