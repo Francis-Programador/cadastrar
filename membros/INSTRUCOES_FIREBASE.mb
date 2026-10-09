@@ -144,7 +144,7 @@ membros sem necessidade:
 - A conta Firebase autenticada não equivale a uma assinatura paga. O Sheets
   continua sendo a fonte administrativa de status e vencimento.
 
-## 7. Configurar a Sala ao Vivo e as notas privadas
+## 7. Autorizar membros e configurar o chat da Sala ao Vivo
 
 ### Transmissão e atalhos
 
@@ -173,53 +173,62 @@ O link do canal abre a página do canal, não inicia nem incorpora uma transmiss
 Quando a live estiver disponível, copie no YouTube o link direto para partilha
 da transmissão e configure esse endereço em `streamUrl`.
 
-### Banco das notas
+### Acesso ao chat
 
-A página usa o Realtime Database com o ID token da sessão existente e o UID
-confirmado pelo Firebase; não cria outra autenticação. Se a equipe já tiver um
-Realtime Database no mesmo projeto Firebase:
+O chat usa a mesma autenticação Firebase da conta que entrou no site. O fluxo
+normal de login valida a conta e o estado do membro no servidor antes de abrir
+as páginas protegidas. Não é necessário atribuir custom claims nem executar
+comandos para cada membro.
+
+As regras Realtime Database verificam que existe uma sessão Firebase autenticada
+e que o utilizador só cria mensagens com o próprio UID. Nota: o Realtime
+Database não consulta diretamente o estado do membro no servidor; por isso,
+qualquer conta Firebase autenticada que aceda diretamente à API do banco poderá
+ler a sala e criar mensagens, mesmo sem passar pelo fluxo normal do site.
+
+### Banco compartilhado do chat
+
+A página usa o Realtime Database e o ID token da sessão existente; não cria
+outra autenticação. O UID é obtido do Firebase Authentication. A sala atual é
+definida como `sala-principal` em `membros/assets/live-room-config.js`. Se a
+equipe já tiver um Realtime Database no mesmo projeto Firebase:
 
 1. Confirme em **Realtime Database > Dados** que a URL é
    `https://ser-trader-sem-re-default-rtdb.firebaseio.com` e mantenha esse valor
    em `databaseURL` em `membros/assets/firebase-config.js`. Não use a URL de
    Firestore.
-2. Integre a regra abaixo à árvore `rules` existente, sem substituir as regras
-   de outros recursos. Revise e teste as regras atuais antes de publicar.
-3. Publique as regras e o frontend. Sem URL do banco e regras publicadas, as
-   notas permanecem sinalizadas como não sincronizadas; não aparece confirmação
-   de gravação no servidor.
+2. O ficheiro `database.rules.json` na raiz contém o conjunto completo de regras
+   confirmado para esta base: preserva `memberLiveNotes` e inclui
+   `liveRoomChats`. Não substitua regras de outros recursos se entretanto forem
+   adicionadas à base.
+3. Com Firebase CLI autenticado numa conta que tenha permissão para publicar
+   regras, publique apenas as regras do Realtime Database:
 
-Fragmento a integrar em `rules` (não é um ficheiro completo de regras):
+   ```powershell
+   npx firebase-tools deploy --only database --project ser-trader-sem-re
+   ```
 
-```json
-{
-  "memberLiveNotes": {
-    "$uid": {
-      ".read": "auth != null && auth.uid === $uid",
-      ".write": "auth != null && auth.uid === $uid && newData.hasChildren(['content', 'updatedAt'])",
-      "content": {
-        ".validate": "newData.isString() && newData.val().length <= 20000"
-      },
-      "updatedAt": {
-        ".validate": "newData.isNumber()"
-      },
-      "$other": {
-        ".validate": "false"
-      }
-    }
-  }
-}
-```
+   Confirme a pré-visualização do projeto antes de aprovar a publicação. Sem
+   estas regras, os utilizadores autenticados não podem ler nem enviar mensagens.
 
-O formato por membro é `memberLiveNotes/{UID}` com `content` (texto até 20.000
-caracteres) e `updatedAt` (timestamp numérico). As regras comparam o UID do
-caminho com `auth.uid`; não confiam no ID do membro enviado pelo navegador. O
-Realtime Database REST exige o ID token no parâmetro `auth` do pedido. A página
-só o usa em chamadas `fetch`; não o guarda como URL navegável, não o mostra na
-interface e não o escreve em logs ou armazenamento.
+O caminho é `liveRoomChats/{roomId}/{messageId}`. Cada mensagem contém `uid`,
+`content` (até 2.000 caracteres) e `createdAt`. Utilizadores autenticados podem
+ler a conversa; cada um só pode criar mensagens com o próprio UID. A regra não
+permite editar mensagens existentes nem apagá-las como membro. No fim da live,
+o administrador elimina a conversa no Console do Firebase, apagando os dados em
+`liveRoomChats/sala-principal`. A limpeza também aparece em tempo real para os
+membros ligados.
 
-Na primeira abertura da sala, um rascunho legado em `localStorage` não é apagado
-nem migrado automaticamente. O membro pode iniciar a migração; a cópia local só
-é removida depois de o Firebase confirmar que o conteúdo foi gravado. Se houver
-notas atuais no Firebase, o rascunho antigo só é anexado após a ação explícita do
-membro.
+Mantenha as regras existentes de `memberLiveNotes` ou outros caminhos ao integrar
+o novo nó `liveRoomChats`; não substitua a árvore completa sem rever os restantes
+acessos. O Firebase Console permite ao administrador gerir dados fora das regras
+do cliente.
+
+O Realtime Database REST exige o ID token no parâmetro `auth` dos pedidos e da
+ligação de eventos em tempo real. A página usa-o apenas nas requisições ao
+Firebase, nunca o guarda como URL navegável ou no armazenamento local.
+
+As notas pessoais antigas em `memberLiveNotes` e os rascunhos locais não são
+copiados para o chat, partilhados ou apagados por esta alteração. O chat avisa
+que cada mensagem será visível aos membros ativos; não partilhe dados pessoais,
+credenciais ou informação privada.

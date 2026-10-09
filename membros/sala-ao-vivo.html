@@ -163,36 +163,43 @@
               </div>
             </section>
 
-            <section class="card notes-card" aria-labelledby="notesTitle">
+            <section class="card notes-card" aria-labelledby="chatTitle">
               <div class="card-heading compact-heading">
                 <div>
-                  <span class="live-eyebrow">ESPAÇO PESSOAL</span>
-                  <h2 id="notesTitle">Notas rápidas da live</h2>
+                  <span class="live-eyebrow">CONVERSA DA COMUNIDADE</span>
+                  <h2 id="chatTitle">Chat da live</h2>
                 </div>
               </div>
 
-              <label class="notes-label" for="liveNotes">Os seus apontamentos</label>
-              <textarea
-                id="liveNotes"
-                maxlength="20000"
-                placeholder="Regista aqui os teus apontamentos, observações e ideias da sessão..."
-                disabled
-              ></textarea>
-              <div class="notes-meta">
-                <span id="notesStatus" role="status" aria-live="polite">A carregar...</span>
-                <span id="lastSaved"></span>
+              <div class="chat-meta">
+                <span id="chatStatus" role="status" aria-live="polite">A ligar à conversa...</span>
+                <span>As mensagens ficam visíveis até à limpeza pelo administrador.</span>
               </div>
-              <div class="notes-actions">
-                <button class="button primary save-notes" id="saveNotes" type="button" disabled>
-                  Guardar notas
-                </button>
-                <span class="character-count" id="characterCount">0 / 20000</span>
-              </div>
-              <div class="legacy-notice" id="legacyNotice" hidden>
-                <p id="legacyMessage"></p>
-                <button class="text-action" id="importLegacyNotes" type="button" hidden>
-                  Anexar notas deste dispositivo
-                </button>
+              <ol class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-relevant="additions text">
+                <li class="chat-empty" id="chatEmpty">A carregar mensagens...</li>
+              </ol>
+              <form class="chat-composer" id="chatForm">
+                <label class="notes-label" for="chatMessage">Enviar mensagem para todos os membros</label>
+                <textarea
+                  id="chatMessage"
+                  maxlength="2000"
+                  placeholder="Partilha os teus apontamentos e acompanha a conversa da live..."
+                  required
+                  disabled
+                ></textarea>
+                <div class="notes-actions">
+                  <span class="character-count" id="chatCharacterCount">0 / 2000</span>
+                  <button class="button primary save-notes" id="sendChatMessage" type="submit" disabled>
+                    Enviar mensagem
+                  </button>
+                </div>
+                <p class="chat-privacy-note">
+                  Esta mensagem será partilhada com todos os membros. Não publiques dados pessoais ou informações privadas.
+                </p>
+                <p class="chat-error" id="chatError" role="alert" hidden></p>
+              </form>
+              <div class="legacy-notice">
+                <p>As notas pessoais antigas não são partilhadas nem apagadas por esta mudança.</p>
               </div>
             </section>
           </aside>

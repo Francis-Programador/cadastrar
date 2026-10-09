@@ -1,0 +1,40 @@
+{
+  "rules": {
+    "memberLiveNotes": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid && newData.hasChildren(['content', 'updatedAt'])",
+        "content": {
+          ".validate": "newData.isString() && newData.val().length <= 20000"
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "$other": {
+          ".validate": "false"
+        }
+      }
+    },
+    "liveRoomChats": {
+      "$roomId": {
+        ".read": "auth != null && $roomId === 'sala-principal'",
+        "$messageId": {
+          ".write": "auth != null && $roomId === 'sala-principal' && !data.exists() && newData.exists() && newData.child('uid').val() === auth.uid",
+          ".validate": "newData.hasChildren(['uid', 'content', 'createdAt'])",
+          "uid": {
+            ".validate": "newData.isString() && newData.val() === auth.uid"
+          },
+          "content": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 2000"
+          },
+          "createdAt": {
+            ".validate": "newData.isNumber()"
+          },
+          "$other": {
+            ".validate": "false"
+          }
+        }
+      }
+    }
+  }
+}

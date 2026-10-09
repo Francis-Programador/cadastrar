@@ -8,4 +8,5 @@ export const liveRoomConfig = Object.freeze({
   previousRecordingUrl: '',
   channelUrl: 'https://www.youtube.com/@3S.E.R_TRADER_SEM_RÉ',
   voiceChatUrl: '',
+  chatRoomId: 'sala-principal',
 });
