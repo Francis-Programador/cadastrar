@@ -157,6 +157,18 @@ input:focus-visible {
   color: var(--gold-light);
 }
 
+
+/* Aplica a mesma cor para links normais e já visitados em todo o site */
+a, a:visited {
+  color: #3b7fa8; /* Altere para a cor desejada (ex: azul, branco, etc.) */
+  text-decoration: none; /* Opcional: remove o sublinhado padrão, se quiser */
+}
+
+/* Mantém o comportamento ao passar o cursor ou focar */
+a:hover {
+  color: #52a4d9;
+}
+
 .nav-mark {
   display: inline-grid;
   width: 20px;
