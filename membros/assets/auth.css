@@ -181,7 +181,7 @@ body {
   display: inline-block;
   padding: 12px 24px;
   background-color: #1e455e; /* Azul escuro da interface */
-  color: #ffffff;
+  color:green;
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -189,6 +189,7 @@ body {
   border: 1px solid #2b5f7e;
   border-radius: 6px;
   transition: all 0.3s ease;
+  text-align: center;
 }
 
 .btn-trader:hover {
